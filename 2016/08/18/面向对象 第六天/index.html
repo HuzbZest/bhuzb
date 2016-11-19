@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="http://of0wmhb5z.bkt.clouddn.com/h.png">
+    <meta http-equiv="Content-Type" content="text/html;"/>
+    <meta name="keywords" content="胡丶某人,个人博客,博客,技术博客,胡某人,胡智彬,huzb," />
+    <meta name="description" content="生命不息，折腾不止！呕心沥血制作个人技术博客，欢迎大神交流！" />
+    
+    <title>面向对象 第六天 | Ihuzb</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="baidu-site-verification" content="jyEQo02kko" />
+    <meta name="description" content="面向对象学习第六天，tyopof，匿名函数与闭包，自调函数的作用，函数的四种调用模式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象 第六天">
+<meta property="og:url" content="http://ihuzb.huzb.vip/2016/08/18/面向对象 第六天/index.html">
+<meta property="og:site_name" content="Ihuzb">
+<meta property="og:description" content="面向对象学习第六天，tyopof，匿名函数与闭包，自调函数的作用，函数的四种调用模式。">
+<meta property="og:image" content="http://of0wmhb5z.bkt.clouddn.com/8e7fca8065380cd752c5ff8aa044ad34588281fb.jpg">
+<meta property="og:updated_time" content="2016-10-14T06:54:57.142Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面向对象 第六天">
+<meta name="twitter:description" content="面向对象学习第六天，tyopof，匿名函数与闭包，自调函数的作用，函数的四种调用模式。">
+<meta name="twitter:image" content="http://of0wmhb5z.bkt.clouddn.com/8e7fca8065380cd752c5ff8aa044ad34588281fb.jpg">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?bc0c949e7a29c5feeed033169198e674";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Ihuzb</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">所有文章</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">联系我</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/logo.JPG" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">所有文章</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">联系我</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/logo.JPG" />
+            <h2 id="name">胡丶某人</h2>
+            <h3 id="title">生命不息，折腾不止！</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>北京, 中国</span>
+            <a id="follow" target="_blank" href="http://weibo.com/ihuzb">个 人 简 历</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                31
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                7
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/Ihuzb" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://music.163.com/#/user/home?id=323457896" target="_blank" title="music" class=tooltip>
+                            <i class="fa fa-music"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://weibo.com/ihuzb" target="_blank" title="weibo" class=tooltip>
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+        <object type="application/x-shockwave-flash" style="outline:none;" data="http://cdn.abowman.com/widgets/hamster/hamster.swf?" width=100% height="225">
+            <param name="movie" value="http://cdn.abowman.com/widgets/hamster/hamster.swf?"></param>
+            <param name="AllowScriptAccess" value="always"></param>
+            <param name="wmode" value="opaque"></param>
+        </object>
+    </div>
+
+</aside>
+
+            
+            <section id="main"><article id="post-面向对象 第六天" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            面向对象 第六天
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/08/18/面向对象 第六天/">
+            <time datetime="2016-08-18T12:11:20.000Z" itemprop="datePublished">2016-08-18</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/学习资料/">学习资料</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h4 id="面向对象学习第六天，tyopof，匿名函数与闭包，自调函数的作用，函数的四种调用模式。"><a href="#面向对象学习第六天，tyopof，匿名函数与闭包，自调函数的作用，函数的四种调用模式。" class="headerlink" title="面向对象学习第六天，tyopof，匿名函数与闭包，自调函数的作用，函数的四种调用模式。"></a>面向对象学习第六天，tyopof，匿名函数与闭包，自调函数的作用，函数的四种调用模式。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/8e7fca8065380cd752c5ff8aa044ad34588281fb.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="tyopof类型判断"><a href="#tyopof类型判断" class="headerlink" title="tyopof类型判断"></a>tyopof类型判断</h2><ul>
+<li>typeof运算结果只有如下几种值<ul>
+<li>object,string,number,boolean,function,undefiend</li>
+</ul>
+</li>
+</ul>
+<h2 id="匿名函数与闭包"><a href="#匿名函数与闭包" class="headerlink" title="匿名函数与闭包"></a>匿名函数与闭包</h2><ul>
+<li>匿名函数是没有名字的函数</li>
+<li>闭包是函数内的函数</li>
+<li>自调函数是马上执行的函数</li>
+<li>构造函数是用来创建实例的函数</li>
+<li>方法是添加到对象身上的函数</li>
+</ul>
+<h2 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout"></a>setTimeout</h2><ul>
+<li>传入setTimeout的回调函数是异步执行的 ,不是随着代码的顺序执行的</li>
+<li>从上往下把其他的执行完后，再执行setTimeout</li>
+</ul>
+<h2 id="自调函数的作用"><a href="#自调函数的作用" class="headerlink" title="自调函数的作用"></a>自调函数的作用</h2><ul>
+<li>防止全局变量污染：<ul>
+<li>过多的全局变量，极易出现冲突于混淆</li>
+</ul>
+</li>
+<li>提供一个新的区域放置全局变量污染简称沙箱模式或命名空间</li>
+<li>自调传入window，一般有两个作用：<ul>
+<li>1.提升全局变量的查找时间</li>
+<li>2.有助于代码的压缩</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数的四种调用模式"><a href="#函数的四种调用模式" class="headerlink" title="函数的四种调用模式"></a>函数的四种调用模式</h2><ul>
+<li><strong>函数调用模式</strong><ul>
+<li>直接<code>函数名()</code>调用，内部this指向全局对象（window）</li>
+</ul>
+</li>
+<li><strong>方法调用模式</strong><ul>
+<li><code>对象.函数名()</code>或者<code>对象[函数名]()</code>调用，内部this指向方法所属的对象</li>
+</ul>
+</li>
+<li><strong>构造器调用模式</strong><ul>
+<li><code>new 函数名()</code>或者<code>new 对象.函数名()</code> 或者 <code>new 对象[函数名]()</code>，内部this指向新创建的实例。</li>
+</ul>
+</li>
+<li><strong>间接调用模式</strong><ul>
+<li><code>函数名.call()</code>或者<code>对象.函数名.call()</code> 或者 <code>new 对象[函数名].call()</code>，内部this指向自定义的对象,如果传空、null、undefined，那么this指向全局对象window</li>
+<li>call和apply是来自Function.prototype里面的两个方法</li>
+<li>这两个方法有一个共同点，就可以指定函数执行时内部的this指向</li>
+<li>语法:函数名.call(指定函数执行时的this指向)</li>
+<li>语法:函数名.apply(指定函数执行时的this指向)</li>
+<li>通过fn调用call方法，call方法内部会反过来调用fn，并且指定fn执行时内部的this为数组</li>
+<li>call和apply的具体语法<ul>
+<li>call语法：<ul>
+<li>函数名.call(自定义的this指向，实参1，实参2，实参3…)</li>
+<li>第一个参数只是为了指定函数执行时this的指向，并不会作为参数传入进去</li>
+</ul>
+</li>
+<li>apply语法：<ul>
+<li>函数名.apply(自定义的this指向，[实参1，实参2，实参3…])</li>
+<li>第一个参数只是为了指定函数执行时this的指向，并不会作为参数传入进去，第二个参数要求是数组或伪数组，apply会自动把数组中的内容平铺后传入到函数中。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="tostring方法"><a href="#tostring方法" class="headerlink" title="tostring方法"></a>tostring方法</h2><ul>
+<li>Object.prototype.toString()[方法调用模式]</li>
+<li>执行时根据内部的this，返回一个这样的字符串：‘[object this的类型]’</li>
+</ul>
+<h2 id="函数的四种调用模式-1"><a href="#函数的四种调用模式-1" class="headerlink" title="函数的四种调用模式"></a>函数的四种调用模式</h2><ul>
+<li>函数中的this是动态变化的，不同的调用方式，this指向不同</li>
+<li>说明函数中的this和调用有关，和定义无关。</li>
+<li>fn(); 函数调用模式，this指向window</li>
+<li>new Fn(); 构造器调用模式，this指向创建出的实例</li>
+<li>Fn.apply(fn)；间接调用模式，this指向fn</li>
+</ul>
+<h2 id="Function方法详解"><a href="#Function方法详解" class="headerlink" title="Function方法详解"></a>Function方法详解</h2><ul>
+<li>Function.prototype自身是一个函数，并且是唯一一个没有prototype属性的函数</li>
+<li>Function.prototype上定义了如下属性与方法：<ul>
+<li>apply:可以改变函数执行时内部this指向</li>
+<li>arguments:之前还是函数的属性，现在被废弃</li>
+<li>bind:返回一个函数的copy版本，并且可以指定该函数执行时内部this</li>
+<li>call:可以改变函数执行时内部this指向</li>
+<li>caller:返回调用该函数的函数</li>
+<li>constructor:对应的构造函数</li>
+<li>length:函数形参的个数</li>
+<li>name:函数的名字</li>
+<li>toString:把函数体作为字符打印</li>
+<li><code>__proto__</code>:Function.prototype所继承的对象，即Object.prototype<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3></li>
+</ul>
+</li>
+<li>Object.prototypr</li>
+<li>call和apply方法，会马上执行函数</li>
+<li>bind不会马上执行，它返回函数的一个copy版本，供以后想执行的时候在执行<h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3></li>
+<li>ES5提供的方法，ie9以及以前无法使用</li>
+<li>语法:函数名.bind（指定返回函数执行似的this指向，要绑定的实参1，要绑定的实参1。。。）</li>
+<li>返回值：函数的copy版本</li>
+<li>如果以后前两个参数一直是10，就可以通过bind绑定死，以后就不用传了</li>
+</ul>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://ihuzb.huzb.vip/2016/08/18/面向对象 第六天/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://ihuzb.huzb.vip/2016/08/18/面向对象 第六天/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/09/10/设置滚动条一直在底部/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    判断滚动条到达底部
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/08/10/前端面试题集锦(html5,css3)01/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">前端面试题集锦(html5,css3)01</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/08/18/面向对象 第六天/" data-title="面向对象 第六天" data-url="http://ihuzb.huzb.vip/2016/08/18/面向对象 第六天/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/15/Nodejs集锦06/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/a0500fb30f2442a799b8a2c3d043ad4bd1130226.jpg)" alt="Nodejs笔记集锦06" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/15/Nodejs集锦06/" class="title">Nodejs笔记集锦06</a></p>
+                            <p class="item-date"><time datetime="2016-11-15T02:20:01.000Z" itemprop="datePublished">2016-11-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/14/Nodejs集锦05/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/ae539822720e0cf34fb3119d0b46f21fbe09aa15.jpg)" alt="Nodejs笔记集锦05" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/14/Nodejs集锦05/" class="title">Nodejs笔记集锦05</a></p>
+                            <p class="item-date"><time datetime="2016-11-14T07:06:20.000Z" itemprop="datePublished">2016-11-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/12/Nodejs集锦04/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/ad12b07eca806538ce82f97496dda144ad34826a.jpg)" alt="Nodejs笔记集锦04" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/12/Nodejs集锦04/" class="title">Nodejs笔记集锦04</a></p>
+                            <p class="item-date"><time datetime="2016-11-12T14:10:01.000Z" itemprop="datePublished">2016-11-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/10/Nodejs集锦03/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/112fb9389b504fc20824ef63e4dde71190ef6d5a.jpg)" alt="Nodejs笔记集锦03" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/10/Nodejs集锦03/" class="title">Nodejs笔记集锦03</a></p>
+                            <p class="item-date"><time datetime="2016-11-10T10:20:20.000Z" itemprop="datePublished">2016-11-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/06/流行框架03/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/fdfcfc039245d688f35beec3a5c27d1ed21b2478.jpg)" alt="Anaular流行框架 第三天" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/11/06/流行框架03/" class="title">Anaular流行框架 第三天</a></p>
+                            <p class="item-date"><time datetime="2016-11-05T18:10:05.000Z" itemprop="datePublished">2016-11-06</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习资料/">学习资料</a><span class="category-list-count">19</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/性能优化技巧/">性能优化技巧</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程技巧/">编程技巧</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/详解/">详解</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试资料/">面试资料</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/">Canvas</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML5/">HTML5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nodejs/">Nodejs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a><span class="tag-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Angular/" style="font-size: 13.33px;">Angular</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/Canvas/" style="font-size: 13.33px;">Canvas</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Nodejs/" style="font-size: 16.67px;">Nodejs</a> <a href="/tags/jQuery/" style="font-size: 13.33px;">jQuery</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.ishadowsocks.org/">ISS</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.5iweb.com.cn/">5iweb</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 胡丶某人<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by 胡丶某人
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'ihuzb'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

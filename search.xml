@@ -1,0 +1,2099 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+    
+    <entry>
+      <title><![CDATA[Nodejs笔记集锦06]]></title>
+      <url>http://ihuzb.huzb.vip/2016/11/15/Nodejs%E9%9B%86%E9%94%A606/</url>
+      <content type="html"><![CDATA[<h4 id="Nodejs的MVC思想、代码优雅和中间件。"><a href="#Nodejs的MVC思想、代码优雅和中间件。" class="headerlink" title="Nodejs的MVC思想、代码优雅和中间件。"></a>Nodejs的MVC思想、代码优雅和中间件。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/a0500fb30f2442a799b8a2c3d043ad4bd1130226.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="mvc思想"><a href="#mvc思想" class="headerlink" title="mvc思想"></a>mvc思想</h2><ul>
+<li>Model模型 View视图 Controller控制器 以最少的耦合协同工作，从而提高应用的可扩展行及可维护性</li>
+</ul>
+<h2 id="AMD和CMD"><a href="#AMD和CMD" class="headerlink" title="AMD和CMD"></a>AMD和CMD</h2><ul>
+<li>AMD<ul>
+<li>Require.js</li>
+</ul>
+</li>
+<li>CMD<ul>
+<li>sea.js</li>
+</ul>
+</li>
+<li>区别：<ul>
+<li>requirejs是优先加载的（现在头部加载进来）</li>
+<li>seajs是懒加载的，用的时候才加载</li>
+<li>requirejs一切能写的写法，seajs都是支持的</li>
+</ul>
+</li>
+</ul>
+<h2 id="高耦合低内聚"><a href="#高耦合低内聚" class="headerlink" title="高耦合低内聚"></a>高耦合低内聚</h2><ul>
+<li>代码优雅—&gt;低耦合高内聚</li>
+<li>一个函数只做一个功能（点题)，各功能之间联系不要太紧密，方便别人使用</li>
+<li>内聚从功能角度开衡量模块内代码的联系，一个好的内聚模块应当恰好做一件事—–&gt;称之为高内聚</li>
+<li>高内聚优势：1.可读性；2.复用性；3.方便维护和修改</li>
+<li>耦合是各模块之间相互连接的一种度量，耦合强弱取决于模块间接口的复杂程度、进入或访问一个模块的点以及通过接口的数据。</li>
+<li>低耦合：1.独立完成任务；2.复用性；3.方便维护和修改</li>
+<li>理解高内聚低耦合能是我们更好的理解MVC</li>
+</ul>
+<h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><ul>
+<li>Express是一个自身功能极简，完全是由路由和中间件构成一个web开发框架：从本质上来说，一个Express应用就是在调用各种中间件。</li>
+<li>中间件是一个函数，它可以访问请求对象，响应对象，和web应用中处于请求-响应循环流程中的中间件，一般命名为next的变量。</li>
+<li>往往一个http请求发送到服务器，都需要通过很多的判断和处理</li>
+<li>一个请求发送过来—&gt;用户是否已经登录—》用户请求的是什么资源（静态资源，动态资源，json数据）—》统计一下用户的请求—-》如果请求的内容不存在返回404</li>
+<li>中间件的功能包括：<ul>
+<li>执行任何代码</li>
+<li>修改请求和响应对象</li>
+<li>终结请求-响应请求</li>
+<li>调用堆栈中的下一个中间件</li>
+<li>如果当前中间件没有终结请求-响应循环，则必须调用next()方法将控制权交给下一个中间件，否则请求就会被挂起。</li>
+<li><code>app.use(function(req,res,next){})</code></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Nodejs笔记集锦05]]></title>
+      <url>http://ihuzb.huzb.vip/2016/11/14/Nodejs%E9%9B%86%E9%94%A605/</url>
+      <content type="html"><![CDATA[<h4 id="Nodejs开发命令行工具和HTTP模块。"><a href="#Nodejs开发命令行工具和HTTP模块。" class="headerlink" title="Nodejs开发命令行工具和HTTP模块。"></a>Nodejs开发命令行工具和HTTP模块。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/ae539822720e0cf34fb3119d0b46f21fbe09aa15.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="nodemon实现保存文件实时重启"><a href="#nodemon实现保存文件实时重启" class="headerlink" title="nodemon实现保存文件实时重启"></a>nodemon实现保存文件实时重启</h2><ul>
+<li>安装<code>npm install -g nodemon</code></li>
+<li>使用<code>nodemon server.js</code></li>
+</ul>
+<h2 id="开发命令行工具"><a href="#开发命令行工具" class="headerlink" title="开发命令行工具"></a>开发命令行工具</h2><h3 id="node脚本，全局可执行"><a href="#node脚本，全局可执行" class="headerlink" title="node脚本，全局可执行"></a>node脚本，全局可执行</h3><ul>
+<li>1.在js文件头中加入<code>#!/usr/bin/env node</code></li>
+<li>2.在配置文件的bin属性中，<code>bin:{&#39;zou&#39;:1.js }</code>去写命令，名称可以自定义。</li>
+<li>3.在输入<code>npm link</code>将当前包安装到全局去</li>
+</ul>
+<h2 id="http模块"><a href="#http模块" class="headerlink" title="http模块"></a>http模块</h2><h3 id="创建HTTP服务器"><a href="#创建HTTP服务器" class="headerlink" title="创建HTTP服务器"></a>创建HTTP服务器</h3><ul>
+<li><code>http.createServer()</code><h3 id="通过监听Event-request来进行"><a href="#通过监听Event-request来进行" class="headerlink" title="通过监听Event:request来进行"></a>通过监听Event:<code>request</code>来进行</h3></li>
+<li><code>server.on(&#39;request&#39;,(request,response)=&gt;{})</code><h3 id="request、response对象"><a href="#request、response对象" class="headerlink" title="request、response对象"></a>request、response对象</h3></li>
+<li>request对象，用于接收请求报文内的信息</li>
+<li>response对象，用于返回响应报文内的信息<h3 id="response-write"><a href="#response-write" class="headerlink" title="response.write()"></a>response.write()</h3></li>
+<li>write方法用于响应体里写内容，用于向客户端发送信息，可以多次被使用<h3 id="response-end"><a href="#response-end" class="headerlink" title="response.end()"></a>response.end()</h3></li>
+<li>再一次请求和响应过程中，只要调用了end就不能在继续write了，就说明你是再一次情趣和响应处理过程中已经结束的响应，但是又去想客户端发送数据，这个时候就会报错<h3 id="server-listen"><a href="#server-listen" class="headerlink" title="server.listen()"></a>server.listen()</h3></li>
+<li>监听端口，执行这句，服务正是被启动使用</li>
+<li>server.listen(3000,’127.0.0.1’,()=&gt;{console.log(‘server is listening at port 3000’)})<h3 id="request"><a href="#request" class="headerlink" title="request"></a>request</h3></li>
+<li>request.headers 请求头</li>
+<li>request.method 请求路径</li>
+<li>request.url 请求路径</li>
+<li>request.httpVersion 请求HTTP协议版本<h3 id="response"><a href="#response" class="headerlink" title="response"></a>response</h3></li>
+<li>res.writeHead(200,{‘Content-Type’:’text/html;charset=utf-8’})设置相应报文头</li>
+<li>res.write(‘<h1>helloword</h1>‘)</li>
+<li>res.end()<h3 id="Content-Type"><a href="#Content-Type" class="headerlink" title="Content-Type"></a>Content-Type</h3></li>
+<li>内容类型，一般是指网页中存在的Content-Type，用于定义网络文件的类型和网页的编码，决定文件接收方将以什么形式、什么编码读取<h3 id="通过-req-url和req-method的不同给出不同的响应"><a href="#通过-req-url和req-method的不同给出不同的响应" class="headerlink" title="通过 req.url和req.method的不同给出不同的响应"></a>通过 req.url和req.method的不同给出不同的响应</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (req.url == <span class="string">'/'</span> &amp;&amp; req.method == <span class="string">'GET'</span>) &#123;</div><div class="line">   res.writeHead(<span class="number">200</span>, &#123;</div><div class="line">     <span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span></div><div class="line">   &#125;);</div><div class="line">   res.write(<span class="string">'&lt;h1&gt;首页&lt;/h1&gt;'</span>);</div><div class="line">   res.end();</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="request通过data时间和end时间来接受post的数据"><a href="#request通过data时间和end时间来接受post的数据" class="headerlink" title="request通过data时间和end时间来接受post的数据"></a>request通过data时间和end时间来接受post的数据</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> data = <span class="string">''</span>;</div><div class="line">req.on(<span class="string">'data'</span>, (chunk) =&gt; &#123;</div><div class="line">      data += chunk;</div><div class="line">&#125;);</div><div class="line"> req.on(<span class="string">'end'</span>, () =&gt; &#123;</div><div class="line">      <span class="built_in">console</span>.log(data);</div><div class="line">      res.writeHead(<span class="number">200</span>, &#123;</div><div class="line">        <span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span></div><div class="line">      &#125;);</div><div class="line">      res.write(<span class="string">'&lt;h1&gt;收到数据了&lt;/h1&gt;'</span>);</div><div class="line">      res.end();</div><div class="line"> &#125;);</div></pre></td></tr></table></figure>
+<h3 id="通过-querystring解析post的数据"><a href="#通过-querystring解析post的数据" class="headerlink" title="通过 querystring解析post的数据"></a>通过 querystring解析post的数据</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">querystring.parse(<span class="string">'foo=bar&amp;baz=qux&amp;baz=quux&amp;corge'</span>)</div><div class="line"><span class="comment">// returns &#123; foo: 'bar', baz: ['qux', 'quux'], corge: '' &#125;</span></div></pre></td></tr></table></figure>
+<h3 id="url"><a href="#url" class="headerlink" title="url"></a>url</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- url.parse(urlStr, [parseQueryString], [slashesDenoteHost])</div><div class="line">urlStr-&gt;url字符串</div><div class="line">parseQueryString-&gt;为true时将使用queryString分析查询字符串，默认为false</div><div class="line">slashesDenoteHost</div><div class="line">默认为false，//foo/bar 形式的字符串将被解释成 &#123; pathname: ‘//foo/bar&apos; &#125;</div><div class="line">如果设置成true，//foo/bar 形式的字符串将被解释成  &#123; host: ‘foo&apos;, pathname: ‘/bar&apos; &#125;</div></pre></td></tr></table></figure>
+<h3 id="服务器相关操作事件和API"><a href="#服务器相关操作事件和API" class="headerlink" title="服务器相关操作事件和API"></a>服务器相关操作事件和API</h3><ul>
+<li>Event: ‘close’</li>
+<li>Event: ‘connection’</li>
+<li>Event: ‘request’</li>
+<li>server.close([callback])</li>
+<li>server.listen(port[, hostname][, backlog][, callback])<h3 id="请求对象"><a href="#请求对象" class="headerlink" title="请求对象"></a>请求对象</h3></li>
+<li>Event: ‘data’</li>
+<li>message.headers</li>
+<li>message.httpVersion</li>
+<li>message.method</li>
+<li>message.url<ul>
+<li>require(‘url’).parse(request.url)</li>
+<li>require(‘url’).parse(request.url, true)<h3 id="响应对象"><a href="#响应对象" class="headerlink" title="响应对象"></a>响应对象</h3></li>
+</ul>
+</li>
+<li>response.end([data][, encoding][, callback])</li>
+<li>response.setHeader(name, value)</li>
+<li>response.statusCode</li>
+<li>response.statusMessage</li>
+<li>response.write(chunk[, encoding][, callback])</li>
+<li>response.writeHead(statusCode[, statusMessage][, headers])</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Nodejs笔记集锦04]]></title>
+      <url>http://ihuzb.huzb.vip/2016/11/12/Nodejs%E9%9B%86%E9%94%A604/</url>
+      <content type="html"><![CDATA[<h4 id="Nodejs的Session-Cookie-HTTP协议。"><a href="#Nodejs的Session-Cookie-HTTP协议。" class="headerlink" title="Nodejs的Session,Cookie,HTTP协议。"></a>Nodejs的Session,Cookie,HTTP协议。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/ad12b07eca806538ce82f97496dda144ad34826a.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="前端代码优化"><a href="#前端代码优化" class="headerlink" title="前端代码优化"></a>前端代码优化</h2><ul>
+<li>1.代码压缩 打包 节省网络资源   (gulp)压缩、合并等等</li>
+<li>2.减少对于对象、数组的遍历 (单页面引用操作还行，页面有在前端拼接和后端拼接的区别)</li>
+<li>3.减少dom操作  也是减少js代码的途径</li>
+<li>4.10s内好的用户体验</li>
+<li>5.能提前算好的提前算好</li>
+</ul>
+<h2 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h2><ul>
+<li>用于文件读取显示文件</li>
+</ul>
+<h2 id="文件流"><a href="#文件流" class="headerlink" title="文件流"></a>文件流</h2><ul>
+<li>流对象 stream</li>
+<li>pipe() 管道</li>
+</ul>
+<h2 id="应用服务器"><a href="#应用服务器" class="headerlink" title="应用服务器"></a>应用服务器</h2><ul>
+<li>阿帕奇  对外提供服务的程序，应用服务器就是一个应用程序，作为服务器执行共享业务应用程序的底层的系统软件</li>
+</ul>
+<h2 id="web服务器"><a href="#web服务器" class="headerlink" title="web服务器"></a>web服务器</h2><ul>
+<li>和应用服务器一样都是程序</li>
+</ul>
+<h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><ul>
+<li>node本身就是web服务器</li>
+<li>node不需要服务器容器，本身就是web应用的容器</li>
+</ul>
+<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><ul>
+<li>约定规则，方便做通信</li>
+<li>网络之间传输数据就需要协议</li>
+<li>所谓的协议就是双方约定好的一些数据格式</li>
+<li>否则两台计算机之间如何识别对方发送过来的01数据。</li>
+</ul>
+<h2 id="HTTP概念"><a href="#HTTP概念" class="headerlink" title="HTTP概念"></a>HTTP概念</h2><ul>
+<li>其实就是用通讯的，提供很多方便</li>
+<li>因为TCP 才能稳定传输，三次请求，四次挥手</li>
+<li>HTTP超文本传输协议，是一种通信协议，允许将超文本标记约言文档从web服务器传送到客户端的浏览器</li>
+<li>用于客户端和服务器的通信协议，我按照一定的格式发送，服务器按照一定的格式接收</li>
+<li>请求报文<ul>
+<li>请求行</li>
+<li>请求体，只有在post的时候才有请求体，响应的时候也有请求体</li>
+</ul>
+</li>
+<li>响应报文<ul>
+<li>响应行</li>
+<li>响应体</li>
+</ul>
+</li>
+</ul>
+<h2 id="跨域解决"><a href="#跨域解决" class="headerlink" title="跨域解决"></a>跨域解决</h2><ul>
+<li>服务器请求服务器</li>
+<li>分布式服务器系统</li>
+</ul>
+<h2 id="HTTP是无状态的协议"><a href="#HTTP是无状态的协议" class="headerlink" title="HTTP是无状态的协议"></a>HTTP是无状态的协议</h2><ul>
+<li>使用HTTP协议，每当有新的请求时，就会有对应的新响应产生协议本身并不保留之前的一切的请求或响应报文的信息，这是为了更快的处理大量事务，确保协议的可伸缩性，而特意把HTTP协议设计成如此简单。</li>
+</ul>
+<h2 id="Cookie（信物）"><a href="#Cookie（信物）" class="headerlink" title="Cookie（信物）"></a>Cookie（信物）</h2><ul>
+<li>1.保存请求》2.生成Cookie记住是想谁发送的》3.在响应中添加Cookie后返回》4.保存在浏览器</li>
+</ul>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><ul>
+<li>为了解决Cookie无法存储大量数据，以及不安全的问题，Session被设计出来了</li>
+</ul>
+<h2 id="Session存储方式"><a href="#Session存储方式" class="headerlink" title="Session存储方式"></a>Session存储方式</h2><ul>
+<li>存储在内存中<ul>
+<li>Redis、Memcached内存数据库等高效的缓存服务其技术</li>
+<li>Redis可以与mysql之间数据的同步</li>
+</ul>
+</li>
+</ul>
+<h2 id="Cookie总结"><a href="#Cookie总结" class="headerlink" title="Cookie总结"></a>Cookie总结</h2><ul>
+<li>http是一个无状态的协议，每次去请求服务器的时候，服务器是不能记住客户端的</li>
+<li>Cookie信物，客户端请求服务器以后，服务器给客户端一个信物，下次客户端再请求服务器的时候，给服务器这个信物服务器就知道是那个客户端了，但缺点是，不能存储太多内容，不安全</li>
+<li>seccion 存储在服务器短的，保存着用户信息的，和Cookie搭配来使用，可以用Cookie里面的key对应上session里面的值，session可以存储在内存和硬盘上都可以。</li>
+</ul>
+<h2 id="HTTP-模块"><a href="#HTTP-模块" class="headerlink" title="HTTP 模块"></a>HTTP 模块</h2><ul>
+<li>用来编写服务器</li>
+<li>localhost是不走网卡，直接找本地</li>
+<li>127.0.0.1会走网卡，ip的话会走网管<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;)</div><div class="line">//创建一个服务，创建一个服务器的实例</div><div class="line">var server=http.createServer();</div><div class="line">//接收到请求就出发此事件，request对象用来存储请求报文中的信息，response对象用来帮助我们封装响应报文</div><div class="line">//response对象是一个写的流对象</div><div class="line">server.on(&apos;request&apos;,(request,response)=&gt;&#123;</div><div class="line">response.writeHead(200,&#123;&quot;Content-Type&quot;:&quot;&quot;text/html;charset:utf-8;&quot;&#125;)</div><div class="line">response.write(&apos;lalalal&apos;)</div><div class="line">//返回的响应</div><div class="line">response.end(&apos;hello world&apos;)</div><div class="line">&#125;)</div><div class="line">server.listen(3000)</div></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Nodejs笔记集锦03]]></title>
+      <url>http://ihuzb.huzb.vip/2016/11/10/Nodejs%E9%9B%86%E9%94%A603/</url>
+      <content type="html"><![CDATA[<h4 id="Nodejs事件驱动模型-基本模块-path-fs等。"><a href="#Nodejs事件驱动模型-基本模块-path-fs等。" class="headerlink" title="Nodejs事件驱动模型,基本模块:path,fs等。"></a>Nodejs事件驱动模型,基本模块:path,fs等。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/112fb9389b504fc20824ef63e4dde71190ef6d5a.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="理解I-O"><a href="#理解I-O" class="headerlink" title="理解I/O"></a>理解I/O</h2><ul>
+<li>I/O的意义<ul>
+<li>io是输入，文件操作的读写，网络操作中的请求和应答</li>
+<li>out是输出</li>
+</ul>
+</li>
+<li>异步I/O与事件驱动<ul>
+<li>什么是进程？<ul>
+<li>运行当中的应用程序有关，进程是为当前运行当中的应用程序提供运行环境的，一个运行当中的应用程序就会有一个进程与之相对应</li>
+</ul>
+</li>
+<li>什么事线城？<ul>
+<li>线程是用来运行应用程序中的代码的，一个线程在一个时间只能做一件事情，多线程，调度起来很麻烦，node是单线程执行，用异步替代了多线程</li>
+</ul>
+</li>
+<li>多线程问题<ul>
+<li>需要各线程之间调度，并且逻辑复杂</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>单线程特点<ul>
+<li>先执行同步，后执行异步</li>
+<li><strong>虽然是单线程，但是底层自己会处理多线程，还有很多子线程</strong></li>
+</ul>
+</li>
+<li>异步非i/o操作和异步i/o操作<ul>
+<li>异步非i/o settimeout setinterval</li>
+<li>异步i/o 操作文件，网络操作 fs</li>
+<li>js运行时会放到代码队列中去</li>
+<li>如果回调函数里卖弄都是同步代码，有主线程执行，里面有异步非io代码，看条件去执行，异步io代码，再去拽出一个子线程执行</li>
+</ul>
+</li>
+</ul>
+<h2 id="进程和线程？"><a href="#进程和线程？" class="headerlink" title="进程和线程？"></a>进程和线程？</h2><ul>
+<li>进程是为运行中的应用程序提供运行环境的</li>
+<li>线程是执行应用程序当中的代码的，同一时间只干一件事情</li>
+<li>node中的异步就是帮助完成多线程编程</li>
+</ul>
+<h2 id="同步和异步？"><a href="#同步和异步？" class="headerlink" title="同步和异步？"></a>同步和异步？</h2><ul>
+<li>同步会阻塞代码</li>
+<li>异步不会阻塞代码</li>
+</ul>
+<h2 id="事件驱动模型"><a href="#事件驱动模型" class="headerlink" title="事件驱动模型"></a>事件驱动模型</h2><ul>
+<li>主线程：<ul>
+<li>1.执行node的代码，把代码放入队列</li>
+<li>2.事件循环程序（主线程）把队列里面的同步的代码都先执行了</li>
+<li>3.同步代码执行完成，执行异步代码</li>
+<li>4.异步代码分2种情况<ul>
+<li>1.异步非io  setTimeout()    setInterval()</li>
+<li>2.异步io  文件读写操作等，主线程会从线程池中去取一条线程，帮助主线程去执行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>子线程：被放在线程池里面的线程，用来指导异步io操作<ul>
+<li>1.在线程池中休息</li>
+<li>2.异步io的操作来了，执行异步io操作</li>
+<li>3.子线程会把异步io操作的callback函数，扔回给队列</li>
+<li>4.子线程会回到线程池里去休息</li>
+</ul>
+</li>
+<li>在异步io代码执行完成的时候被扔回主线程</li>
+</ul>
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><ul>
+<li>fs.readFile() 读取文件</li>
+<li>fs.writeFile() 写文件</li>
+<li>fs.access() 判断路径中有没有此文件</li>
+<li>fs.appendFile() 在文件的内部追加一些内容</li>
+<li>fs.mkdir() 创建文件夹</li>
+<li>fs.stat() 判断文件文件夹，文件/文件夹的属性（异步）</li>
+<li>fs.statSync()判断文件文件夹，文件/文件夹的属性（同步）<br>-</li>
+</ul>
+<h2 id="path"><a href="#path" class="headerlink" title="path"></a>path</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</div><div class="line"><span class="comment">//拼接正确路径</span></div><div class="line"><span class="keyword">var</span> p = path.join(__dirname, <span class="string">"text.html"</span>)</div><div class="line"><span class="comment">//查找路径中的文件夹</span></div><div class="line"><span class="keyword">var</span> p1 = path.dirname(<span class="string">'/test/node_modules/rd/index.html'</span>)</div><div class="line"><span class="comment">//获取路径中的文件格式</span></div><div class="line"><span class="keyword">var</span> p2=path.extname(<span class="string">'/test/node_modules/rd/index.html'</span>)</div><div class="line"><span class="comment">//获取文件名</span></div><div class="line"><span class="keyword">var</span> p3=path.basename(<span class="string">'/test/node_modules/rd/index.html'</span>)</div><div class="line"><span class="comment">//获取去掉后缀名的文件名</span></div><div class="line"><span class="keyword">var</span> p4=path.basename(<span class="string">'/test/node_modules/rd/index.html'</span>,<span class="string">'.html'</span>)</div><div class="line"><span class="built_in">console</span>.log(p3)</div></pre></td></tr></table></figure>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
+<li>错误—-》异常 计算机解决不了的问题</li>
+<li><code>var err=new Error(&#39;这是我自定义的错误对象！&#39;)</code></li>
+<li><code>throw err</code></li>
+<li>属性<ul>
+<li><code>err.message</code>错误信息</li>
+<li><code>err.stack</code>错误堆栈信息</li>
+<li><code>err.code=100</code>设置错误号</li>
+</ul>
+</li>
+<li><code>try{代码报错}catch(error){发生异常的操作}</code>异步里面的tfrow，try捕捉不到异步执行时报出的错误<h2 id="es6"><a href="#es6" class="headerlink" title="es6"></a>es6</h2></li>
+<li>ECMAScript 定义js的发展方向的一套标准</li>
+<li>新的语法，写起来更严谨更安全更简便</li>
+<li>为什么前端不用，node要用？<ul>
+<li>node——-&gt;v8执行js代码</li>
+<li>node不考虑兼容性，es6能给我带来很多好处</li>
+<li>node.js 版本6系列，覆盖了93%的ECMAScript6</li>
+</ul>
+</li>
+</ul>
+<h2 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h2><ul>
+<li><code>use strict</code><ul>
+<li>表示一下表示所写代码为新语法，严格模式es5的语法，一种过渡形式，开发就愈发，又有人用新语法</li>
+<li>消除js语法的一些不合理，不严谨指出，减少一些怪异行为</li>
+<li>消除代码运行的一些不安全指出，保证代码运行的安全</li>
+<li>提高编译器效率，增加运行速度</li>
+<li>为未来新版本的js做好铺垫</li>
+</ul>
+</li>
+<li><code>let</code>一个变量名只能生命一次，不存在命名冲突，let定义作用域在代码快利，解决命名冲突问题，能体现代码的封装性。</li>
+<li><code>const</code>定义常量，不会发生变化，如果定义了常量，再去修改就会报错</li>
+<li><code>Buffer()</code>是一个像Array的对象，主要用于操作字节，是一个全局对象，使用的是时候不需要require</li>
+</ul>
+<h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><ul>
+<li><code>const rs=fs.createReadStream(path1)</code></li>
+<li><code>const ws=fs.createWriteStream(path1)</code></li>
+<li><code>rs.pipe(ws)</code></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Anaular流行框架 第三天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/11/06/%E6%B5%81%E8%A1%8C%E6%A1%86%E6%9E%B603/</url>
+      <content type="html"><![CDATA[<h4 id="Anaular流行框架-基本指令-自定义指令-Angular服务。"><a href="#Anaular流行框架-基本指令-自定义指令-Angular服务。" class="headerlink" title="Anaular流行框架,基本指令,自定义指令,Angular服务。"></a>Anaular流行框架,基本指令,自定义指令,Angular服务。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/fdfcfc039245d688f35beec3a5c27d1ed21b2478.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h2><ul>
+<li>ng-app:相当于一个入口，告诉angular来管理我们页面的html代码</li>
+<li>ng-click:用于注册点击事件</li>
+<li>ng-model:用于进行双向数据绑定</li>
+<li>ng-init:用于初始化数据模型</li>
+<li>ng-controller:指向了创建的控制器</li>
+<li>ng-bind:能够绑定数据模型的值，只能能作用于双标签元素</li>
+<li>ng-cloak:利用了angular会移除所有样式名为ng-cloak的样式的特性</li>
+<li>ng-bind-html:用于安全的渲染html代码ngSanitize搭配食用</li>
+<li>ng-repeat:渲染数据列表，ng-repeat=“item in data”</li>
+<li>ng-class:操作样式<ul>
+<li>{key001：样式名001，key2：样式名002}[‘key001’]</li>
+<li>{‘样式名001’:布尔值，’样式名002’:布尔值}</li>
+</ul>
+</li>
+<li>ng-hide/ng-show:显示或隐藏页面元素</li>
+<li>ng-if/ng-swith ng-switch-when</li>
+</ul>
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><ul>
+<li><p>通过模块对象directive方法创建</p>
+<ul>
+<li>有两个参数，第一个参数，是指令的名字，驼峰命名法或者小写命名，第二个参数和控制器的第二个参数一样那个，在第二个参数function里直接返回一个obj对象</li>
+<li>使用时：需要将指令的名字转换成小写，并以-分割原先在的大小写字母</li>
+<li>例子：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">app.directive(<span class="string">'myben'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="comment">//需要返回一个对象</span></div><div class="line">	<span class="keyword">return</span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="number">343</span>)</div><div class="line">	&#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>template</code>:需要一个字符串，最终这个字符串值被添加到自定义指令所在的标签的innerHtml位置</p>
+<ul>
+<li><p>1.创建定义指令</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">app.directive(<span class="string">'myBtn'</span>,[<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">       <span class="keyword">return</span>&#123;</div><div class="line">          <span class="attr">template</span>:<span class="string">'&lt;button&gt;我是button&lt;/button&gt;'</span></div><div class="line">        &#125;</div><div class="line">   &#125;]);</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.定义指令的引用</p>
+</li>
+<li><code>&lt;div my-btn&gt;&lt;/div&gt;</code></li>
+</ul>
+</li>
+<li><p><code>templateUrl</code>:需要一个字符串，这个字符串是一个文本文件的路径，anuglar最终会异步请求这个文件，把拿到的内容插入到自定义指令所在的innerHtml位置，该字符串也可以是script标签的id值，把script标签中的内容当作模板字符串来使用</p>
+<ul>
+<li>1.第一种用法<ul>
+<li>templateUrl：’./view.html’</li>
+<li>注意：要通过静态文件服务器查看，因为获取./view.html的方式是一个get请求</li>
+</ul>
+</li>
+<li><p>2.第二种用法</p>
+<ul>
+<li><p>通过id指向一个templateUrl:’tp1’</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script id=<span class="string">"tpl"</span> type=<span class="string">"text/ng-template"</span>&gt;</div><div class="line">          <span class="xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>我是button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></div><div class="line">   &lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>注意：script的type属性需要为“text/ng-templte”</p>
+</li>
+</ul>
+</li>
+<li><code>restrict</code>:也是需要一个字符串，可以使A,E,C这3个字符中任何一个，也可以任意的组合<ul>
+<li>A 以属性的形式使用</li>
+<li>B 以自定义标签的形式使用</li>
+<li>C 表示以类样式名的形式使用</li>
+<li>1.在返回的对象中添加控制，如果不写默认是AE<ul>
+<li>restrict:’EAC’ //restrict用来限制自定义呈现形式</li>
+</ul>
+</li>
+<li>2.<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;my-hello&gt;<span class="xml"><span class="tag">&lt;/<span class="name">my-hello</span>&gt;</span></span></div><div class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">my-hello</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"my-hello"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>replace</code>:脱壳，需要一个布尔值，为true，会将自定义指令所在的标签替换为模板字符串</p>
+<ul>
+<li>只可以添加一个标签</li>
+</ul>
+</li>
+<li><code>transclude</code>:转置，是需要一个布尔值，为true时会把自定义指令所在的标签的innerHTML值添加到模板字符串中<ul>
+<li>不能与replace指令同用</li>
+</ul>
+</li>
+<li><code>link</code>:指向一个function，这个function有三个参数：<ul>
+<li>scope：类似于控制器中的$scope，也可以暴露一些值</li>
+<li>element：这是一个jqLite对象，是自定义指令所在的标签的jaLite对象</li>
+<li>attributes：是自定义指令所在标签的所有属性的集合<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> &#123;</div><div class="line">          <span class="attr">link</span>:<span class="function"><span class="keyword">function</span> (<span class="params">scope,ele,attr</span>) </span>&#123;</div><div class="line">              <span class="built_in">console</span>.log(scope);</div><div class="line">              <span class="built_in">console</span>.log(ele);</div><div class="line">              <span class="built_in">console</span>.log(attr);</div><div class="line">              <span class="comment">//ele就是咱们的jqLite元素</span></div><div class="line">              ele.on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                  <span class="built_in">console</span>.log(<span class="string">'这是jqLite的做出来的log'</span>);</div><div class="line">              &#125;)</div><div class="line">              <span class="comment">//在angular中所有的dom处理建议在自定义指令中完成</span></div><div class="line">          &#125;</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Angular服务"><a href="#Angular服务" class="headerlink" title="Angular服务"></a>Angular服务</h2><ul>
+<li>什么是服务<ul>
+<li>在AngularJS中，服务是一个函数或对象，可在你的AngularJS应用中使用，AngularJS内建了30多个服务</li>
+</ul>
+</li>
+<li><p>AngularJS内建了30多个服务</p>
+<ul>
+<li>$scope:作用域，用来负责连接View和Controller，也就是MVVM中的ViewModel想点故意桥梁一样</li>
+<li>$log</li>
+<li><p>$interval和setInterval区别</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$interval和setInterval区别</div><div class="line">  	在数据变换过程中有时候angular监视不到数据变化:</div><div class="line">      setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">          $scope.time=<span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">          <span class="built_in">console</span>.log($scope.time);</div><div class="line">           $scope.$apply();<span class="comment">//告诉angular进行数据更新</span></div><div class="line">      &#125;,<span class="number">1000</span>)</div><div class="line">      <span class="comment">//但是如果说使用 $interval这种angular的服务有时候服务内部就帮我们完成了这种数据更新</span></div><div class="line">          $interval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">          $scope.time2=<span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">          &#125;,<span class="number">1000</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建服务</p>
+<ul>
+<li>通过model创建：service，factory</li>
+<li><p>service创建：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.service(<span class="string">'myService'</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">       <span class="keyword">this</span>.name=<span class="string">'myService'</span>;</div><div class="line">   &#125;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>factory创建:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">app.foctory(<span class="string">'myAPP'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span>&#123;</div><div class="line">		<span class="attr">name</span>:<span class="string">"34234"</span>,</div><div class="line">		<span class="attr">log</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="built_in">console</span>.log(<span class="number">2323</span>)</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Nodejs笔记集锦02]]></title>
+      <url>http://ihuzb.huzb.vip/2016/11/05/Nodejs%E9%9B%86%E9%94%A602/</url>
+      <content type="html"><![CDATA[<h4 id="Nodejs模块的使用和箭头函数。"><a href="#Nodejs模块的使用和箭头函数。" class="headerlink" title="Nodejs模块的使用和箭头函数。"></a>Nodejs模块的使用和箭头函数。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/347a02087bf40ad1ccceca85562c11dfa9ecceab.jpg" alt=""><br><a id="more"></a></p>
+<h3 id="模块的种类"><a href="#模块的种类" class="headerlink" title="模块的种类"></a>模块的种类</h3><ul>
+<li>第一类 核心模块，node自带，用名称即可<ul>
+<li>fs</li>
+<li>http</li>
+<li>os</li>
+<li>path</li>
+<li>querystring</li>
+<li>url</li>
+</ul>
+</li>
+<li>第二类 文件模块，用路径加载，有一种特殊的文件模块——&gt;包<ul>
+<li>将多个js组合在一起完成某个功能，使用时直接调用即可</li>
+<li>目录结构<ul>
+<li>必须要有package.json和index.js</li>
+<li>package.json  包描述文件，说明文<br>件</li>
+<li>Bin 存放可执行二进制文件</li>
+<li>Lib 存放javascript代码</li>
+<li>Doc 存放文档的目录</li>
+<li>Test  村昂单元测试用例的代码</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="require的加载流程"><a href="#require的加载流程" class="headerlink" title="require的加载流程"></a>require的加载流程</h3><ul>
+<li>1.判断是否在文件模块的缓存区中<ul>
+<li>1.1 若在返回module.exports</li>
+<li>1.2 判断是否是原生模块<ul>
+<li>1.2.1 若是判断是否在原生模块的缓存区中<ul>
+<li>1.2.1.1若是直接返回module.exports</li>
+<li>1.2.1.2 若不是<ul>
+<li>1.2.1.2.1加在这个模块</li>
+<li>1.2.1.2.2 module对象加载到原生模块缓存区中，返回modul.exports</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>1.2.2 若不是<ul>
+<li>1.2.2.1 查找文件，看文件模块是不是真的存在</li>
+<li>1.2.2.2 加在这个文件模块</li>
+<li>1.2.2.3 缓存module对象加在到文件模块的缓冲区中 返回modul.exports<h2 id="require"><a href="#require" class="headerlink" title="require"></a>require</h2></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>自动补足文件名</li>
+<li>优先加载js文件</li>
+</ul>
+<h2 id="globals"><a href="#globals" class="headerlink" title="globals"></a>globals</h2><ul>
+<li><code>__dirname</code>和<code>__filename</code><ul>
+<li><code>__dirname</code>:当前js文件所在的路径</li>
+<li><code>__filename</code>:当前js文件所在的路径和文件名</li>
+</ul>
+</li>
+</ul>
+<h2 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h2><ul>
+<li>npm install 包名<ul>
+<li>执行npm install的时候，会自动跑到npm网站，然后找到该报的github地址，下载压缩包，并在当前目录下找或者创建一个叫做node_modules目录，解压到该目录下</li>
+</ul>
+</li>
+<li>npm install<ul>
+<li>当执行的时候，会自动在当前目录中查找package.json文件，如果有，安装该字段所有依赖的项</li>
+</ul>
+</li>
+<li>npm install –save 生产环境<ul>
+<li>咱们以后在做项目的时候，先初始化一个package.json文件，<br>在安装第三方包依赖的时候，必须使用npm install –save express,添加依赖项到package.json文件中，<br>实际就是添加到dependencies字段中</li>
+</ul>
+</li>
+<li>npm install -save-dev 开发环境<ul>
+<li>咱们以后在做项目的时候，先初始化一个package.json文件，<br>在安装第三方包依赖的时候，必须使用npm install –save express,添加依赖项到package.json文件中，<br>实际就是添加到dependencies字段中</li>
+</ul>
+</li>
+<li>npm docs +包名 调出相关的文件</li>
+<li>npm这种东西的最终的目的就是：让你的开发模式工程化，都依靠工具来管理</li>
+<li>3m<ul>
+<li>nvm npm nrm</li>
+<li>nvm node版本的管理工具</li>
+<li>npm node的包管理工具</li>
+<li>nrm npm的数据源管理工具</li>
+</ul>
+</li>
+</ul>
+<h2 id="箭头函数-ES6"><a href="#箭头函数-ES6" class="headerlink" title="箭头函数(ES6)"></a>箭头函数(ES6)</h2><ul>
+<li>箭头函数就是一种语法糖，用这种语法能尝到甜头，使编程高校</li>
+<li>当函数体有一个参数有返回值的时候<ul>
+<li><code>var foo=function(v){return v}</code></li>
+<li><code>var foo=v=&gt;v</code></li>
+</ul>
+</li>
+<li>当函数体没有参数有返回值的时候<ul>
+<li><code>var foo=function(){return v}</code></li>
+<li><code>var foo=()=&gt;v</code></li>
+</ul>
+</li>
+<li>当函数体有多个参数有返回值的时候<ul>
+<li><code>var foo=function(v1,v2){return v1+v2}</code></li>
+<li><code>var foo=(v1,v2)=&gt;v1+v2</code></li>
+</ul>
+</li>
+<li>当函数体没有多个参数没有返回值的时候<ul>
+<li><code>var foo=function(v1){console.log(v1)}</code></li>
+<li><code>var foo=(v1)=&gt;{console.log(v1)}</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h2><ul>
+<li>fs.readFile()读文件<ul>
+<li>file 读文件的路径</li>
+<li>options 用[]包裹的可选参数，object {“encoding”:”uft8”,”flag”:”r”}  string ‘utf8’</li>
+<li>callback function  callback函数里面有两个参数</li>
+<li>err表示错误对象，如果readFile发生错误了，在callback函数里面会回返回err，err对象里面存着错误信息</li>
+<li>如何读文件成功，err为null</li>
+<li>data就是读文件，读出来的内容。</li>
+</ul>
+</li>
+<li>fs.access(path,[mode], callback) 用来判断文件是否存在<ul>
+<li>path 判断路径是否正确（也可以判断文件）’./pic’</li>
+<li>mode一般不用，默认就可以了，用的话是用来判断文件是否可读可写可执行<br>//callback 只有一个参数err，错，文件有问题</li>
+</ul>
+</li>
+<li>fs.writeFile()  写文件</li>
+<li>fs.appendFile() 在文件的内部去追加写一些内容</li>
+<li>fs.mkdir() 创建文件夹</li>
+<li>fs.access() 判断路径</li>
+<li>fs.stat()<ul>
+<li>isFile：用于判断被查看的对象是否为一个文件，如果是返回true，否则，返回false；</li>
+<li>isDirectory：用于判断被查看的对象是否为一个目录，如果是的话则返回true，否则，返回false；</li>
+</ul>
+</li>
+<li>fs.readdir() 读一个路径</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Anaular流行框架 第二天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/11/03/%E6%B5%81%E8%A1%8C%E6%A1%86%E6%9E%B602/</url>
+      <content type="html"><![CDATA[<h4 id="Anaular流行框架-scope-MVVM，常用指令和事件。"><a href="#Anaular流行框架-scope-MVVM，常用指令和事件。" class="headerlink" title="Anaular流行框架,$scope,MVVM，常用指令和事件。"></a>Anaular流行框架,$scope,MVVM，常用指令和事件。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/30f51bd5ad6eddc40864c19d38dbb6fd536633d1.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="框架和node用途"><a href="#框架和node用途" class="headerlink" title="框架和node用途"></a>框架和node用途</h2><ul>
+<li>公司需要使用某种框架</li>
+</ul>
+<h2 id="前端MVC发展过程"><a href="#前端MVC发展过程" class="headerlink" title="前端MVC发展过程"></a>前端MVC发展过程</h2><ul>
+<li>在jq之前很多框架，将ajax封装到非常方便的请求的一种程度，把一些样式和组件封装起来，</li>
+</ul>
+<h2 id="scope的生命周期"><a href="#scope的生命周期" class="headerlink" title="$scope的生命周期"></a>$scope的生命周期</h2><ul>
+<li>创建controller的时候，生成的$scope</li>
+<li>没有创建controller的时候，在标签中写了个ng-model绑定属性，内部也创建了controller产生了$scope。</li>
+</ul>
+<h2 id="前端MVC"><a href="#前端MVC" class="headerlink" title="前端MVC"></a>前端MVC</h2><ul>
+<li>没有完全达到后端分层的效果</li>
+<li>代码更加结构化，便于维护</li>
+</ul>
+<h2 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h2><ul>
+<li>Angular称之为MVVM框架</li>
+<li>$scope实际就是MVVM中所谓的VM（视图模型）</li>
+<li>正因为$scope在Angular中大量使用甚至盖过了C（控制器）的概念，所以很多人把Angular称之为MVVM框架</li>
+<li>1.m是model  v是view  vm是viewmodel</li>
+<li>2.MVVM实在MVC基础上抽取出来的思想，VM与C的区别，<code>$scope</code>比较重要，重要到代替了控制层（controller），vm视图模型就是<code>$scope</code>，<code>$scope</code>特点双向绑定，控制层来控制<code>$scope</code>来处理具体的业务</li>
+<li>3.双向数据绑定就是v试图与vm视图模型进行了绑定，<code>$scope</code>修改数值页面中相应绑定了的会发生变化</li>
+<li>4.m模型拼接json往后台传</li>
+<li>5.m：是做数据跟后台交互   v：界面用户看到的   vm：<code>$scope</code>跟视图做的双向数据绑定，视图和视图模型做双向数据绑定。</li>
+<li>6.vm跟mvc的区别：vm已经替代controller使其功能淡化，渐渐的称之为mvvm。</li>
+</ul>
+<h2 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h2><ul>
+<li>$scope实际上就是MVVM中所谓的VM（视图模型）</li>
+<li>只是因为$scope在Angular中大量使用甚至盖过了C（控制器）的概念，所以很多人把Angular称之为MVVM框架</li>
+</ul>
+<h2 id="Angular全局Api使用"><a href="#Angular全局Api使用" class="headerlink" title="Angular全局Api使用"></a>Angular全局Api使用</h2><ul>
+<li>数据比较API<ul>
+<li>angular.isArray()    判断给定的对象是否为数组。</li>
+<li>angular.isDate()    判断给定的对象是否为日期类型。</li>
+<li>angular.isDefined()     判断给定的对象是否定义过。</li>
+<li>angular.isElement()    判断给定的对象是否为一个DOM元素。</li>
+<li>angular.isFunction()    判断给定的对象是否为一个函数。</li>
+<li>angular.isNumber()    判断给定的对象是否为数字。</li>
+<li>angular.isObject()    判断给定的对象是否为object类型。</li>
+<li>angular.isString()    判断给定的对象是否为字符串。</li>
+<li>angular.isUndefined()    判断给定的对象是否没有定义过（与angular.isDefined()相反）。</li>
+<li>angular.equals()    判断给定的两个对象是否相等。</li>
+</ul>
+</li>
+<li>其他API使用<ul>
+<li>angular.lowercase()    将字符串转换为小写形式。</li>
+<li>angular.uppercase()    将字符串转换为大写形式。</li>
+<li>angular.copy()    深拷贝一个对象或数组。</li>
+<li>angular.forEach()    遍历对象或数组中的每一个元素并执行一个函数。</li>
+</ul>
+</li>
+</ul>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="控制器的作用"><a href="#控制器的作用" class="headerlink" title="控制器的作用"></a>控制器的作用</h3><ul>
+<li>初始化属性</li>
+<li>暴露属性或者行为</li>
+<li>监视数据变化<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$scope.name=&apos;&apos;;</div><div class="line">$scope.$watch(&apos;name&apos;,function (newVal,oldVal) &#123;</div><div class="line">  console.log(newVal);</div><div class="line">  console.log(oldVal);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="控制器代码压缩问题"><a href="#控制器代码压缩问题" class="headerlink" title="控制器代码压缩问题"></a>控制器代码压缩问题</h3><ul>
+<li>当代码进行js压缩的时候controller里面的内容会被当作变量替换掉，为了防止这个问题发生，在controller中出现<code>controller(&#39;myapp&#39;,[&quot;$scope&quot;,function($scope){}])</code></li>
+</ul>
+<h3 id="控制器多种写法"><a href="#控制器多种写法" class="headerlink" title="控制器多种写法"></a>控制器多种写法</h3><ul>
+<li>1.标准写法<ul>
+<li><code>app.controller(&#39;myCtrl&#39;,function(){})</code></li>
+</ul>
+</li>
+<li><p>2.早期使用（angular-1.2.29版本）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function  myController(\$scope) &#123;</div><div class="line">        $scope.name=&quot;angular早期使用&quot;;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>3.function写在外面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function otherCtrl($scope) &#123;</div><div class="line">        $scope.name=&apos;123&apos;;</div><div class="line">    &#125;</div><div class="line">app.controller(&apos;myCtrl&apos;,otherCtrl)</div></pre></td></tr></table></figure>
+</li>
+<li><p>4.function写在外面,防止被压缩</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function otherCtrl(otherscope) &#123;</div><div class="line">  otherscope.name=&apos;123&apos;;</div><div class="line">&#125;</div><div class="line">//依赖注入</div><div class="line">otherCtrl.$inject=[&apos;$scope&apos;];//这里对方法添加$inject</div><div class="line">app.controller(&apos;myCtrl&apos;,otherCtrl)</div></pre></td></tr></table></figure>
+</li>
+<li><p>5.面向对象方法使用</p>
+<ul>
+<li>1.控制器的function不写改为引用function app.controller(‘myCtrl’,demoCtrl);</li>
+<li>2.创建一个面向对象的function <code>function demoCtrl() {this.name=&#39;123&#39;;}</code></li>
+<li>3.使用的时候添加 <code>as scope</code> ng-controller=”myCtrl as scope”</li>
+</ul>
+</li>
+</ul>
+<h2 id="controller控制器"><a href="#controller控制器" class="headerlink" title="controller控制器"></a>controller控制器</h2><h3 id="控制器作用"><a href="#控制器作用" class="headerlink" title="控制器作用"></a>控制器作用</h3><ul>
+<li>初始化属性</li>
+<li>暴露属性或者行为</li>
+<li>监视数据变化</li>
+</ul>
+<h2 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h2><ul>
+<li>没事你不要来找我，有事我会去找你</li>
+<li>为什么不能更改$scope：<ul>
+<li>callback所写的函数中的<code>$scope</code>会在内存中创建一个空间，名字就叫做<code>$scope</code>，函数能所写的变量，就是<code>$scope</code>的key，所写的值就是value，angular会将<code>$scope.key=value</code>转换成字符串，angular使用正则表达式截取指定的<code>$scope</code>，才会将响应的key和value获取到并显示在指定控制器的指定表达式中</li>
+</ul>
+</li>
+<li>原理：<ul>
+<li>框架在调用方法的过程中通过获取到传递的参数，然后框架内部将方法toString处理后，在通过正则表达式将其获取到然后依次实例化</li>
+</ul>
+</li>
+</ul>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><ul>
+<li><code>ng-bind</code>用来解决表达式闪烁问题，使用<code>&lt;p ng-bind=&quot;name&quot;&gt;&lt;/p&gt;</code>替换<code>&lt;p&gt;&lt;/p&gt;</code></li>
+<li><code>ng-cloak</code>页面加载完成后会去除掉所设置的样式,用来解决表达式闪烁问题<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.ng-cloak&#123;</div><div class="line">		display:none</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;p class=&quot;ng-cloak&quot;&gt;&#123;&#123;name&#125;&#125;&lt;/p&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="ngSanitize模块"><a href="#ngSanitize模块" class="headerlink" title="ngSanitize模块"></a>ngSanitize模块</h3><ul>
+<li>下载安装：<code>npm install angular-sanitize</code></li>
+<li><code>ng-bind-html</code>输出标签</li>
+<li><code>&lt;p ng-bind-html=&quot;name&quot;&gt;&lt;/p&gt;</code></li>
+</ul>
+<h3 id="ng-repeat循环输出"><a href="#ng-repeat循环输出" class="headerlink" title="ng-repeat循环输出"></a>ng-repeat循环输出</h3><ul>
+<li>可以用来循环输出数组</li>
+<li>写在那个元素上就是循环那个元素</li>
+<li>语法：类似于for in循环</li>
+<li>还可以用来渲染key，value对</li>
+<li>$even:提供了一个布尔值，当为true时表示当前数据是第偶数条数据,从索引0开始计算<ul>
+<li>$odd:提供了一个布尔值，当为true时表示当前数据是第奇数条数据,从索引0开始计算</li>
+</ul>
+</li>
+<li><code>&lt;div ng-repeat=&quot;item in data &quot;&gt;&lt;/div&gt;</code></li>
+</ul>
+<h3 id="ng-class"><a href="#ng-class" class="headerlink" title="ng-class"></a>ng-class</h3><ul>
+<li>多种样式中选择一个样式<ul>
+<li><code>ng-class=&quot;{&#39;A&#39;:&#39;red&#39;,&#39;B&#39;:&#39;blue&#39;,&#39;C&#39;:&#39;green&#39;}&quot;</code></li>
+</ul>
+</li>
+<li>从多种样式中选择多个<ul>
+<li>语法：也是写一个key,value对象，这里的key是我们提供的类样式名，value是一个布尔值，为true时对应的key会被作为样式名加入到class中</li>
+</ul>
+</li>
+</ul>
+<h3 id="ng-hide-ng-show"><a href="#ng-hide-ng-show" class="headerlink" title="ng-hide/ng-show"></a>ng-hide/ng-show</h3><ul>
+<li>ng-hide：需要一个布尔值：当为true时为隐藏当前元素</li>
+<li>ng-show: 需要一个布尔值：当为true时为显示当前元素</li>
+</ul>
+<h3 id="ng-switch"><a href="#ng-switch" class="headerlink" title="ng-switch"></a>ng-switch</h3><ul>
+<li>ng-switch:与ng-switch-when同用，类似与js中的switch case<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch</span>=<span class="string">"name"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小明"</span>&gt;</span>我是小明<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小红"</span>&gt;</span>我是小红<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小月"</span>&gt;</span>我是小月<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="其它指令"><a href="#其它指令" class="headerlink" title="其它指令"></a>其它指令</h2><ul>
+<li>ng-checked：<ul>
+<li>单选/复选是否选中,是单向数据绑定</li>
+</ul>
+</li>
+<li>ng-selected：<ul>
+<li>是否选中</li>
+</ul>
+</li>
+<li>ng-disabled：<ul>
+<li>是否禁用</li>
+</ul>
+</li>
+<li>ng-readonly：<ul>
+<li>是否只读</li>
+</ul>
+</li>
+</ul>
+<h2 id="常用时间指令"><a href="#常用时间指令" class="headerlink" title="常用时间指令"></a>常用时间指令</h2><ul>
+<li>ng-blur：失去焦点</li>
+<li>ng-focus：获得焦点</li>
+<li>ng-change：改变事件</li>
+<li>ng-click： ng-click=”add()”</li>
+<li>ng-dblclick：双击事件</li>
+<li>ng-submit： 表单提交事件</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Nodejs笔记集锦01]]></title>
+      <url>http://ihuzb.huzb.vip/2016/11/01/Nodejs%E9%9B%86%E9%94%A601/</url>
+      <content type="html"><![CDATA[<h4 id="Nodejs特点、优势和使用。"><a href="#Nodejs特点、优势和使用。" class="headerlink" title="Nodejs特点、优势和使用。"></a>Nodejs特点、优势和使用。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/3c097bf40ad162d9a0f9c27a10dfa9ec8a13cd46.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="学前思考"><a href="#学前思考" class="headerlink" title="学前思考"></a>学前思考</h2><ul>
+<li>1.前端、后端都是干什么的？<ul>
+<li>前端：写静态文件的html css js</li>
+<li>后端：操作服务器的硬件</li>
+</ul>
+</li>
+<li>2.什么事JS？<ul>
+<li>解释性脚本语言</li>
+</ul>
+</li>
+<li>3.浏览器的JS可以做什么？<ul>
+<li>操作DOM提交表单等等</li>
+</ul>
+</li>
+<li>4.浏览器中的JS不可以做什么？<ul>
+<li>js不能操作硬件，</li>
+</ul>
+</li>
+<li>5.浏览器与JS是什么关系？<ul>
+<li>js引擎——》就是内核</li>
+<li>引擎的第一特点：转化<ul>
+<li>发动机——》汽油转化成动力，终点再转化</li>
+<li>模板引擎—-》数据+模板—–》页面</li>
+<li>js代码通过—–》js引擎——》字节码或者机器码</li>
+</ul>
+</li>
+<li>引擎的第二特点：可移植性</li>
+</ul>
+</li>
+<li>6.js只可以运行在浏览器中嘛？<ul>
+<li>js靠我们的js引擎解析</li>
+<li>Nodejs运行js，node给V8引擎包一层壳，黑匣子</li>
+</ul>
+</li>
+</ul>
+<h2 id="node特点"><a href="#node特点" class="headerlink" title="node特点"></a>node特点</h2><ul>
+<li>事件驱动，无阻塞的I/O模型</li>
+<li>适合于高并发的场景，不适合cpu密集型场景</li>
+</ul>
+<h2 id="node优势"><a href="#node优势" class="headerlink" title="node优势"></a>node优势</h2><ul>
+<li>轻量，高效</li>
+</ul>
+<h2 id="node与js的关系"><a href="#node与js的关系" class="headerlink" title="node与js的关系"></a>node与js的关系</h2><ul>
+<li>node是js运行时平台，提供运行时环境</li>
+</ul>
+<h2 id="node基于js那个引擎？"><a href="#node基于js那个引擎？" class="headerlink" title="node基于js那个引擎？"></a>node基于js那个引擎？</h2><ul>
+<li>V8引擎，v8升级node也会升级，v8会根据js的规范标准升级，</li>
+</ul>
+<h2 id="node使用"><a href="#node使用" class="headerlink" title="node使用"></a>node使用</h2><ul>
+<li>只要在js中，所有的定义之定义在文件本身，作用域永远在文件内，但是<strong>global是全局的</strong>，不会添加此对象数据</li>
+<li><code>console.assert()</code>断言，下一个结论看对不对,第一个参数是判断条件，第二个参数内容是报错信息</li>
+<li><code>console.time(&#39;kaishi&#39;)</code> and <code>console.timeEnd(&#39;kaishi&#39;)</code>成对使用，计算执行时间，传进的字符必须一样</li>
+<li><code>__dirname</code>:当前执行的文件所在的文件夹路径</li>
+<li><code>__filename</code>:当前文件所在的文件夹的路径+文件名</li>
+<li><code>process</code>:全局可用对象，用来和我们现在启动中的node进行交互</li>
+</ul>
+<h2 id="nodejs模块化"><a href="#nodejs模块化" class="headerlink" title="nodejs模块化"></a>nodejs模块化</h2><ul>
+<li>以module.exports为优先，module.exports一旦被定义，exports就靠边站</li>
+</ul>
+<h2 id="什么事模块"><a href="#什么事模块" class="headerlink" title="什么事模块"></a>什么事模块</h2><ul>
+<li>一个文件就是一个模块</li>
+</ul>
+<h2 id="模块作用域"><a href="#模块作用域" class="headerlink" title="模块作用域"></a>模块作用域</h2><ul>
+<li>在一个模块内变量、函数、对象都属于这个模块，对外是封闭的</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Anaular流行框架 第一天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/10/29/%E6%B5%81%E8%A1%8C%E6%A1%86%E6%9E%B601/</url>
+      <content type="html"><![CDATA[<h4 id="Anaular流行框架-CDN-MVC。"><a href="#Anaular流行框架-CDN-MVC。" class="headerlink" title="Anaular流行框架,CDN,MVC。"></a>Anaular流行框架,CDN,MVC。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/20168a82b9014a90c501e0dba8773912b31bee9e.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li>流行</li>
+<li>框架</li>
+</ul>
+<h2 id="什么是库，什么是框架"><a href="#什么是库，什么是框架" class="headerlink" title="什么是库，什么是框架"></a>什么是库，什么是框架</h2><ul>
+<li>库：封装了一些常用的方法，主动调用这些方法，提高代码的利用，一级代码后期的维护</li>
+<li>框架：提供了一些结构或者模式，根据结构提供的结构或者模式去书写，由框架帮助我们去执行响应的擦操作</li>
+</ul>
+<h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><ul>
+<li>CDN是构建在网络之上的内容分发网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术。</li>
+<li>CDN的基本原理是广泛采用各种缓存服务器，将这些缓存服务器分布到用户访问相对集中的地区或网络中，在用户访问网站时，利用全局负载技术将用户的访问指向距离最近的工作正常的缓存服务器上，由缓存服务器直接响应用户请求。</li>
+</ul>
+<h2 id="Angular"><a href="#Angular" class="headerlink" title="Angular"></a>Angular</h2><ul>
+<li>一款非常优秀的前端好几JS框架</li>
+<li>有了这一了框架就可以轻松构建SPA应用程序</li>
+<li>SPA应用程序：单页面应用程序，模拟cs结构客户端服务器，做出的bs的机构的网站，但是带有客户端的功能行/页面局部刷新特点</li>
+<li>核心就是通过指令扩展了HTML，通过表达式绑定数据到HTML</li>
+<li>Angular不推荐DOM操作，也就是说在NG中几乎找不到任何的DOM操作</li>
+</ul>
+<h3 id="Angular使用"><a href="#Angular使用" class="headerlink" title="Angular使用"></a>Angular使用</h3><h2 id="Angular指令"><a href="#Angular指令" class="headerlink" title="Angular指令"></a>Angular指令</h2><ul>
+<li><code>ng-</code> 以<code>ng-</code>开头的标签里面的属性的扩展形式称之为指令</li>
+<li><code>&lt;body ng-app&gt;</code>ng-开头的这种，像标签属性的这种写法叫指令，<code>ng-app</code>告诉angulat从这里开始管理代码</li>
+<li><code>ng-model=&quot;val&quot;</code>用<code>ng-model</code>这个指令去绑定当前这个input输入框的值</li>
+<li><code>ng-click=</code>用<code>ng-click</code>添加点击事件</li>
+<li><code>ng-init=</code>初始化一个对象的值</li>
+</ul>
+<h2 id="Angular表达式"><a href="#Angular表达式" class="headerlink" title="Angular表达式"></a>Angular表达式</h2><ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- 不能写json对象</div><div class="line"></div><div class="line">## Anaular处理</div><div class="line">- 现在body标签添加</div><div class="line">```javascript</div><div class="line">&lt;body ng-app=&quot;myApp&quot; ng-controller=&quot;demo&quot;&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>定义一个模块</p>
+</li>
+<li>第一个参数与ng-app的值对应</li>
+<li>第二个参数数组必须要写</li>
+<li><p>如果不屑表示调用一个模块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> app=angular.module(<span class="string">"myApp"</span>,[]);</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建一个控制器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.controller(<span class="string">"demo"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</div><div class="line">$scope.user=&#123;&#125;;</div><div class="line">$scope.user.name=<span class="string">"飞飞"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h2><ul>
+<li>MVC(Model View Controller  模型-视图-控制器)</li>
+<li>M:Model 模型  数据存储，一些业务逻辑</li>
+<li>V:View 试图  就是用来展示数据</li>
+<li>C:Controller 控制器  调度业务逻辑</li>
+</ul>
+<h2 id="双向数据绑定"><a href="#双向数据绑定" class="headerlink" title="双向数据绑定"></a>双向数据绑定</h2><ul>
+<li>数据模型的值发生改变，就会导致页面值得改变</li>
+<li>页面值得改变，就会导致数据模型值得改变，这各种相互影响的关系就是双向数据绑定</li>
+</ul>
+<h2 id="单向数据绑定"><a href="#单向数据绑定" class="headerlink" title="单向数据绑定"></a>单向数据绑定</h2><ul>
+<li>使用表达式显示数据模型的值</li>
+</ul>
+<h2 id="watch"><a href="#watch" class="headerlink" title="$watch"></a><code>$watch</code></h2><ul>
+<li>用于监视数据模型的变化（并且只能监视数据模型的变化）</li>
+<li><code>$scope.$watch(&#39;数据模型名的字符串形式&#39;，function(变化后的值，变化前得值))</code></li>
+<li><code>$scope.$watch里的回调函数会默认执行一次</code></li>
+</ul>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><ul>
+<li>需求文档》设计》前端制作页面》交给后端完成一个网站</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Canvas第三天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/10/25/Canvas03/</url>
+      <content type="html"><![CDATA[<h4 id="Canvas-第三天-文字预测-状态的保存与回滚-平移-requestAnimationFrame-图像API。"><a href="#Canvas-第三天-文字预测-状态的保存与回滚-平移-requestAnimationFrame-图像API。" class="headerlink" title="Canvas 第三天,文字预测,状态的保存与回滚,平移,requestAnimationFrame,图像API。"></a>Canvas 第三天,文字预测,状态的保存与回滚,平移,requestAnimationFrame,图像API。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/4c0f0cf3d7ca7bcb96149a48bf096b63f624a86f.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="文字预测"><a href="#文字预测" class="headerlink" title="文字预测"></a>文字预测</h2><ul>
+<li><code>ctx.measureText(文本)</code></li>
+<li>返回值：一个对象，该对象有一个width属性，代表这段绘制时所需的长度</li>
+</ul>
+<h2 id="状态的保存与回滚"><a href="#状态的保存与回滚" class="headerlink" title="状态的保存与回滚"></a>状态的保存与回滚</h2><ul>
+<li>状态：就是变量或者属性不同属性的值</li>
+<li><code>ctx.save()</code>状态的保存，就是把绘图对象所有的属性的状态值copy保留一份<ul>
+<li>save方法会把绘图环境自身所有的属性保存一份，其中有些属性对我们是可见的，可以通过ctx来获取到的属性值。</li>
+<li>没有和路径相关状态，即save不会保存路径</li>
+<li>状态的保存与回滚，没有任何瓜葛</li>
+</ul>
+</li>
+<li><code>ctx.resotr()</code>状态的回滚，把之前保存的状态拿出来，覆盖当前的状态</li>
+</ul>
+<h2 id="平移"><a href="#平移" class="headerlink" title="平移"></a>平移</h2><ul>
+<li><code>ctx.translate(x轴平移多少，y轴平移多少)</code></li>
+<li>这里的平移画布的坐标系，平移不会影响已经绘制好的图形</li>
+<li>平移可以累加</li>
+</ul>
+<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><ul>
+<li><code>ctx.rotate(当前基础上旋转弧度)</code></li>
+<li>这里旋转的是画布的坐标系，旋转不会影响已经绘制好的图形，旋转会累加</li>
+</ul>
+<h2 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h2><ul>
+<li><code>ctx.scale(在当前基础上x轴缩放多少倍，在当前基础上y轴缩放多少倍)</code></li>
+<li>这里缩放的是画布的坐标系，缩放不会影响已经会治好的图形，缩放会累加</li>
+</ul>
+<h2 id="requestAnimationFrame"><a href="#requestAnimationFrame" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h2><ul>
+<li><code>requestAnimationFrame</code>请求动画帧</li>
+<li>使用方法和setTimeout一致，只是不需要传时间</li>
+<li>当浏览器要刷新页面的时候，才会调用传入该方法的回调</li>
+<li>这个方法的执行频率比较稳定，这个方法是专门用来开发游戏shi</li>
+</ul>
+<h2 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys"></a>Object.keys</h2><ul>
+<li>语法：Object.keys</li>
+<li>返回值：该对象自己的，并且是可枚举的属性构成的数组</li>
+<li>这是ES5新增的一个方法，用来获取对象所有的自己的并且是枚举的属性，不会去继承的对象中查找属性，所以会快一些</li>
+</ul>
+<h2 id="撞柱API（路径点判断）"><a href="#撞柱API（路径点判断）" class="headerlink" title="撞柱API（路径点判断）"></a>撞柱API（路径点判断）</h2><ul>
+<li><code>ctx.isPointInPath(x坐标，y坐标)</code>判断指定坐标的店在不在当前的路径内</li>
+</ul>
+<h2 id="描边和填充问题"><a href="#描边和填充问题" class="headerlink" title="描边和填充问题"></a>描边和填充问题</h2><ul>
+<li>先填充后描边，最终描边宽度和设置的线宽一致</li>
+<li>先描边后填充，描边宽度会有一般被填充覆盖</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[递归求斐波那契性能优化]]></title>
+      <url>http://ihuzb.huzb.vip/2016/10/22/%E9%80%92%E5%BD%92%E6%B1%82%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
+      <content type="html"><![CDATA[<h4 id="所求位数若超过45位浏览器将无响应，可使用优化版本，性能超棒"><a href="#所求位数若超过45位浏览器将无响应，可使用优化版本，性能超棒" class="headerlink" title="所求位数若超过45位浏览器将无响应，可使用优化版本，性能超棒"></a>所求位数若超过45位浏览器将无响应，可使用优化版本，性能超棒</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/ef59ccbf6c81800a1a88d669b03533fa828b476c.jpg" alt=""><br><a id="more"></a></p>
+<h3 id="未优化版本"><a href="#未优化版本" class="headerlink" title="未优化版本"></a>未优化版本</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//目前为止设置的位数无法超过45，超过45浏览器将无响应，可使用下面的优化版本，性能超棒</span></div><div class="line">    <span class="keyword">var</span> tt = <span class="number">0</span>；</div><div class="line">    <span class="comment">//记录执行次数</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">feibo</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">        tt++；</div><div class="line">        <span class="comment">//执行一次加1</span></div><div class="line">        <span class="keyword">if</span> (n === <span class="number">0</span> || n === <span class="number">1</span>) &#123;</div><div class="line">            cunshu = <span class="number">1</span>；</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            cunshu = feibo(n - <span class="number">2</span>) + feibo(n - <span class="number">1</span>)；</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> cunshu；</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">console</span>.log(feibo(<span class="number">40</span>));</div><div class="line">    <span class="comment">//执行结果：165580141</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"执行次数:"</span> + tt)；</div><div class="line">    <span class="comment">//执行次数：331160281</span></div></pre></td></tr></table></figure>
+<h3 id="优化版本"><a href="#优化版本" class="headerlink" title="优化版本"></a>优化版本</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = []</div><div class="line"><span class="comment">//创建一个用来存储每次求斐波那契数的结果的数组</span></div><div class="line"><span class="keyword">var</span> cunshu = <span class="literal">null</span></div><div class="line"><span class="comment">//用来存储得到的结果</span></div><div class="line"><span class="keyword">var</span> tt = <span class="number">0</span></div><div class="line"><span class="comment">//记录执行次数</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">feibo</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">    tt++</div><div class="line">    <span class="comment">//执行一次加1</span></div><div class="line">    <span class="keyword">if</span> (arr[n]) &#123;</div><div class="line">     <span class="comment">//判断数组中有没有需要的数据，若有直接返回数据，若没有继续执行进行计算</span></div><div class="line">        <span class="keyword">return</span> arr[n]</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (n === <span class="number">0</span> || n === <span class="number">1</span>) &#123;</div><div class="line">        cunshu = <span class="number">1</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        cunshu = feibo(n - <span class="number">2</span>) + feibo(n - <span class="number">1</span>)</div><div class="line">    &#125;</div><div class="line">    arr[n] = cunshu</div><div class="line">    <span class="comment">//将在变量中存储的数据存储到数组中</span></div><div class="line">    <span class="keyword">return</span> cunshu</div><div class="line">    <span class="comment">//将变量中的数据返回</span></div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(feibo(<span class="number">500</span>));</div><div class="line"><span class="comment">//执行结果：20365011074</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">"执行次数:"</span> + tt)</div><div class="line"><span class="comment">//执行次数：99</span></div><div class="line">tt = <span class="number">0</span></div><div class="line"><span class="built_in">console</span>.log(feibo(<span class="number">500</span>));</div><div class="line"><span class="comment">//执行结果：20365011074</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">"再次执行次数:"</span> + tt)</div><div class="line"><span class="comment">//执行次数：1</span></div></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[jQuery入口函数结构解析]]></title>
+      <url>http://ihuzb.huzb.vip/2016/10/20/jq%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90/</url>
+      <content type="html"><![CDATA[<h4 id="jQuery入口函数结构解析"><a href="#jQuery入口函数结构解析" class="headerlink" title="jQuery入口函数结构解析"></a>jQuery入口函数结构解析</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/97ed8a13632762d04146a9d9a1ec08fa513dc659.jpg" alt=""><br><a id="more"></a></p>
+<h4 id="代码整体过长，故切分进行展示"><a href="#代码整体过长，故切分进行展示" class="headerlink" title="代码整体过长，故切分进行展示"></a>代码整体过长，故切分进行展示</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">       <span class="comment">/*</span></div><div class="line">       * 入口函数的处理：</div><div class="line">       * 1、如果传入空，直接返回空实例</div><div class="line">       * 2、如果传入函数，把这个函数作为事件句柄添加到DOMContentLoaded事件中</div><div class="line">       * IE8不知道该事件，需要通过onreadystatechange事件来兼容处理</div><div class="line">       * 3、如果传入字符串，需要判断这个字符串是不是html片段，如果是，</div><div class="line">       * 就通过innnerHTML把它转为DOM元素，结果分别添加到实例中；</div><div class="line">       * 如果不是，就当做选择器获取页面中的DOM元素，结果分别添加到实例中。</div><div class="line">       * 4、如果传入的是DOM对象，那么直接添加到实例中。</div><div class="line">       * 5、如果传入伪数组，那么把伪数组中的每一项值分别添加到实例中。</div><div class="line">       * 6、其他类型的数据，直接添加到实例中。</div><div class="line">       * */</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 为了全局变量污染，把代码写到自调函数中</span></div><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"> w </span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 为了用户使用方便，提供一个工厂函数</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">jQuery</span>(<span class="params"> selector </span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> init( selector );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 原型简写&amp;原型默认拥有的属性与方法</span></div><div class="line">    jQuery.fn = jQuery.prototype = &#123;</div><div class="line">        <span class="attr">constructor</span>: jQuery,</div><div class="line">        <span class="attr">isReady</span>: <span class="literal">false</span></div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="comment">// 给jQuery自身以及原型添加一个extend方法</span></div><div class="line">    jQuery.extend = jQuery.fn.extend = <span class="function"><span class="keyword">function</span> (<span class="params"> obj </span>) </span>&#123;</div><div class="line">        <span class="keyword">for</span> ( <span class="keyword">var</span> key <span class="keyword">in</span> obj ) &#123;</div><div class="line">            <span class="keyword">this</span>[key] = obj[key];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 添加静态方法</span></div><div class="line">jQuery.extend(&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 判断是不是函数</span></div><div class="line">    isFunction: <span class="function"><span class="keyword">function</span>(<span class="params"> func </span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">typeof</span> func === <span class="string">'function'</span>;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">isString</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> str </span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">typeof</span> str === <span class="string">'string'</span>;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="comment">// 判断是不是DOM</span></div><div class="line">    isDOM: <span class="function"><span class="keyword">function</span>(<span class="params"> dom </span>)  </span>&#123;</div><div class="line">        <span class="keyword">return</span> !!dom &amp;&amp; !!dom.nodeType;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="comment">// 判断是不是html字符串</span></div><div class="line">    isHTML: <span class="function"><span class="keyword">function</span>(<span class="params"> html </span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> html.charAt(<span class="number">0</span>) === <span class="string">'&lt;'</span> &amp;&amp;</div><div class="line">                html.charAt(html.length - <span class="number">1</span>) === <span class="string">'&gt;'</span> &amp;&amp;</div><div class="line">                html.length &gt;= <span class="number">3</span>;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="comment">// 判断是不是window</span></div><div class="line">    isWindow: <span class="function"><span class="keyword">function</span>(<span class="params"> win </span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> !!win &amp;&amp; win.window === win;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="comment">// 判断是不是伪数组或数组</span></div><div class="line">    isLikeArray: <span class="function"><span class="keyword">function</span>(<span class="params"> likeArray </span>) </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// function &amp; window 返回 false</span></div><div class="line">        <span class="keyword">if</span> ( jQuery.isFunction( likeArray ) || jQuery.isWindow( likeArray ) ) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 如果likeArray是对象，并有length属性，length属性值为0或者拥有length-1的属性</span></div><div class="line">        <span class="keyword">return</span> !!likeArray &amp;&amp; <span class="keyword">typeof</span> likeArray === <span class="string">'object'</span> &amp;&amp; <span class="string">'length'</span> <span class="keyword">in</span> likeArray &amp;&amp;</div><div class="line">                ( likeArray.length === <span class="number">0</span> || [likeArray.length - <span class="number">1</span>] <span class="keyword">in</span> likeArray );</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="comment">// 解析html</span></div><div class="line">    parseHTML: <span class="function"><span class="keyword">function</span>(<span class="params"> html </span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> tempDiv = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</div><div class="line">        tempDiv.innerHTML = html;</div><div class="line">        <span class="keyword">return</span> tempDiv.children;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="comment">// 封装一个兼容的DOMContentLoaded方法</span></div><div class="line">    ready: <span class="function"><span class="keyword">function</span>(<span class="params"> fn </span>) </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// 如果页面已经触发了DOMContentLoaded事件，那么直接执行fn，</span></div><div class="line">        <span class="comment">// 再监听DOMContentLoaded事件已经无用了。</span></div><div class="line">        <span class="keyword">if</span> ( jQuery.fn.isReady ) &#123;</div><div class="line">            <span class="keyword">return</span> fn();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// IE9以及现代浏览器使用addEventListener以及DOMContentLoaded事件</span></div><div class="line">        <span class="keyword">if</span> ( <span class="built_in">document</span>.addEventListener ) &#123;</div><div class="line">            <span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                jQuery.fn.isReady = <span class="literal">true</span>;</div><div class="line">                fn();</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// IE8使用attachEvent以及onreadystatechange事件</span></div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="built_in">document</span>.attachEvent(<span class="string">'onreadystatechange'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                <span class="keyword">if</span> ( <span class="built_in">document</span>.readyState === <span class="string">'complete'</span> ) &#123;</div><div class="line">                    jQuery.fn.isReady = <span class="literal">true</span>;</div><div class="line">                    fn();</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 构造函数</span></div><div class="line"><span class="keyword">var</span> init = jQuery.prototype.init = <span class="function"><span class="keyword">function</span> (<span class="params"> selector </span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 空处理 ==&gt; 直接返回this</span></div><div class="line">    <span class="keyword">if</span> ( !selector ) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 函数 ==&gt; 添加到DOMContentLoaed事件中</span></div><div class="line">    <span class="keyword">if</span> ( jQuery.isFunction( selector ) ) &#123;</div><div class="line">        jQuery.ready( selector );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 字符串 ==&gt; 要么解析为DOM，要么作为选择器获取页面中的DOM</span></div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( jQuery.isString( selector ) ) &#123;</div><div class="line">        <span class="comment">// html片段</span></div><div class="line">        <span class="keyword">if</span> ( jQuery.isHTML( selector ) ) &#123;</div><div class="line">            [].push.apply(<span class="keyword">this</span>, jQuery.parseHTML( selector ));</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 选择器</span></div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            [].push.apply( <span class="keyword">this</span>, <span class="built_in">document</span>.querySelectorAll( selector ) );</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// dom ==&gt; 直接添加到this中</span></div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( jQuery.isDOM( selector ) ) &#123;</div><div class="line">        [].push.call( <span class="keyword">this</span>, selector );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 数组或伪数组 ==&gt; 把每一项都添加到this中</span></div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( jQuery.isLikeArray( selector ) ) &#123;</div><div class="line">        [].push.apply( <span class="keyword">this</span>, selector );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 其他 ==&gt; 直接添加到this中</span></div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        [].push.call( <span class="keyword">this</span>, selector );</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">// 为了第三方扩展(即jQ插件)</span></div><div class="line">    init.prototype = jQuery.fn;</div><div class="line"></div><div class="line">    <span class="comment">// 对外暴漏</span></div><div class="line">    w.jQuery = w.$ = jQuery;</div><div class="line"></div><div class="line">    <span class="comment">// 解决DOMContentLoaded不触发的问题</span></div><div class="line">    $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;);</div><div class="line"></div><div class="line">&#125;( <span class="built_in">window</span> ));</div></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">// 测试空</span></div><div class="line">    <span class="built_in">console</span>.log($());;</div><div class="line">    <span class="built_in">console</span>.log($(<span class="literal">null</span>));</div><div class="line"></div><div class="line">    <span class="comment">// 测试函数</span></div><div class="line">    $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'函数1'</span>);</div><div class="line">    &#125;);</div><div class="line">    $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'函数2'</span>);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="comment">// 测试hmtl片段</span></div><div class="line">    <span class="built_in">console</span>.log($(<span class="string">'&lt;a&gt;11&lt;/a&gt;是&lt;span&gt;阿迪&lt;/span&gt;放&lt;a&gt;22&lt;/a&gt;'</span>));</div><div class="line"></div><div class="line">    <span class="comment">// 测试字符串选择器</span></div><div class="line">    <span class="built_in">console</span>.log($(<span class="string">'abc'</span>));</div><div class="line">    <span class="built_in">console</span>.log($(<span class="string">'script'</span>));</div><div class="line"></div><div class="line">    <span class="comment">// 测试dom</span></div><div class="line">    <span class="built_in">console</span>.log( $( <span class="built_in">document</span>.body ) );</div><div class="line"></div><div class="line">    <span class="comment">// 测试伪数组</span></div><div class="line">    <span class="built_in">console</span>.log( $([<span class="number">1</span>,<span class="number">2</span>]) );  <span class="comment">// 每一项分别添加到this身上</span></div><div class="line">    <span class="built_in">console</span>.log( $(&#123; <span class="attr">length</span>: <span class="number">0</span> &#125;) ); <span class="comment">// 每一项分别添加到this身上</span></div><div class="line">    <span class="built_in">console</span>.log( $(&#123; <span class="number">9</span>: <span class="string">'算数'</span>, <span class="attr">length</span>: <span class="number">10</span> &#125;) ); <span class="comment">// 每一项分别添加到this身上</span></div><div class="line">    <span class="built_in">console</span>.log( $(&#123; <span class="number">5</span>: <span class="string">'不算数'</span>, <span class="attr">length</span>: <span class="number">8</span> &#125;) ); <span class="comment">// 直接添加到this身上</span></div><div class="line">    <span class="built_in">console</span>.log( $(&#123; <span class="attr">length</span>: <span class="number">4</span> &#125;) ); <span class="comment">// 直接添加到this身上</span></div><div class="line">    <span class="built_in">console</span>.log( $(<span class="built_in">window</span>) ); <span class="comment">// 直接添加到this身上</span></div><div class="line"></div><div class="line">    <span class="comment">// 测试其他</span></div><div class="line">    <span class="built_in">console</span>.log( $(<span class="number">111</span>) );</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">    * 存在的瑕疵：</div><div class="line">    * 1、当DOMContentLoaded触发完毕之后，在给他添加事件句柄，不会触发了</div><div class="line">    *    1、先定义一个变量，用来记录DOMContentLoaded是否触发过</div><div class="line">    *    2、如果触发过，那么传入ready的函数直接执行。</div><div class="line">    *</div><div class="line">    * 2、IE8以及之前的版本这样使用有问题 [].push.apply( this, &#123;0:1, length:1&#125; );</div><div class="line">    * */</div><div class="line"></div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'传入$的函数'</span>);</div><div class="line">        &#125;);</div><div class="line">        $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'过一会传入$的函数'</span>);</div><div class="line">        &#125;);</div><div class="line">    &#125;, <span class="number">3000</span>);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[jQuery中ajax方法的dataType:jsonp跨域原理详解]]></title>
+      <url>http://ihuzb.huzb.vip/2016/10/20/%E8%B7%A8%E5%9F%9F%E8%AF%A6%E8%A7%A3/</url>
+      <content type="html"><![CDATA[<h4 id="jQuery中ajax方法的dataType-jsonp跨域原理详解"><a href="#jQuery中ajax方法的dataType-jsonp跨域原理详解" class="headerlink" title="jQuery中ajax方法的dataType:jsonp跨域原理详解"></a>jQuery中ajax方法的dataType:jsonp跨域原理详解</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/936fddc451da81cb31fd25ab5366d016092431b9.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="a-html"><a href="#a-html" class="headerlink" title="a.html"></a>a.html</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="string">'&lt;input type="button" value="jsonp跨域原理" id="but"&gt;'</span></div><div class="line">&lt;script&gt;</div><div class="line">    <span class="comment">//4.定义一个与参数相同的函数</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getInfo</span>(<span class="params">da</span>) </span>&#123;</div><div class="line">    <span class="comment">//7.客户端接收到getInfo(&#123;"name":"hu","age":15&#125;)这样的参数</span></div><div class="line">    <span class="comment">//8.浏览器当作js进行解析,最终将json打印到控制台</span></div><div class="line">        <span class="built_in">console</span>.log(da)</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"#but"</span>).onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>)</div><div class="line">    <span class="comment">//1.使用script访问不会有跨域问题</span></div><div class="line">    <span class="comment">//2.现在返回的数据直接被浏览器当作js解析</span></div><div class="line">    <span class="comment">//3.给服务器发送一个参数,当前提交方式为get方式提交</span></div><div class="line">        script.src = <span class="string">"b.php?name=getInfo&amp;age=15"</span></div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">"body"</span>).appendChild(script)</div><div class="line">    &#125;</div><div class="line">&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="b-php"><a href="#b-php" class="headerlink" title="b.php"></a>b.php</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"><span class="comment">//5.最终目的是要把这个json格式数据写到客户端</span></div><div class="line"><span class="comment">//6.获取到之前所定义函数名想同的参数，并将需要响应的json进行拼接，一起响应给服务器端</span></div><div class="line">$data=$_GET[<span class="string">"name"</span>];</div><div class="line">echo $data.<span class="string">'(&#123;"name":"hu","age":15&#125;)'</span>;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Canvas第二天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/10/17/Canvas02/</url>
+      <content type="html"><![CDATA[<h4 id="Canvas-第二天-forEach方法-map方法-画弧，文字API，图像API。"><a href="#Canvas-第二天-forEach方法-map方法-画弧，文字API，图像API。" class="headerlink" title="Canvas 第二天,forEach方法,map方法,画弧，文字API，图像API。"></a>Canvas 第二天,forEach方法,map方法,画弧，文字API，图像API。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/0faccbef76094b36591b6c8ba2cc7cd98c109dc8.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h2><ul>
+<li>ES5提供的用来遍历数组地方法，该方法来自Array.prototype</li>
+<li>语法：数组.forEach(function(val,index,arr){})</li>
+<li>forEach会自动帮我们遍历数组，每遍历到数组中的一个值</li>
+<li>就会调用回调，并且给回掉穿三个参数：遍历到的值，该值的下标，原数组</li>
+</ul>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><ul>
+<li>map ：ES5提供的用来遍历数组的方法，该方法来自Array.prototype</li>
+<li>map方法会接收返回值，把返回值组成一个新的数组。</li>
+<li>语法：数组.map(function ( val, index, arr ) { return val * 10 });</li>
+<li>map会自动帮我们遍历数组，每遍历到数组中的一个值，</li>
+<li>就会调用回调，并且给回调传三个参数：遍历到的值，该值的下标，原数组,</li>
+<li>然后接收回调的返回值，最终构成新数组返回。</li>
+</ul>
+<h2 id="画弧"><a href="#画弧" class="headerlink" title="画弧"></a>画弧</h2><ul>
+<li><code>ctx.arc(圆心x，圆心y，半径，其实弧度，结束弧度，是否逆时针画（可选）)</code>绘制的是弧路径</li>
+<li>180°=1π弧度</li>
+<li>360°=2π弧度</li>
+</ul>
+<h2 id="文字API"><a href="#文字API" class="headerlink" title="文字API"></a>文字API</h2><h3 id="设置文本样式"><a href="#设置文本样式" class="headerlink" title="设置文本样式"></a>设置文本样式</h3><ul>
+<li><code>ctx.font=语法和css一样。</code>这是文字大小颜色样式等</li>
+<li><code>ctx.textAlign=start、center、end</code>设置文字水平排列方式</li>
+<li><code>ctx.textBaseline=top、middle、bottom、alphabetic、hanging、ideographic</code>设置文字垂直排列方式<h3 id="绘制描边文字"><a href="#绘制描边文字" class="headerlink" title="绘制描边文字"></a>绘制描边文字</h3></li>
+<li><code>ctx.strockText(&#39;文本&#39;,x,y,(可选：文本最大程度))</code>文字默认中心点在左下角<h3 id="绘制填充文本"><a href="#绘制填充文本" class="headerlink" title="绘制填充文本"></a>绘制填充文本</h3></li>
+<li><code>ctx.fillText(&#39;文本&#39;,x,y)</code></li>
+</ul>
+<h2 id="图像API"><a href="#图像API" class="headerlink" title="图像API"></a>图像API</h2><ul>
+<li><code>ctx.drawImage(图像资源，x，y，裁剪的宽，裁剪的高，图象显示的宽，图像显示的高)</code>绘制图像</li>
+<li><code>var img=new Image()</code>创建了图片节点，内置的image构造函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> img=<span class="keyword">new</span> Image()</div><div class="line">img.src=<span class="string">"/image/sdsd.jpg"</span></div><div class="line">img.addEventListener(<span class="string">'load'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">ctx.drawImage(图像资源，x，y，裁剪的宽，裁剪的高，图象显示的宽，图像显示的高)</div></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[毫秒转换成小时分钟秒]]></title>
+      <url>http://ihuzb.huzb.vip/2016/10/17/%E6%AF%AB%E7%A7%92%E8%BD%AC%E6%8D%A2%E6%88%90%E5%B0%8F%E6%97%B6%E5%88%86%E9%92%9F%E7%A7%92/</url>
+      <content type="html"><![CDATA[<h4 id="JavaScript实现毫秒转换成小时分钟秒"><a href="#JavaScript实现毫秒转换成小时分钟秒" class="headerlink" title="JavaScript实现毫秒转换成小时分钟秒"></a>JavaScript实现毫秒转换成小时分钟秒</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/ef42ad4bd11373f0c79431f8a50f4bfbfbed042a.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="使用Date的now方法获取当前毫秒值，再根据相应的公式进行计算"><a href="#使用Date的now方法获取当前毫秒值，再根据相应的公式进行计算" class="headerlink" title="使用Date的now方法获取当前毫秒值，再根据相应的公式进行计算"></a>使用Date的now方法获取当前毫秒值，再根据相应的公式进行计算</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> housr = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now() / (<span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span>));</div><div class="line"><span class="keyword">var</span> minutes = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now() % (<span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span>) / (<span class="number">1000</span> * <span class="number">60</span>));</div><div class="line"><span class="keyword">var</span> seconds = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now() % (<span class="number">1000</span> * <span class="number">60</span>) / <span class="number">1000</span>);</div></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Canvas第一天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/10/14/Canvas/</url>
+      <content type="html"><![CDATA[<h4 id="Canvas-第一天-基本属性-非0环绕原则-内置矩形方法。"><a href="#Canvas-第一天-基本属性-非0环绕原则-内置矩形方法。" class="headerlink" title="Canvas 第一天,基本属性,非0环绕原则,内置矩形方法。"></a>Canvas 第一天,基本属性,非0环绕原则,内置矩形方法。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/9f45ad345982b2b7184365a230adcbef77099bfd.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="Canvas属性设置"><a href="#Canvas属性设置" class="headerlink" title="Canvas属性设置"></a>Canvas属性设置</h2><ul>
+<li><code>&lt;canvas&gt;&lt;/canvas&gt;</code>画布标签</li>
+<li><code>&lt;canvas id=&quot;cvs&quot; width=&quot;500&quot; height=&quot;500&quot;&gt;&lt;/canvas&gt;</code>在标签内设置宽高不会拉伸画布中的图像</li>
+<li><code>var cvs = document.getElementById(&#39;cvs&#39;);</code>获取画布标签</li>
+<li><code>var ctx = cvs.getContext(&#39;2d&#39;);</code>设置画图为2d</li>
+<li><code>ctx.strokeStyle</code>设置颜色</li>
+<li><code>ctx.moveTo(10, 10);</code>设置画图起始点</li>
+<li><code>ctx.lineTo(110, 10);</code>设置画图目标点</li>
+<li><code>ctx.stroke();</code>根据当前的路径执行画图</li>
+<li><code>ctx.beginPath()</code>清除当前所有路径，放置再次绘制</li>
+<li><code>ctx.lineWidth=5</code>线宽</li>
+<li><code>ctx.closePath()</code>闭合路径,从当前路径的结束点，到起始点相连</li>
+<li><code>ctx.clearRect(擦出矩形的左上角x轴，擦出矩形的左上角y轴，擦出的宽，擦出的高)</code>清除画布</li>
+<li><code>ctx.fillStyle=css</code>，<code>ctx.fill()</code>填充，这个方法和stroke一样，都是根据当前的路径进行填充</li>
+</ul>
+<h2 id="非0环绕原则"><a href="#非0环绕原则" class="headerlink" title="非0环绕原则"></a>非0环绕原则</h2><ul>
+<li>作用就是用来判断画布中的那些地方需要填充</li>
+<li>真正作用是用来判断哪些居于是被环绕起来的</li>
+<li>原理：<ul>
+<li>随便找一块封闭的区域，然后再区域中随便找一点，向外发一条射线，</li>
+<li>然后会继续计数判断，初始值为0</li>
+<li>如果射线遇到边，这条边相对于点是逆时针-1，顺时针+1，最终结果非0</li>
+<li>那么就认为这块区域是被环绕起来的。</li>
+<li>凡是奇数边，围起来的图形区域，都是被环绕起来的，如果调用fill方法，一定会被填充</li>
+</ul>
+</li>
+</ul>
+<h2 id="内置矩形方法"><a href="#内置矩形方法" class="headerlink" title="内置矩形方法"></a>内置矩形方法</h2><ul>
+<li><code>ctx.rect(x,y,w,h)</code>画矩形路径的方法</li>
+<li><code>ctx.strokeRect(x,y,w,h)</code>绘制描边矩形，不会产生任何路径</li>
+<li><code>ctx.fillRect(x,y,w,h)</code>绘制填充矩形，不会产生任何路径</li>
+</ul>
+<h2 id="线帽样式"><a href="#线帽样式" class="headerlink" title="线帽样式"></a>线帽样式</h2><ul>
+<li><code>ctx.lineCap=</code>的属性值：<code>butt</code>默认样式,<code>round</code>圆头,<code>square</code>两端各加线宽的一半</li>
+</ul>
+<h2 id="交点样式"><a href="#交点样式" class="headerlink" title="交点样式"></a>交点样式</h2><ul>
+<li><code>ctx.lineJoin=</code>的属性值：<code>miter</code>默认样式尖尖的,<code>round</code>四角为圆,<code>bevel</code>四角为斜面</li>
+<li>线帽与焦点样式不一致，优先按照焦点样式处理</li>
+</ul>
+<h2 id="虚线"><a href="#虚线" class="headerlink" title="虚线"></a>虚线</h2><ul>
+<li>获取虚线的绘制规则<ul>
+<li><code>ctx.getLineDash()</code>获取虚线的绘制规则</li>
+</ul>
+</li>
+<li>设置虚线的绘制规则<ul>
+<li><code>ctx.setLineDash([实线部分的长度，空白部分的长度])</code>设置虚线的绘制规则，如果 传入数组的数量为奇数，那么保存时canvas会自动变为偶数的数量存储</li>
+<li><code>ctx.LineDashOffset=2</code>设置虚线的偏移量</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[判断类型]]></title>
+      <url>http://ihuzb.huzb.vip/2016/10/12/%E5%88%A4%E6%96%AD%E7%B1%BB%E5%9E%8B/</url>
+      <content type="html"><![CDATA[<h4 id="判断类型。"><a href="#判断类型。" class="headerlink" title="判断类型。"></a>判断类型。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/c5ecab64034f78f0a7fac79478310a55b2191ce0.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="判断类型"><a href="#判断类型" class="headerlink" title="判断类型"></a>判断类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">type</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (data !== data) &#123;</div><div class="line">    <span class="comment">//若自身不等于自身，那么类型为NaN</span></div><div class="line">        <span class="keyword">return</span> <span class="string">"NaN"</span></div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (data === <span class="literal">null</span>) &#123;</div><div class="line">    <span class="comment">//若等于null，那么类型null</span></div><div class="line">        <span class="keyword">return</span> <span class="string">"null"</span></div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> data !== <span class="string">"function"</span> &amp;&amp; <span class="keyword">typeof</span> data !== <span class="string">"object"</span>) &#123;</div><div class="line">    <span class="comment">//若类型不等于函数也不等于对象，那么就是普通数据类型</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">typeof</span> data</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="comment">//剩下的其他的就是对象和函数</span></div><div class="line">        <span class="keyword">return</span> (&#123;&#125;).toString.call(data).slice(<span class="number">8</span>, <span class="number">-1</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//打印结果</span></div><div class="line"><span class="built_in">console</span>.log(type([]));</div></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[文字溢出使用省略号替代]]></title>
+      <url>http://ihuzb.huzb.vip/2016/10/10/%E6%96%87%E5%AD%97%E6%BA%A2%E5%87%BA%E4%BD%BF%E7%94%A8%E7%9C%81%E7%95%A5%E5%8F%B7/</url>
+      <content type="html"><![CDATA[<h4 id="文字溢出使用省略号替代的设置方式"><a href="#文字溢出使用省略号替代的设置方式" class="headerlink" title="文字溢出使用省略号替代的设置方式"></a>文字溢出使用省略号替代的设置方式</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/97763912b31bb051c2cc144e377adab44bede0e9.jpg" alt=""><br><a id="more"></a></p>
+<blockquote>
+<p>需要将以下设置都设置在样式中<br>overflow: hidden;内容溢出后隐藏<br>word-break: break-all;请执行换行<br>text-overflow: ellipsis;多出来的文字用省略号表示，必须与overflow: hidden;一起使用，只针对单行文本<br>-webkit-line-clamp: 2;省略号所在的行数<br>-webkit-box-orient: vertical;垂直<br>display: -webkit-box;伸缩盒子</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[递归求幂性能优化]]></title>
+      <url>http://ihuzb.huzb.vip/2016/10/05/%E9%80%92%E5%BD%92%E6%B1%82%E5%B9%82%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
+      <content type="html"><![CDATA[<h4 id="递归求幂性能优化"><a href="#递归求幂性能优化" class="headerlink" title="递归求幂性能优化"></a>递归求幂性能优化</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/087bdab44aed2e73cb3e214a8601a18b86d6fa86.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="递归求幂性能优化-1"><a href="#递归求幂性能优化-1" class="headerlink" title="递归求幂性能优化"></a>递归求幂性能优化</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//此优化体现在，第二次执行递归求幂并且所输入的幂数小于前一次所输入的幂数</span></div><div class="line">        <span class="keyword">var</span> qiumi = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="comment">//为防止函数使用的变量被污染，将整体放在一个自调函数中</span></div><div class="line">                <span class="keyword">var</span> mi = &#123;&#125;;</div><div class="line">                 <span class="comment">//创建一个用来存储每次求幂的结果的对象，其内部数据结构是2:[1,2,4,8...]</span></div><div class="line">                <span class="keyword">var</span> cunchu = <span class="literal">null</span>;</div><div class="line">                <span class="comment">//用来存储得到的结果</span></div><div class="line">                <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">m, n</span>) </span>&#123;</div><div class="line">                    <span class="keyword">if</span> (mi[m] &amp;&amp; mi[m][n]) &#123;</div><div class="line">                     <span class="comment">//首先判断对象中mi[m]是否有值，并且有没有需要的数据，若有直接返回数据，若没有继续执行进行计算</span></div><div class="line">                        <span class="keyword">return</span> mi[m][n];</div><div class="line">                    &#125;;</div><div class="line">                    <span class="keyword">if</span> (n === <span class="number">0</span>) &#123;</div><div class="line">                    <span class="comment">//判断幂若为0，直接返回1</span></div><div class="line">                        cunchu = <span class="number">1</span>;</div><div class="line">                         <span class="comment">//先将数据存储到变量中</span></div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        cunchu = qiumi(m, n - <span class="number">1</span>) * m;</div><div class="line">                         <span class="comment">//先将数据存储到变量中</span></div><div class="line">                    &#125;;</div><div class="line">                    mi[m] = mi[m] ? mi[m] : [];</div><div class="line">                    <span class="comment">//判断mi[m]是否有值，若没值就将mi[m]变为数组。在第一次运行的时候对象mi[m]没有值，所以要先进行判断</span></div><div class="line">                    mi[m][n] = cunchu;</div><div class="line">                    <span class="comment">//将在变量中存储的数据存储到对象中</span></div><div class="line">                    <span class="keyword">return</span> cunchu;</div><div class="line">                    <span class="comment">//将变量中的数据返回</span></div><div class="line">                &#125;</div><div class="line">            &#125;)()</div><div class="line">            <span class="built_in">console</span>.log(qiumi(<span class="number">2</span>, <span class="number">6</span>));</div></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[递归求阶乘性能优化]]></title>
+      <url>http://ihuzb.huzb.vip/2016/09/23/%E9%80%92%E5%BD%92%E6%B1%82%E9%98%B6%E4%B9%98%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
+      <content type="html"><![CDATA[<h4 id="递归求阶乘性能优化"><a href="#递归求阶乘性能优化" class="headerlink" title="递归求阶乘性能优化"></a>递归求阶乘性能优化</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/84a0cd11728b47104eb55aaac2cec3fdfc03233b.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="递归求阶乘性能优化-1"><a href="#递归求阶乘性能优化-1" class="headerlink" title="递归求阶乘性能优化"></a>递归求阶乘性能优化</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//此优化体现在，第二次执行递归求阶乘并且所输入的计算位数小于前一次所输入的计算位数</span></div><div class="line">    <span class="keyword">var</span> jiecheng = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//为防止函数使用的变量被污染，将整体放在一个自调函数中</span></div><div class="line">            <span class="keyword">var</span> arr = [];</div><div class="line">            <span class="comment">//创建一个用来存储每次求阶乘的结果的数组</span></div><div class="line">            <span class="keyword">var</span> cunchu=<span class="literal">null</span></div><div class="line">            <span class="comment">//用来存储得到的结果</span></div><div class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">a</span>) </span>&#123;</div><div class="line">                <span class="keyword">if</span> (arr[a]) &#123;</div><div class="line">                <span class="comment">//判断数组中有没有需要的数据，若有直接返回数据，若没有继续执行进行计算</span></div><div class="line">                    <span class="keyword">return</span> arr[a];</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (a === <span class="number">0</span>) &#123;</div><div class="line">                <span class="comment">//判断要计算的阶乘个数若为0，直接返回1</span></div><div class="line">                    cunchu= <span class="number">1</span>;</div><div class="line">                    <span class="comment">//先将数据存储到变量中</span></div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    cunchu=jiecheng(a - <span class="number">1</span>) * a；</div><div class="line">                    <span class="comment">//先将数据存储到变量中</span></div><div class="line">                &#125;</div><div class="line">                 arr[a] = cunchu;</div><div class="line">                 <span class="comment">//将在变量中存储的数据存储到数组中</span></div><div class="line">                 <span class="keyword">return</span> cunchu;</div><div class="line">                 <span class="comment">//将变量中的数据返回</span></div><div class="line">            &#125;</div><div class="line">        &#125;)();</div><div class="line">        <span class="built_in">console</span>.log(jiecheng(<span class="number">5</span>));</div><div class="line">        <span class="built_in">console</span>.log(jiecheng(<span class="number">5</span>));</div></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[使用改变this指向的方式获取DOM元素并改变颜色]]></title>
+      <url>http://ihuzb.huzb.vip/2016/09/21/%E6%94%B9%E5%8F%98this%E6%8C%87%E5%90%91/</url>
+      <content type="html"><![CDATA[<h4 id="使用改变this指向的方式获取DOM元素并改变颜色"><a href="#使用改变this指向的方式获取DOM元素并改变颜色" class="headerlink" title="使用改变this指向的方式获取DOM元素并改变颜色"></a>使用改变this指向的方式获取DOM元素并改变颜色</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/ef59ccbf6c81800a1a88d669b03533fa828b476c.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="使用改变this指向的方式获取DOM元素并改变颜色-1"><a href="#使用改变this指向的方式获取DOM元素并改变颜色-1" class="headerlink" title="使用改变this指向的方式获取DOM元素并改变颜色"></a>使用改变this指向的方式获取DOM元素并改变颜色</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [], t = <span class="built_in">document</span>.getElementsByTagName.bind(<span class="built_in">document</span>)</div><div class="line"><span class="comment">//定义空数组，用来存储获取的DOM元素。定义t，使用Function.prototype中的bind属性改变this指向，使其指向document(因为所有的DOM元素都在document中)</span></div><div class="line"><span class="keyword">var</span> lis = t(<span class="string">"li"</span>)</div><div class="line"><span class="comment">//使用定义的t函数获取所有的li标签</span></div><div class="line"><span class="keyword">var</span> di = t(<span class="string">"div"</span>)</div><div class="line">arr.push.apply(arr, lis)</div><div class="line"><span class="comment">//所获取到的li标签组成一个数组，需要将数组平铺到arr数组中，所以要使用apply属性</span></div><div class="line">arr.push.apply(arr, di)</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = arr.length; i &lt; len; i++) &#123;</div><div class="line"><span class="comment">//遍历选中的所有标签，改变其背景色</span></div><div class="line">    arr[i].style.background = <span class="string">"red"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>call 和 apply方法，会马上执行函数；</li>
+<li>bind不会马上执行，它返回函数的一个copy版本，供以后想执行的时候再执行。</li>
+<li>可查看学习资料的博客简述语法:<a href="http://ihuzb.huzb.vip/2016/09/15/面向对象%20第七天/">http://ihuzb.huzb.vip/2016/09/15/面向对象%20第七天/</a></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[面向对象 第七天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/09/15/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%20%E7%AC%AC%E4%B8%83%E5%A4%A9/</url>
+      <content type="html"><![CDATA[<h4 id="面向对象第七天，严格模式，递归。"><a href="#面向对象第七天，严格模式，递归。" class="headerlink" title="面向对象第七天，严格模式，递归。"></a>面向对象第七天，严格模式，递归。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/45ca0a46f21fbe09f9fa837c6a600c338744ad37.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h2><ul>
+<li><strong>1.全局模式</strong><ul>
+<li>在代码最前面添加一句话：<code>&#39;use strict&#39;</code></li>
+<li>严格模式下，必须通过var定义变量</li>
+<li>一个对象不能存在重复的属性名，会报错</li>
+<li>函数形参的名字不能重复，会报错</li>
+<li>eval会产生单独的作用域，避免了全局变量的产生</li>
+<li>无法在非函数的代码块中声明函数，<code>var a=function(){}</code>，可以使用</li>
+<li>严格模式下禁止使用with语句</li>
+<li>严格模式下，函数的caller(返回调用的函数的函数)属性禁止使用</li>
+<li>严格模式下，atguments的callee(返回函数自身)属性禁止使用</li>
+</ul>
+</li>
+<li><strong>2.局部模式</strong><ul>
+<li>在函数的第一行写<code>&#39;use strict&#39;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="构造函数返回值"><a href="#构造函数返回值" class="headerlink" title="构造函数返回值"></a>构造函数返回值</h2><ul>
+<li>如果函数作为构造器使用，没有return语句，那么忽略，得到实例</li>
+<li>如果函数作为构造器使用，return基本数据类型，那么忽略，得到实例</li>
+<li>如果函数作为构造器使用，return对象类型的数据，那么覆盖实例，得到return的对象</li>
+</ul>
+<h2 id="get-set读写器"><a href="#get-set读写器" class="headerlink" title="get/set读写器"></a>get/set读写器</h2><ul>
+<li>是ES5新增的一种语法，市面上称他们为读写器<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a=<span class="number">1</span>;</div><div class="line"><span class="keyword">var</span> obj=&#123;</div><div class="line">	set val(par)&#123;</div><div class="line">		a=par</div><div class="line">	&#125;,</div><div class="line">	get val()&#123;</div><div class="line">		<span class="keyword">return</span> a;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">obj.val=<span class="number">10</span></div><div class="line"><span class="built_in">console</span>.log(obj.val)</div><div class="line"><span class="comment">//对于使用者来说，操作的obj的val属性，实际上val是两个方法，最终操作的是a变量。</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><ul>
+<li>函数自己调用自己，或者间接调用自己，称之为递归。</li>
+<li>递归特点：<ul>
+<li>1.必须要有临界点（临界条件，return语句）</li>
+<li>2.把药解决的问题尽量细化如果发现解决问题是用到了之前的成果，并且有规律就可以把这个规律转换成递归的形式</li>
+</ul>
+</li>
+</ul>
+<h2 id="call-apply-bind"><a href="#call-apply-bind" class="headerlink" title="call,apply,bind"></a>call,apply,bind</h2><ul>
+<li>这个三个方法都是来自于Function.prototype上，所以所有的函数都可以使用，都有一个共同点，可以指定函数执行时内部this的指向<h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><blockquote>
+<p>语法：函数名.call(this指向，实参1，实参2…)</p>
+<h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><p>语法1：函数名.call(this指向，[实参1，实参2…])<br>语法2：函数名.call(this指向，{实参1，实参2，                                                                                                                                                                                                                                                                                                                                                                                       length：2})</p>
+<h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><p>语法：var fn=函数名.bind(this指向，要绑定的实参1，要绑定的实参2…)</p>
+<h3 id="严格模式-1"><a href="#严格模式-1" class="headerlink" title="严格模式"></a>严格模式</h3><p>严格模式分为全局模式和局部模式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//全局模式，就是在全局代码的最前面写这句话</span></div><div class="line"><span class="meta">'use strict'</span></div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//局部模式，就是在函数代码的最前面写这句话</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="meta">'use strict'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="严格模式禁止使用"><a href="#严格模式禁止使用" class="headerlink" title="严格模式禁止使用"></a>严格模式禁止使用</h3><blockquote>
+<p>必须通过var定义变量<br>对象中不能存在重复的属性名<br>函数中不能存在重复的形参名<br>eval会产生单独的作用域，避免了全局变量的产生。<br>无法在非函数的代码块中声明函数了<br>禁止使用with语句<br>禁止使用函数的caller属性<br>禁止使用arguments的callee属性</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[判断滚动条到达底部]]></title>
+      <url>http://ihuzb.huzb.vip/2016/09/10/%E8%AE%BE%E7%BD%AE%E6%BB%9A%E5%8A%A8%E6%9D%A1%E4%B8%80%E7%9B%B4%E5%9C%A8%E5%BA%95%E9%83%A8/</url>
+      <content type="html"><![CDATA[<h4 id="判断滚动条到达底部"><a href="#判断滚动条到达底部" class="headerlink" title="判断滚动条到达底部"></a>判断滚动条到达底部</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/32328744ebf81a4c9b1b9dafd62a6059252da6a8.jpg" alt=""><br><a id="more"></a></p>
+<blockquote>
+<p>使用之前记得导入jq包<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$(<span class="built_in">window</span>).scroll(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> ($(<span class="built_in">document</span>).scrollTop() + $(<span class="built_in">window</span>).height() &gt;= $(<span class="built_in">document</span>).height()) &#123;</div><div class="line">        qing()<span class="comment">//需要执行的函数</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">$(<span class="built_in">document</span>).scrollTop()：向下滚动滚动条的移动的距离</div><div class="line">$(<span class="built_in">window</span>).height()：当前显示窗口的高度，滚动不会影响</div><div class="line">$(<span class="built_in">document</span>).height()：整个文档页面的整体高度</div></pre></td></tr></table></figure></p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[面向对象 第六天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/08/18/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%20%E7%AC%AC%E5%85%AD%E5%A4%A9/</url>
+      <content type="html"><![CDATA[<h4 id="面向对象学习第六天，tyopof，匿名函数与闭包，自调函数的作用，函数的四种调用模式。"><a href="#面向对象学习第六天，tyopof，匿名函数与闭包，自调函数的作用，函数的四种调用模式。" class="headerlink" title="面向对象学习第六天，tyopof，匿名函数与闭包，自调函数的作用，函数的四种调用模式。"></a>面向对象学习第六天，tyopof，匿名函数与闭包，自调函数的作用，函数的四种调用模式。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/8e7fca8065380cd752c5ff8aa044ad34588281fb.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="tyopof类型判断"><a href="#tyopof类型判断" class="headerlink" title="tyopof类型判断"></a>tyopof类型判断</h2><ul>
+<li>typeof运算结果只有如下几种值<ul>
+<li>object,string,number,boolean,function,undefiend</li>
+</ul>
+</li>
+</ul>
+<h2 id="匿名函数与闭包"><a href="#匿名函数与闭包" class="headerlink" title="匿名函数与闭包"></a>匿名函数与闭包</h2><ul>
+<li>匿名函数是没有名字的函数</li>
+<li>闭包是函数内的函数</li>
+<li>自调函数是马上执行的函数</li>
+<li>构造函数是用来创建实例的函数</li>
+<li>方法是添加到对象身上的函数</li>
+</ul>
+<h2 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout"></a>setTimeout</h2><ul>
+<li>传入setTimeout的回调函数是异步执行的 ,不是随着代码的顺序执行的</li>
+<li>从上往下把其他的执行完后，再执行setTimeout</li>
+</ul>
+<h2 id="自调函数的作用"><a href="#自调函数的作用" class="headerlink" title="自调函数的作用"></a>自调函数的作用</h2><ul>
+<li>防止全局变量污染：<ul>
+<li>过多的全局变量，极易出现冲突于混淆</li>
+</ul>
+</li>
+<li>提供一个新的区域放置全局变量污染简称沙箱模式或命名空间</li>
+<li>自调传入window，一般有两个作用：<ul>
+<li>1.提升全局变量的查找时间</li>
+<li>2.有助于代码的压缩</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数的四种调用模式"><a href="#函数的四种调用模式" class="headerlink" title="函数的四种调用模式"></a>函数的四种调用模式</h2><ul>
+<li><strong>函数调用模式</strong><ul>
+<li>直接<code>函数名()</code>调用，内部this指向全局对象（window）</li>
+</ul>
+</li>
+<li><strong>方法调用模式</strong><ul>
+<li><code>对象.函数名()</code>或者<code>对象[函数名]()</code>调用，内部this指向方法所属的对象</li>
+</ul>
+</li>
+<li><strong>构造器调用模式</strong><ul>
+<li><code>new 函数名()</code>或者<code>new 对象.函数名()</code> 或者 <code>new 对象[函数名]()</code>，内部this指向新创建的实例。</li>
+</ul>
+</li>
+<li><strong>间接调用模式</strong><ul>
+<li><code>函数名.call()</code>或者<code>对象.函数名.call()</code> 或者 <code>new 对象[函数名].call()</code>，内部this指向自定义的对象,如果传空、null、undefined，那么this指向全局对象window</li>
+<li>call和apply是来自Function.prototype里面的两个方法</li>
+<li>这两个方法有一个共同点，就可以指定函数执行时内部的this指向</li>
+<li>语法:函数名.call(指定函数执行时的this指向)</li>
+<li>语法:函数名.apply(指定函数执行时的this指向)</li>
+<li>通过fn调用call方法，call方法内部会反过来调用fn，并且指定fn执行时内部的this为数组</li>
+<li>call和apply的具体语法<ul>
+<li>call语法：<ul>
+<li>函数名.call(自定义的this指向，实参1，实参2，实参3…)</li>
+<li>第一个参数只是为了指定函数执行时this的指向，并不会作为参数传入进去</li>
+</ul>
+</li>
+<li>apply语法：<ul>
+<li>函数名.apply(自定义的this指向，[实参1，实参2，实参3…])</li>
+<li>第一个参数只是为了指定函数执行时this的指向，并不会作为参数传入进去，第二个参数要求是数组或伪数组，apply会自动把数组中的内容平铺后传入到函数中。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="tostring方法"><a href="#tostring方法" class="headerlink" title="tostring方法"></a>tostring方法</h2><ul>
+<li>Object.prototype.toString()[方法调用模式]</li>
+<li>执行时根据内部的this，返回一个这样的字符串：‘[object this的类型]’</li>
+</ul>
+<h2 id="函数的四种调用模式-1"><a href="#函数的四种调用模式-1" class="headerlink" title="函数的四种调用模式"></a>函数的四种调用模式</h2><ul>
+<li>函数中的this是动态变化的，不同的调用方式，this指向不同</li>
+<li>说明函数中的this和调用有关，和定义无关。</li>
+<li>fn(); 函数调用模式，this指向window</li>
+<li>new Fn(); 构造器调用模式，this指向创建出的实例</li>
+<li>Fn.apply(fn)；间接调用模式，this指向fn</li>
+</ul>
+<h2 id="Function方法详解"><a href="#Function方法详解" class="headerlink" title="Function方法详解"></a>Function方法详解</h2><ul>
+<li>Function.prototype自身是一个函数，并且是唯一一个没有prototype属性的函数</li>
+<li>Function.prototype上定义了如下属性与方法：<ul>
+<li>apply:可以改变函数执行时内部this指向</li>
+<li>arguments:之前还是函数的属性，现在被废弃</li>
+<li>bind:返回一个函数的copy版本，并且可以指定该函数执行时内部this</li>
+<li>call:可以改变函数执行时内部this指向</li>
+<li>caller:返回调用该函数的函数</li>
+<li>constructor:对应的构造函数</li>
+<li>length:函数形参的个数</li>
+<li>name:函数的名字</li>
+<li>toString:把函数体作为字符打印</li>
+<li><code>__proto__</code>:Function.prototype所继承的对象，即Object.prototype<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3></li>
+</ul>
+</li>
+<li>Object.prototypr</li>
+<li>call和apply方法，会马上执行函数</li>
+<li>bind不会马上执行，它返回函数的一个copy版本，供以后想执行的时候在执行<h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3></li>
+<li>ES5提供的方法，ie9以及以前无法使用</li>
+<li>语法:函数名.bind（指定返回函数执行似的this指向，要绑定的实参1，要绑定的实参1。。。）</li>
+<li>返回值：函数的copy版本</li>
+<li>如果以后前两个参数一直是10，就可以通过bind绑定死，以后就不用传了</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[前端面试题集锦(html5,css3)01]]></title>
+      <url>http://ihuzb.huzb.vip/2016/08/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9B%86%E9%94%A6(html5,css3)01/</url>
+      <content type="html"><![CDATA[<h4 id="前端面试题集锦-html5-css3"><a href="#前端面试题集锦-html5-css3" class="headerlink" title="前端面试题集锦(html5,css3)"></a>前端面试题集锦(html5,css3)</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/936fddc451da81cb0bbadfab5366d0160924317c.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="1-主流浏览器和使用的内核分别是什么"><a href="#1-主流浏览器和使用的内核分别是什么" class="headerlink" title="1.主流浏览器和使用的内核分别是什么"></a>1.主流浏览器和使用的内核分别是什么</h2><ul>
+<li>IE:trident内核</li>
+<li>Firefox:gecko内核</li>
+<li>Safari:webkit内核(苹果浏览器)</li>
+<li>Opera:以前是presto内核，改为Chrome的Blink内核</li>
+<li>Chrome:Blink(基于webkit,Google与Opera Software共同开发)</li>
+</ul>
+<h2 id="2-每个HTML开头都有个很重要的东西是什么"><a href="#2-每个HTML开头都有个很重要的东西是什么" class="headerlink" title="2.每个HTML开头都有个很重要的东西是什么"></a>2.每个HTML开头都有个很重要的东西是什么</h2><ul>
+<li>&lt;!DOCTYPE&gt;声明位于文档中的最前面的位置，处于<html>标签之前。</html></li>
+<li>此标签告知浏览器文档使用那种HTML或XHTML规范来解析页面。</li>
+<li>注：XHTML的编写规范较HTML更加严格</li>
+</ul>
+<h2 id="3-div-css的布局较table布局有什么优点？"><a href="#3-div-css的布局较table布局有什么优点？" class="headerlink" title="3.div+css的布局较table布局有什么优点？"></a>3.div+css的布局较table布局有什么优点？</h2><ul>
+<li>页面加载速度更快、结构清晰、页面显示简洁</li>
+<li>表现与结构相分离</li>
+<li>易于优化(seo)搜索引擎更友好，排名更容易靠前</li>
+</ul>
+<h2 id="4-img的alt与title有何异同？strong与em的异同？"><a href="#4-img的alt与title有何异同？strong与em的异同？" class="headerlink" title="4.img的alt与title有何异同？strong与em的异同？"></a>4.img的alt与title有何异同？strong与em的异同？</h2><ul>
+<li>alt：是图片加载失败时，在页面上显示的代替文字</li>
+<li>title：是鼠标放上面时显示的文字</li>
+<li>strong：粗体强调标签，强调，表示内容的重要性</li>
+<li>em：斜体强调标签，更强烈强调，表示内容的强调点</li>
+</ul>
+<h2 id="5-渐进增强和优雅降级之间的不同？"><a href="#5-渐进增强和优雅降级之间的不同？" class="headerlink" title="5.渐进增强和优雅降级之间的不同？"></a>5.渐进增强和优雅降级之间的不同？</h2><ul>
+<li>渐进增强：(progressive enhancement)针对低版本浏览器进行构建页面，保证最基本的功能，然后在针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</li>
+<li>优雅降级：(graceful degradation)一开始就构建完整的功能，然后在针对低版本浏览器进行兼容。</li>
+<li>区别：优雅降级是从复杂的现状开始，并试图减少用户体验的供给，而渐进增强则是从一个非常基础的，能够起作用的版本开始，并不断扩充，以适应未来环境的需要。优雅降级意味着往回看；而渐进增强则意味着朝前看，同时保证其根基处于安全地带。</li>
+</ul>
+<h2 id="6-为什么利用多个域名来存储网站资源会更有效"><a href="#6-为什么利用多个域名来存储网站资源会更有效" class="headerlink" title="6.为什么利用多个域名来存储网站资源会更有效?"></a>6.为什么利用多个域名来存储网站资源会更有效?</h2><ul>
+<li>CDN缓存更方便，用户在浏览网站的时候，CDN会选择一个离用户最近的CDN边缘节点来响应用户的请求</li>
+<li>突破浏览器并发显示，不同域可以提高请求资源并发</li>
+<li>跨域节约cookie带宽，尤其是上行带宽，一般比下行要慢</li>
+<li>节约主域名连接数，从而提高客户端网络带宽的利用率，优化页面响应</li>
+<li>注：关于多域名，也不是越多越好，虽然服务器可以做泛解释，浏览器做dns解释也是耗时间的，而且太多域名，如果要走https的话，还有要多买证书和部署的问题</li>
+</ul>
+<h2 id="7-css的content属性有什么作用和应用？"><a href="#7-css的content属性有什么作用和应用？" class="headerlink" title="7.css的content属性有什么作用和应用？"></a>7.css的content属性有什么作用和应用？</h2><ul>
+<li>css的content属性专门应用在before/after伪元素上，用来插入生成内容。</li>
+<li>用法：<ul>
+<li>1.添加任意的字符串</li>
+<li>2.使用UTF-8特殊字符</li>
+<li>3.使用url()可以载入外部资源，主要是一些图标和图片，如果资源不可以显示，有的浏览器会忽略它，有的会显示替代文本</li>
+<li>4.HTML元素属性</li>
+<li>5.利用伪类清除浮动，（content:”.”）after伪元素通过content在元素的后面生成了内容为一个点的块级元素，再利用clear:both清除浮动</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-css计数器，通过content属性实现css计数器？"><a href="#8-css计数器，通过content属性实现css计数器？" class="headerlink" title="8.css计数器，通过content属性实现css计数器？"></a>8.css计数器，通过content属性实现css计数器？</h2><ul>
+<li><p>初始化计数器：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Ol &#123;</div><div class="line">   counter-reset:slideNum;<span class="comment">// 重置计数器，让它归零，并给它指定一个名称：slideNum</span></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>计数器自增：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ol li &#123;</div><div class="line">	counter-increment: slideNum;<span class="comment">//计数器自增，每遇到一个符合条件li元素，counter-increment就会被调用一次，计数就是增加1。</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>显示计数器：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ol li:before &#123;</div><div class="line">	<span class="attr">content</span>: counter(slideNum,upper-roman) “. ”;</div><div class="line">&#125;<span class="comment">//指定以罗马数字显示</span></div><div class="line"><span class="string">`counters():会嵌套。语法：counters(计数器名称, 嵌套时拼接字符串[, 可选的显示风格])`</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ol li:before &#123;</div><div class="line">	<span class="attr">content</span>: counters(slideNum,”.”);<span class="comment">//使用点号分割</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="9-谈一下对网页标准和标准制定机构重要性的理解？"><a href="#9-谈一下对网页标准和标准制定机构重要性的理解？" class="headerlink" title="9.谈一下对网页标准和标准制定机构重要性的理解？"></a>9.谈一下对网页标准和标准制定机构重要性的理解？</h2><ul>
+<li>网页标准和标准制定机构都是为了能让web发展的更‘健康’</li>
+<li>开发者遵循统一的标准，降低开发难度，开发成本，SEO也会更好做</li>
+<li>也不会因为滥用代码导致各种BUG、安全问题，最终提高网站易用性。</li>
+</ul>
+<h2 id="10-请描述一下cookies，sessionStorage和loaclStorage的区别？"><a href="#10-请描述一下cookies，sessionStorage和loaclStorage的区别？" class="headerlink" title="10.请描述一下cookies，sessionStorage和loaclStorage的区别？"></a>10.请描述一下cookies，sessionStorage和loaclStorage的区别？</h2><ul>
+<li>sessionStorage用于本地存储一个会话（session）中的数据，这些数据只会在同一个会话中的页面才能访问并且放会话结束后数据也随之销毁，因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储</li>
+<li>loaclStorage用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。</li>
+<li>coolies的大小数显，并且每次请求一个新的页面的时候Cookie都会被发送过去，这样无形中浪费了带宽，另外cookie需要指定作用域，不可以跨域调用。</li>
+</ul>
+<h2 id="11-简述一下src与href的区别？"><a href="#11-简述一下src与href的区别？" class="headerlink" title="11.简述一下src与href的区别？"></a>11.简述一下src与href的区别？</h2><ul>
+<li>sec：<ul>
+<li>sec用于替换当前元素，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置</li>
+<li>在请求src资源是会将其指向的资源下载并应用到文档中，例如js脚本，img图片和frame等元素</li>
+<li>注：当浏览器解析到该元素时，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等元素也如此，类似于将所指向资源嵌入当前标签内，这也是为什么将js脚本放在底部而不是头部。</li>
+</ul>
+</li>
+<li>href：<ul>
+<li>href用于在当前文档和引用资源之间确立联系。</li>
+<li>指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的链接</li>
+<li>下载资源并且不会停止对当前文档的处理，这就是为什么建议使用link方式来加载css，而不是使用@import方式</li>
+</ul>
+</li>
+</ul>
+<h2 id="12-网页制作会用到的图片格式有哪些？"><a href="#12-网页制作会用到的图片格式有哪些？" class="headerlink" title="12.网页制作会用到的图片格式有哪些？"></a>12.网页制作会用到的图片格式有哪些？</h2><ul>
+<li>png-8,png-24,jpeg,gif,svg,Webp</li>
+<li>Webp:谷歌开发的一种旨在加快图片加载速度的图片格式，图片压缩体积大约只有JPEG的2/3，并能节省大量的服务器带宽资源和数据空间</li>
+<li>在质量相同情况下，Webp格式图像的体积要比JPEG格式图像小40%</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[面向对象 第五天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/08/05/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%20%E7%AC%AC%E4%BA%94%E5%A4%A9/</url>
+      <content type="html"><![CDATA[<h4 id="面向对象学习第五天，作用域链，闭包，阻止变量释放。"><a href="#面向对象学习第五天，作用域链，闭包，阻止变量释放。" class="headerlink" title="面向对象学习第五天，作用域链，闭包，阻止变量释放。"></a>面向对象学习第五天，作用域链，闭包，阻止变量释放。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/8e7fca8065380cd70ce81985a044ad34588281e1.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><ul>
+<li>作用域链：变量所有的有效区域(运行环境)，统称作用域链</li>
+<li>环境：一个东西所依赖的就是环境，代码执行时所依赖的环境</li>
+<li>执行环境：代码执行时所依赖的环境，函数被调用一次就会产生一个新的环境</li>
+<li>函数多次调用返回的数值是同一个</li>
+<li>函数多次调用返回的对象不是同一个，每次都是不一样的的对象，不一样的地址<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><h3 id="广义闭包"><a href="#广义闭包" class="headerlink" title="广义闭包"></a>广义闭包</h3></li>
+<li>可以访问非自身变量的函数， 从这种角度上说，所有函数都是闭包</li>
+<li>使用了非自身变量的函数<h3 id="狭义闭包"><a href="#狭义闭包" class="headerlink" title="狭义闭包"></a>狭义闭包</h3></li>
+<li><strong>可以访问非自身局部变量的函数，从这种角度来说，函数内的函数就是闭包。</strong></li>
+<li><strong>使用了非自身局部变量的函数</strong></li>
+<li>闭包特点：利用闭包，可以在任何地方操作一个局部变量，可以在延长局部变量的生命周期<h2 id="变量的生命周期"><a href="#变量的生命周期" class="headerlink" title="变量的生命周期"></a>变量的生命周期</h2></li>
+<li><strong>变量的生命周期</strong>：一个变量从定义开始，到销毁结束，中间存活的过程就叫做变量的生命周期</li>
+<li><strong>全局变量的生命周期</strong>：从定义开始，到页面被卸载结束，中间存活的过程就叫做全局变量的生命周期</li>
+<li><strong>局部变量的生命周期</strong>：一般情况下从定义开始，到函数执行完毕结束，就是局部变量的生命周期，但是有的情况闭包引用了这个变量，那么这个变量的生命周期和闭包一样长。</li>
+<li>因为f变量一直存储着一个闭包函数，js解析引擎无法得知将来是否还有调用f函数，所以f函数不会被释放，那么对应的a局部变量也不会被释放，这样就会造成内存浪费，如果将来f函数不会在使用了，最好手动给f赋值为null<h2 id="阻止变量释放"><a href="#阻止变量释放" class="headerlink" title="阻止变量释放"></a>阻止变量释放</h2></li>
+</ul>
+<p>-如果return一个基本数据类型不会阻止变量释放</p>
+<pre><code>- 如果想阻止变量的释放，必须借助闭包
+</code></pre><ul>
+<li>如果return一个对象会阻止变量释放<h2 id="主导变量的控制权"><a href="#主导变量的控制权" class="headerlink" title="主导变量的控制权"></a>主导变量的控制权</h2></li>
+<li>私有属性<ul>
+<li>操作私有属性目的：防止其他地方对该属性进行随意修改的隐患</li>
+</ul>
+</li>
+<li>保存状态<ul>
+<li>变量的状态：意指变量不同时期所存储的值</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[面向对象 第四天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/07/30/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%20%E7%AC%AC%E5%9B%9B%E5%A4%A9/</url>
+      <content type="html"><![CDATA[<h4 id="面向对象学习第四天，函数基本属性，作用域与预解析，变量声明与函数声明。"><a href="#面向对象学习第四天，函数基本属性，作用域与预解析，变量声明与函数声明。" class="headerlink" title="面向对象学习第四天，函数基本属性，作用域与预解析，变量声明与函数声明。"></a>面向对象学习第四天，函数基本属性，作用域与预解析，变量声明与函数声明。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/8f3433fa828ba61ea7fa99484034970a304e5945.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="面向对象的三大特征"><a href="#面向对象的三大特征" class="headerlink" title="面向对象的三大特征"></a>面向对象的三大特征</h2><pre><code>- 封装
+    - js中的封装就是把一堆相关性的变量和函数组织到一起
+- 继承
+    - js中的继承就是原型
+- 多态
+    - js中的多态可以理解是对象的动态变化
+</code></pre><!--more-->
+<h2 id="其他语法补充"><a href="#其他语法补充" class="headerlink" title="其他语法补充"></a>其他语法补充</h2><ul>
+<li>for in能够<ul>
+<li>for in可以遍历出一个对象继承的属性（必须是可枚举的）</li>
+</ul>
+</li>
+</ul>
+<h2 id="静态成员和实例成员"><a href="#静态成员和实例成员" class="headerlink" title="静态成员和实例成员"></a>静态成员和实例成员</h2><ul>
+<li>静态成员（类成员）：添加给类（构造函数）自己的的属性和方法，称之为静态成员<ul>
+<li>特点：不需要创建实例，即可通过类调用</li>
+</ul>
+</li>
+<li>实例成员：添加给实例的属性和方法，称之为实例成员</li>
+<li>function person（name，age）{<br>这是添加给将来的实例的，所以叫实例成员<br>this.name=name<br>this.age=age<br>}<br>这是添加给类自己的，所以这是静态成员<br>person.max_age=200<br>添加到原型中的属性与方法，本意是让实例使用的，所以也称之为实例成员<br>person.prototype.run=function(){<br>console.log(“run”)<br>}</li>
+<li>在jq中<ul>
+<li>$.ajax这里面的ajax方法就是静态成员</li>
+<li>$(“div”).css()，这里面的css方法就是实例成员</li>
+</ul>
+</li>
+<li>什么情况下会使用静态成员<ul>
+<li>1.如果一些属性和类的关联性比较大，那么可以考虑作为静态成员存在</li>
+<li>2.如果一些方法具有通用性，那么可以考虑作为静态方法存在</li>
+</ul>
+</li>
+<li>Object原型上的方法<ul>
+<li>hasOwnProperty<ul>
+<li>作用：用来判断一个对象是否自己（不包含继承的)含有某个属性</li>
+<li>语法：对象.hasOwnProperty(要判断的属性名)</li>
+<li>返回值：boolean</li>
+</ul>
+</li>
+<li>isPrototypeOf<ul>
+<li>作用：判断一个对象是不是另一个对象的原型对象</li>
+<li>语法：被判断对象.isPrototypeOf（对象）</li>
+<li>返回值：boolean</li>
+</ul>
+</li>
+<li>propertyIsEnumerable<ul>
+<li>作用：用来判断一个对象是否自己（不包含继承的)含有某个属性，并且还要判断这个属性是不是可枚举的（可遍历的），这个方法是一个双重判断，通常称这个方法为hasOwnProperty的加强版。</li>
+<li>语法：对象.propertyIsEnumerable(要判断的属性名)</li>
+<li>返回值：boolean</li>
+</ul>
+</li>
+<li>toString<ul>
+<li>作用：根据方法执行时内部的this指向，返回一个类似于这样的字符串：’[object this对象的类型名称]’</li>
+<li>为了让toString方法执行时，内部的this指向Math，所以吧这个方法先添加到了Math自身，然后通过Math调用，这样toString执行时，内部的this就指向了Math</li>
+<li>只能判断内置对象，自定义构造函数创建的对象统一返回[‘Object Object’]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>函数默认的原型对象类型<ul>
+<li>很多地方认为构造函数默认的显示原型对象的类型是构造函数的名字</li>
+<li>即Person.prototype是Person类型的对象</li>
+<li>依据Boolean，String，Number，Array，Object这几个对象的peototype他们的类型就是构造函数的名字</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数的几个属性"><a href="#函数的几个属性" class="headerlink" title="函数的几个属性"></a>函数的几个属性</h2><ul>
+<li>arhuments：代表实参的伪数组对象，也就是实参，之前是fn的属性，但是被废除了，arguments已经是关键字了，可以直接使用，这是推荐的使用方法</li>
+<li>caller：返回调用该函数的函数</li>
+<li>console.dir(fn)：查看fn中的属性</li>
+<li>length：形参的个数</li>
+<li>name： 函数的名字</li>
+<li>arguments有一个callee属性，该函数返回被调用的函数，callee就是返回函数自身</li>
+</ul>
+<h2 id="length属性"><a href="#length属性" class="headerlink" title="length属性"></a>length属性</h2><pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> ( <span class="built_in">arguments</span>.length !== add.length ) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="string">'参数个数不符！'</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">console</span>.log(a + b);</div><div class="line">    &#125;</div><div class="line">    add(<span class="number">10</span>,<span class="number">20</span>,<span class="number">50</span>);</div><div class="line">    add(<span class="number">1</span>);</div><div class="line">    <span class="built_in">arguments</span>.length:实参个数</div><div class="line">    add.length:形参个数</div></pre></td></tr></table></figure>
+</code></pre><h2 id="in-delete运算符"><a href="#in-delete运算符" class="headerlink" title="in/delete运算符"></a>in/delete运算符</h2><ul>
+<li>in运算符：判断一个对象能否使用某个属性</li>
+<li>语法： ‘属性名’ in 对象</li>
+<li>返回值：boolean</li>
+<li>delete运算符：删除对象的属性</li>
+<li>语法：delete 对象.属性名 或 delete obj[2]</li>
+</ul>
+<h2 id="Function的使用"><a href="#Function的使用" class="headerlink" title="Function的使用"></a>Function的使用</h2><ul>
+<li>通过Function创建一个空函数<ul>
+<li>var fn=new Function</li>
+</ul>
+</li>
+<li>var add=new Function(name1,name2,functionBody)<ul>
+<li>前面可以定义任意数量的形参，最后以恶参数代表函数的代码体</li>
+<li>注意：这些参数必须是字符串的形式</li>
+<li>返回值：一个新创建的函数实例</li>
+<li>如果使用Function创建函数，很繁琐，一般不会采纳，但是这种方式有一个亮点，就是会把字符串当多代码执行</li>
+</ul>
+</li>
+<li>自变量方式<ul>
+<li>function add(a,d){<br>console.log(a+b)<br>}</li>
+</ul>
+</li>
+</ul>
+<h2 id="eval的使用"><a href="#eval的使用" class="headerlink" title="eval的使用"></a>eval的使用</h2><ul>
+<li>eval可以直接把字符串当做代码执行。<ul>
+<li>eval(‘alert(12313213)’)</li>
+</ul>
+</li>
+<li>JSON数据格式==&gt;’{“name”:”李四”}’</li>
+<li>为了方便操作JSON数据，ES5提供了JSON对象，里面有两种方法<ul>
+<li>JSON.parse:用来把JSON数据转换为js对象<ul>
+<li>var JSONS=’{“name”:”李四”}’</li>
+<li>console.log(JSON.parse(JSONS))</li>
+</ul>
+</li>
+<li>JSON.stringfy:用来把js’对象转换为JSON对象<ul>
+<li>var obj={value:100,val:320}</li>
+<li>console.log(JSON.stringify(obj))</li>
+</ul>
+</li>
+<li>在ie8之前，可以用过eval或者Function解析JSON数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><ul>
+<li>就是一对大括号，里面可以写任意代码</li>
+<li>如果想要js把大括号当做对象解析，那么需要把大括号放入表达式中使用。</li>
+<li><p>直接使用大括号，就是代码块</p>
+<pre><code>{
+    var a = 1;
+    console.log(a);
+}
+</code></pre></li>
+<li><p>放入表达式中，就是对象</p>
+<pre><code>var a = {};
+</code></pre></li>
+</ul>
+<h2 id="作用域与预解析"><a href="#作用域与预解析" class="headerlink" title="作用域与预解析"></a>作用域与预解析</h2><h3 id="预解析"><a href="#预解析" class="headerlink" title="预解析"></a>预解析</h3><ul>
+<li>预解析概念：在代码整体执行之前，先解析一部分，预解析之后，代码会从上往下依次整体执行，但是预解析执行过的代码不会重复执行</li>
+<li>js预解析干了什么事：js中预解析会把声明部分的代码提升执行。</li>
+<li>声明分为两部分：</li>
+<li><p>1.<strong>变量声明</strong></p>
+<ul>
+<li>什么是变量声明：使用var关键字自定义的变量，被称为变量声明<ul>
+<li>var a=1;其中var a是声明部分</li>
+<li>var b,c,d;这里的语句整体都是声明部分</li>
+<li>var e,f=j=2,p;其中var e,f,p是声明部分</li>
+</ul>
+</li>
+<li>特点：变量声明提升的特点是，在声明变量的前面，可以使用这个变量<pre><code>console.log(a)
+var a=10
+console.log(a)
+/****************/
+预解析事执行的代码：
+var a
+预解析之后执行的代码
+console.log(a)
+a=10
+console.log(a)
+</code></pre></li>
+</ul>
+</li>
+<li><p>2.<strong>函数声明</strong></p>
+<ul>
+<li>什么事函数声明：通过function关键字声明的函数</li>
+<li>函数声明的特点：在函数声明的前面，可以调用这个函数，函数声明可以提前调用</li>
+<li><p>定义函数的方式：</p>
+<ul>
+<li>1.函数声明式<ul>
+<li>1.函数声明式定义的特征<ul>
+<li>以function关键字开头定义的函数，并且定义在全局，要么直接嵌套在另一个函数内，这种形式定义的函数就是函数声明式</li>
+</ul>
+</li>
+<li>2.函数声明是定义的函数其它特征<ul>
+<li>会被预解析</li>
+<li>函数必须有名字</li>
+</ul>
+</li>
+<li>function fn(){}</li>
+</ul>
+</li>
+<li><p>2.函数表达式</p>
+<ul>
+<li><p>1.函数表达式定义的特征</p>
+<ul>
+<li>不是以function关键字开头定义的函数，或者函数嵌套在非函数的代码块中，都是函数表达式。</li>
+<li>var f=function(){}</li>
+<li>(function(){})()</li>
+<li>在非函数的代码块中定义的函数是函数表达式<blockquote>
+<p>{<br>function fn() {}<br>}</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>!function () {}()</p>
+<p>fn(function () {})</p>
+</blockquote>
+</li>
+<li>2.函数表达式的其他特征<ul>
+<li>不会被预解析</li>
+<li>函数名字可有可无</li>
+<li>函数的名字只能在函数内部使用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>预解析中的疑难杂症<ul>
+<li>1.变量重名<ul>
+<li>预解析时如果遇到重复的变量声明，那么忽略</li>
+</ul>
+</li>
+<li>2.函数重名<ul>
+<li>预解析如果遇到重复的函数声明，使用最后一个函数</li>
+</ul>
+</li>
+<li>3.函数与变量重名<ul>
+<li>预解析是如果变量与函数重名的情况，保留函数</li>
+<li>凡是遇到重名的变量声明，那么忽略</li>
+<li>凡是遇到重名的函数声明，当前的函数覆盖之前的</li>
+</ul>
+</li>
+<li>4.函数声明定义在代码块中<ul>
+<li>一个函数声明式的语法，写在非函数的代码块中，理论上这是函数表达式</li>
+<li>但是对于这种函数，浏览器会预解析他的名字<blockquote>
+<p>{<br>  // 这是函数表达式<br>  function fn() {<br>  }<br>}</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>5.函数执行时内部也存在预解析<ul>
+<li>形参一定是在代码整体执行之前复得值</li>
+</ul>
+</li>
+<li>6.函数执行时形参赋值的顺序<ul>
+<li>如果是先复制，后预解析，预解析的函数就覆盖传入的函数， </li>
+<li>如果是先预解析，后给形参赋值，传入的函数就覆盖预解析的函数，</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><ul>
+<li><strong>作用域</strong>：就是变量的有效范围</li>
+<li>如何检测一个变量的作用域：<ul>
+<li>在指定的区域内使用这个变量，如果未报错说明这个变量的作用域包含此区域</li>
+</ul>
+</li>
+<li><strong>全局变量</strong><ul>
+<li>在任何地方都可以使用的变量称之为全局变量</li>
+<li>如何定义全局变量：在函数外定义的变量都是全局变量</li>
+</ul>
+</li>
+<li><strong>局部变量</strong><ul>
+<li>在某些地方使用的变量称为局部变量</li>
+<li>如何定义局部变量：在函数内声明的变量都是局部变量</li>
+</ul>
+</li>
+<li><em>全局变量和局部变量就是通过作用域的大小来对变量进行的种类划分</em></li>
+<li><strong>函数作用域</strong>：只有函数能够划分变量的作用域，这种作用域的规则就叫函数作用域。</li>
+<li><strong>块级作用域</strong>：凡是代码块就可以划分变量的作用域，这种作用域的规则就叫做块级作用域。<ul>
+<li>在ES6之前，只有函数可以划分变量的作用域，所以在函数的外面无法访问函数内的变量</li>
+<li>在ES6之前，没有块级作用域的概念，所以在代码块的外面可以访问代码块内的变量</li>
+<li>ES6，对块级作用域做了支持，新增了两种定义变量的方式：let不会预解析（使块级作用域生效），const设置为常量</li>
+</ul>
+</li>
+<li><strong>常量</strong>：永远不会变化的量，和变量相反（const）设置为常量</li>
+<li><strong>词法作用域</strong>（静态作用域）：如果在函数内访问一个变量，优先找局部变量和形参，若没找到去定义该函数的环境中查找，直到全局位置</li>
+<li>块级作用域 函数作用域 词法作用域之间的联系<ul>
+<li>1.块级作用域和函数作用域描述的是，什么东西可以划分变量的作用域</li>
+<li>2.词法作用域描述的是变量的查找规则</li>
+</ul>
+</li>
+<li>关系：<ul>
+<li>1.块级作用域包含函数作用域</li>
+<li>2.词法作用域与块级作用域&amp;函数作用域没有任何关系</li>
+<li>3.他们从两个角度描述的作用域规则，ES6之前js采用的是函数作用域+词法作用域</li>
+</ul>
+</li>
+<li><strong>动态作用域</strong>：如果在函数内访问一个变量，优先找局部变量和形参，如果没有找到，去调用该函数的环境中查找</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[CSS line-height行高详解]]></title>
+      <url>http://ihuzb.huzb.vip/2016/07/25/CSS%20%E8%A1%8C%E9%AB%98%E8%AF%A6%E8%A7%A3/</url>
+      <content type="html"><![CDATA[<h4 id="CSS-line-height行高三种设置方式详解。"><a href="#CSS-line-height行高三种设置方式详解。" class="headerlink" title="CSS line-height行高三种设置方式详解。"></a>CSS line-height行高三种设置方式详解。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/f5ee76094b36acafd6dbe3947dd98d1001e99ca4.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="line-height-2"><a href="#line-height-2" class="headerlink" title="line-height:2"></a>line-height:2</h2><ul>
+<li>设置为数值时，父盒子设置了行高，子盒子行高以自身字号为参考<blockquote>
+<p>如：父盒子字号为10px，那么父盒子行高20px，子盒子字号20px，那么子盒子行高40px</p>
+<h2 id="line-height-120"><a href="#line-height-120" class="headerlink" title="line-height:120%"></a>line-height:120%</h2></blockquote>
+</li>
+<li>设置为百分比时，父盒子设置了行高，子盒子行高以父盒子字号为参考<blockquote>
+<p>如：父盒子字号为10px，那么父盒子行高10*120%=12px，那么子盒子继承父盒子行高为12px</p>
+<h2 id="line-height-20px"><a href="#line-height-20px" class="headerlink" title="line-height:20px"></a>line-height:20px</h2></blockquote>
+</li>
+<li>设置像素时，只会对此元素有效果，不会继承</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[面向对象 第三天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/07/15/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%20%E7%AC%AC%E4%B8%89%E5%A4%A9/</url>
+      <content type="html"><![CDATA[<h4 id="面向对象学习第三天，原型终点，原型链，instanceof运算符。"><a href="#面向对象学习第三天，原型终点，原型链，instanceof运算符。" class="headerlink" title="面向对象学习第三天，原型终点，原型链，instanceof运算符。"></a>面向对象学习第三天，原型终点，原型链，instanceof运算符。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/8d1d8701a18b87d6b868a679060828381f30fdab.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="寻找原型继承的终点"><a href="#寻找原型继承的终点" class="headerlink" title="寻找原型继承的终点"></a>寻找原型继承的终点</h2><ul>
+<li>Person（自己定义的构造函数）的显示原型对象，所继承的对象为Object.prototype<!--more--></li>
+<li>实例化对象继承结构<ul>
+<li>xiaohong==&gt;Person.prototype.==&gt;Object.prototype==&gt;null</li>
+</ul>
+</li>
+<li>创建的对象继承结构<ul>
+<li>obj==&gt;Object.prototype==&gt;null</li>
+</ul>
+</li>
+<li>数组继承结构<ul>
+<li>obj==&gt;Array.prototype==&gt;Object.prototype==&gt;null</li>
+</ul>
+</li>
+<li>Math继承结构<ul>
+<li>Math==&gt;Object.prototype==&gt;null</li>
+</ul>
+</li>
+<li>查看继承方法<ul>
+<li>1.<em>proto</em></li>
+<li>2.content</li>
+</ul>
+</li>
+<li>继承的规律<ul>
+<li>1.谁的实例，这个实例就继承谁的peototype</li>
+<li>2.所有对象继承的终点都是Object.prototype</li>
+<li>3.所有函数默认的显示原型，都继承Object.prototype</li>
+<li>4.所有的函数，都继承Function.prototype</li>
+</ul>
+</li>
+</ul>
+<h2 id="测试是否都继承了Object-prototype"><a href="#测试是否都继承了Object-prototype" class="headerlink" title="测试是否都继承了Object.prototype"></a>测试是否都继承了Object.prototype</h2><ul>
+<li>所有对象都可以使用Object.prototype</li>
+</ul>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><ul>
+<li>一个对象继承的所有对象，称之为这个对象的原型对象</li>
+<li>上面那个的，原型对象，指的是对象所继承的对象</li>
+<li>原型链概念:<ul>
+<li>一个对象继承的所有对象称之为这个对象的原型链</li>
+<li>这是一个描述对象继承结构比较形象的单词</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数的原型链"><a href="#函数的原型链" class="headerlink" title="函数的原型链"></a>函数的原型链</h2><ul>
+<li>fn==&gt;Function.prototypr==&gt;Object.prototype==&gt;null</li>
+<li>所有函数.prototype都继承Object.prototype，Object.prototype除外，因为他自己就是终点</li>
+<li>对象包含很多种类型，函数只是其中一种</li>
+<li>函数是对象的一种，也就是说对象包含函数，还包含数组，日期等函数类型的对象</li>
+<li>在js中，函数比较特殊，他们都是function类型的对象</li>
+<li>但是这些函数可以派生出属于自己的类型</li>
+<li>例如：<ul>
+<li>一个自定义的函数，假设名叫fn，fn自身是Function类型</li>
+<li>但是通过new fn创建出来的所有实例都是fn类型</li>
+</ul>
+</li>
+<li>ECMAScript内置的函数类型的对象<ul>
+<li>String Number Boolan RegExp Function Obkect Array Error Date</li>
+</ul>
+</li>
+<li>上述9大内置构造函数的原型链结构：<ul>
+<li>9大构造函数==&gt;Function.prototype==&gt;Object.prototype==&gt;null</li>
+</ul>
+</li>
+<li>ECMAScript内置的非函数类型的对象<ul>
+<li>Math </li>
+</ul>
+</li>
+<li>Math的原型链结构:<ul>
+<li>Math==&gt;Object.prototype==&gt;null</li>
+</ul>
+</li>
+</ul>
+<h2 id="instanceof运算符"><a href="#instanceof运算符" class="headerlink" title="instanceof运算符"></a>instanceof运算符</h2><ul>
+<li>instanceof运算符本意用来判断一个对象，是不是另一个构造函数的实例</li>
+<li>instanceof运算符运算规则：判断左边对象的原型链结构中，是否存在右边构造函数的显示原型</li>
+<li>语法：对象 instanceof 构造函数</li>
+<li>返回值：boolean</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[面向对象 第二天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/07/08/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%20%E7%AC%AC%E4%BA%8C%E5%A4%A9%20/</url>
+      <content type="html"><![CDATA[<h4 id="面向对象学习第二天，继承，原型，成员类型。"><a href="#面向对象学习第二天，继承，原型，成员类型。" class="headerlink" title="面向对象学习第二天，继承，原型，成员类型。"></a>面向对象学习第二天，继承，原型，成员类型。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/8ddf9c82d158ccbf49dfc65c18d8bc3eb1354171.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="知识复习"><a href="#知识复习" class="headerlink" title="知识复习"></a>知识复习</h2><h4 id="1-面向对象概念"><a href="#1-面向对象概念" class="headerlink" title="1.面向对象概念"></a>1.面向对象概念</h4><ul>
+<li>1.利用对象解决问题</li>
+<li>2.面向对象讲解的就是，凡事不用自己亲历亲为</li>
+<li>3.面向对象离不开面向过程，相当于对面想过程的封装</li>
+<li>4.面向对象一般应用与大型软件开发，使用了面向对象开发的大型软件就像是使用Xmind进行组织一样<h4 id="2-工厂函数"><a href="#2-工厂函数" class="headerlink" title="2.工厂函数"></a>2.工厂函数</h4></li>
+<li>对创建对象的过程进行了封装</li>
+<li>工厂函数的返回值是一个对象，工厂函数就是调用</li>
+<li>如果一个函数调用后，返回值是一个对象，就可以认为他是一个工厂函数<h4 id="3-构造函数"><a href="#3-构造函数" class="headerlink" title="3.构造函数"></a>3.构造函数</h4></li>
+<li>如果一个用来配合new关键字创建对象，那么就可以称呼这个函数为构造函数<h4 id="4-构造函数与普通函数的关系"><a href="#4-构造函数与普通函数的关系" class="headerlink" title="4.构造函数与普通函数的关系"></a>4.构造函数与普通函数的关系</h4></li>
+<li>构造函数与普通函数无异，本身就是一个东西<h4 id="5-类"><a href="#5-类" class="headerlink" title="5.类"></a>5.类</h4></li>
+<li>对一些具有相同特征与特性的对象的抽象描述</li>
+<li>在ES6之前，可以把构造函数看作是类<h4 id="6-实例"><a href="#6-实例" class="headerlink" title="6.实例"></a>6.实例</h4></li>
+<li>通过构造函数创建出来的对象就叫做实例</li>
+<li>注:在口头描述上，实例指的是直系后代（在编程语言中，实例也指子孙后代）<h4 id="7-实例的类型"><a href="#7-实例的类型" class="headerlink" title="7.实例的类型"></a>7.实例的类型</h4></li>
+<li>实例的类型就是构造函数的名字<h4 id="8-原型-amp-原型的作用"><a href="#8-原型-amp-原型的作用" class="headerlink" title="8.原型&amp;原型的作用"></a>8.原型&amp;原型的作用</h4></li>
+<li>概念：原型是js提供的一个实现继承的解决方案</li>
+<li>作用：原型就是为了让实例共享一些属性和方法，达到节省内存以及复用代码的目的<h4 id="9-prototype"><a href="#9-prototype" class="headerlink" title="9. prototype"></a>9. prototype</h4></li>
+<li>所有的函数默认都含有这个属性</li>
+<li>作用：通过函数new出来的实例，都会继承这个属所指向的对象</li>
+<li>本质：prototype就是为了引导实例的<code>__proto__</code>属性值<h4 id="10-proto"><a href="#10-proto" class="headerlink" title="10.__proto__"></a>10.<code>__proto__</code></h4></li>
+<li>所有的对象都含有这个属性</li>
+<li>访问一个对象的属性时，如果对象自身没有，就会去<code>__proto__</code>指向的对象中去查找<h4 id="11-new构造函数自动执行的4个步骤"><a href="#11-new构造函数自动执行的4个步骤" class="headerlink" title="11.new构造函数自动执行的4个步骤"></a>11.new构造函数自动执行的4个步骤</h4></li>
+<li>1.new会自动创建一个新对象（本质上就是开拼一块内存空间）</li>
+<li>2.给新对象添加一个<code>__proto__</code>属性，该属性的值为(!当前!)构造函数prototypr属性的值</li>
+<li>3.利用新对象调用构造函数（那么构造函数内的this就指向了新对象）</li>
+<li>4.返回新对象的地址<h4 id="12-属性查找位置"><a href="#12-属性查找位置" class="headerlink" title="12.属性查找位置"></a>12.属性查找位置</h4></li>
+<li>首先找自身，自身没有，顺着<code>__proto__</code>属性查找指定的对象</li>
+<li>这对象没有，继续顺着<code>__proto__</code>查找</li>
+<li>直到终点</li>
+</ul>
+<h2 id="继承的概念"><a href="#继承的概念" class="headerlink" title="继承的概念"></a>继承的概念</h2><ul>
+<li>一个对象可以使用本不属于自己的东西</li>
+<li>原型具有继承的特性<h4 id="1-继承的方式"><a href="#1-继承的方式" class="headerlink" title="1.继承的方式"></a>1.继承的方式</h4></li>
+<li>默认的原型继承</li>
+<li>原型覆写<ul>
+<li>覆写之后加属性</li>
+</ul>
+</li>
+</ul>
+<h2 id="编程技巧"><a href="#编程技巧" class="headerlink" title="编程技巧"></a>编程技巧</h2><ul>
+<li><p>对象与对象之间的继承</p>
+<ul>
+<li><p>1.obj2可以访问obj中的属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = &#123;<span class="attr">val</span>: <span class="number">1</span>, <span class="attr">age</span>: <span class="number">20</span>&#125;</div><div class="line"><span class="keyword">var</span> o2 = &#123;<span class="attr">name</span>: <span class="string">"lala"</span>&#125;</div><div class="line">   o2.__proto__ = o</div><div class="line">   <span class="built_in">console</span>.log(o2.val);</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.混入只是个编程技巧，严格说不是继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = &#123;<span class="attr">val</span>: <span class="number">1</span>, <span class="attr">age</span>: <span class="number">20</span>&#125;</div><div class="line"><span class="keyword">var</span> o2 = &#123;<span class="attr">name</span>: <span class="string">"lala"</span>&#125;</div><div class="line"><span class="keyword">for</span> ( <span class="keyword">var</span> key <span class="keyword">in</span> o) &#123;</div><div class="line"> o2[key] = o[key]</div><div class="line"> &#125;</div><div class="line"> <span class="built_in">console</span>.log(o2)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>内置的属性不可枚举</p>
+<ul>
+<li>就是可被遍历的就叫枚举</li>
+<li>不可枚举就是浏览器内置的属性，无法使用for in遍历出</li>
+</ul>
+</li>
+<li>copy继承的优势<ul>
+<li>不会修改构造函数原生的原型对象</li>
+</ul>
+</li>
+<li>copy继承的注意事项<ul>
+<li>实现copy继承所需的函数名没有硬性要求</li>
+<li>乱使用会造成内存资源浪费</li>
+<li>通常都是配合原型来使用的（对原型进行扩展）</li>
+</ul>
+</li>
+</ul>
+<h2 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create"></a>Object.create</h2><ul>
+<li>Object是内置的一个构造函数</li>
+<li>在Object身上有很多方法</li>
+<li>其中有一个create方法，可以实现继承</li>
+<li>语法：<ul>
+<li>Object.create（被继承的对象）；</li>
+<li>返回值：返回一个新对象，新对象继承传入到create方法的对象</li>
+</ul>
+</li>
+<li>作用：<ul>
+<li>创建一个新对象，并且指定新对象指定继承的对象</li>
+</ul>
+</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li>继承：<ul>
+<li>一个对象可以使用另一个对象的东西，叫做继承</li>
+<li>一个对象可以使用本不属于自己的东西，叫做继承</li>
+<li>js中的原型就是对继承特性的实现</li>
+</ul>
+</li>
+<li>继承本质：<ul>
+<li>为代码节省复用</li>
+</ul>
+</li>
+</ul>
+<p>继承方式1-默认原型继承<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">Fn.prototype.value=<span class="number">100</span></div><div class="line"><span class="keyword">var</span> fn=<span class="keyword">new</span> Fn()</div></pre></td></tr></table></figure></p>
+<p>继承方式2-覆写结构函数的显示原型<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">Fn.prototype=&#123;</div><div class="line"><span class="attr">value</span>:<span class="number">100</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> fn=<span class="keyword">new</span> Fn()</div></pre></td></tr></table></figure></p>
+<p>继承方式3-给显示原型混入属性<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">extend</span>(<span class="params">o1,o2</span>)</span>&#123;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> o2)&#123;</div><div class="line">o1[key]=o2[key]</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">add</span>: <span class="function"><span class="keyword">function</span> (<span class="params">a,b</span>) </span>&#123; <span class="built_in">console</span>.log(a+b) &#125; &#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">extend(Fn.prototype, obj);</div><div class="line">extend(Fn.prototype, &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">100</span></div><div class="line">&#125;);</div><div class="line"><span class="keyword">var</span> fn = <span class="keyword">new</span> Fn();</div></pre></td></tr></table></figure></p>
+<p>继承方式4-Object.create<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">value</span>: <span class="number">100</span> &#125;</div><div class="line"><span class="keyword">var</span> newObj = <span class="built_in">Object</span>.create(obj);</div></pre></td></tr></table></figure></p>
+<p>继承方式5-借用Object.create方法覆写显示模型<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">value</span>: <span class="number">100</span> &#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">Fn.prototype = <span class="built_in">Object</span>.create(obj);</div><div class="line"><span class="keyword">var</span> fn = <span class="keyword">new</span> Fn();</div></pre></td></tr></table></figure></p>
+<p>继承方式6-复合式原型继承<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PrFn</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">PrFn.prototype.value = <span class="number">100</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">Fn.prototype = <span class="keyword">new</span> PrFn()</div><div class="line"><span class="keyword">var</span> fn = <span class="keyword">new</span> Fn();</div></pre></td></tr></table></figure></p>
+<h2 id="原型组合式"><a href="#原型组合式" class="headerlink" title="原型组合式"></a>原型组合式</h2><ul>
+<li>复用Animal构造函数里的代码解决思路：<ul>
+<li>1.Animal里面有一些this.XX=XX的代码</li>
+<li>2.如果，我能够让Animal里面的this指向Person的实例</li>
+<li>3.那么Animal里面的代码含义就变成了给Person的实例添加xx属性</li>
+<li>把Anmal函数作为属性添加到Person实例本身</li>
+<li>然后通过Person实例调用Animal函数，那么A执行时里面的this就指向了Person实例</li>
+</ul>
+</li>
+</ul>
+<h2 id="探索js对象内部继承的秘密"><a href="#探索js对象内部继承的秘密" class="headerlink" title="探索js对象内部继承的秘密"></a>探索js对象内部继承的秘密</h2><ul>
+<li>对象的原型对象一定是有终点的</li>
+</ul>
+<h2 id="静态成员与实例成员"><a href="#静态成员与实例成员" class="headerlink" title="静态成员与实例成员"></a>静态成员与实例成员</h2><ul>
+<li>添加给实例的属性或方法，是实例成员</li>
+<li>添加给类自己的属性或方法，是类成员</li>
+<li>实例不可以访问静态成员</li>
+<li>构造函数不能直接访问实例成员</li>
+<li>静态成员只能有构造函数自己使用（实例访问实例成员）</li>
+<li>构造函数内添加的实例成员，只有实例成员能够访问（类成员访问类成员）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</div><div class="line">这里的name和age属性，应为将来要添加到实例身上，称为实例成员（实例属性）</div><div class="line"><span class="keyword">this</span>.name=name</div><div class="line"><span class="keyword">this</span>.age=age</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">直接添加到类上的属性与方法叫静态成员，或者类</div><div class="line">Person.maxAge=<span class="number">200</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>特列：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</div><div class="line"><span class="keyword">this</span>.name=name</div><div class="line"><span class="keyword">this</span>.age=age</div><div class="line">&#125;</div><div class="line"><span class="comment">//类原型上的属性与方法，本以上是提供给实例使用的</span></div><div class="line"><span class="comment">//所以这里的属性与方法可以认为是实例成员</span></div><div class="line">Person.prototype.run=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="built_in">console</span>.log(<span class="string">"sds"</span>)</div><div class="line"><span class="comment">//原型对象里面的成员，构造函数不可以访问</span></div><div class="line"><span class="comment">//原型对象里面的成员，原型对象自己可以访问</span></div><div class="line"><span class="comment">//原型对象里面的成员，实例可以访问</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>动态作用域</strong>：如果在函数内访问一个变量，优先找局部变量和形参，如果没有找到，去调用该函数的环境中查找</p>
+</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[面向对象 第一天]]></title>
+      <url>http://ihuzb.huzb.vip/2016/07/01/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%20%E7%AC%AC%E4%B8%80%E5%A4%A9%20/</url>
+      <content type="html"><![CDATA[<h4 id="面向对象学习第一天，数据类型，内置对象，判断数据类型。"><a href="#面向对象学习第一天，数据类型，内置对象，判断数据类型。" class="headerlink" title="面向对象学习第一天，数据类型，内置对象，判断数据类型。"></a>面向对象学习第一天，数据类型，内置对象，判断数据类型。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/88fc5266d0160924cc3cae7dd50735fae6cd34bf.jpg" alt=""><br><a id="more"></a></p>
+<h1 id="面向对象-第一天"><a href="#面向对象-第一天" class="headerlink" title="面向对象 第一天"></a>面向对象 第一天</h1><h2 id="之前知识复习"><a href="#之前知识复习" class="headerlink" title="之前知识复习"></a>之前知识复习</h2><p>1.JavaScript由几部分构成</p>
+<ul>
+<li>ECMAScript</li>
+<li>DOM</li>
+<li>BOM</li>
+</ul>
+<p>2.数据类型有哪些？</p>
+<ul>
+<li>基本数据类型<ul>
+<li>number</li>
+<li>string</li>
+<li>boolean</li>
+<li>null</li>
+<li>undefined</li>
+</ul>
+</li>
+<li>复杂数据类型<ul>
+<li>object</li>
+</ul>
+</li>
+</ul>
+<p>3.ECMAScript内置对象有哪些？<br>都是Object类型下的对象</p>
+<ul>
+<li>Array</li>
+<li>Math</li>
+<li>Date</li>
+<li>Object</li>
+<li>String</li>
+<li>Number</li>
+<li>Boolean</li>
+<li>Function</li>
+<li>Error</li>
+<li>RegExp</li>
+</ul>
+<p>4.如何判断数据类型？</p>
+<ul>
+<li>typeof<ul>
+<li>无法判断null类型的数据，返回值是Object，反过来说tupeof判断object类型的数据可能存在误判</li>
+<li>可以判断Function类型的对象</li>
+</ul>
+</li>
+</ul>
+<p>5.基本类型与引用类型的赋值</p>
+<ul>
+<li>基本类型赋值<ul>
+<li>var a=1; var b=a</li>
+<li>赋值时copy具体的值</li>
+</ul>
+</li>
+<li>引用类型赋值<ul>
+<li>赋值时copy的是对象的地址<br>6.运算符</li>
+<li>算数运算符<code>+ %</code><ul>
+<li>算数运算，字符串链接，把数据类型转换成number</li>
+<li>%取余数</li>
+</ul>
+</li>
+<li>逻辑运算符<code>&amp;&amp; || ！</code><ul>
+<li>&amp;&amp; 从左往右，依次把数据转换成boolean类型，如果是false，则返回对应的数据，如果一直没有找到，则返回最后一个数据</li>
+<li>|| 从左往右，依次把数据转换成boolean类型，如果是true，则返回对应的数据，如果一直没有找到，则返回最后一个数据</li>
+<li>！ 把数据转换成boolean类型，然后器反值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>相等运算副<ul>
+<li>=== 类型与值必须全等</li>
+<li>== 会先进性数据类型转换，在比较==<br>三元运算符<code>？ ：</code></li>
+<li>？前面的表达式结果为true，执行冒号前面的代码式，否则执行后面的表达式<br>-<br>6.布尔类型转换</li>
+<li>把数据转换成布尔类型<ul>
+<li>！！Booleab</li>
+</ul>
+</li>
+<li>那些数据可以转换成boolean类型结果为false<ul>
+<li>0，undefined，null，Nan，‘’</li>
+<li>所有对象转换后为boolean类型，都为true<br>7.语句</li>
+</ul>
+</li>
+<li>分支语句<ul>
+<li>if</li>
+<li>else</li>
+<li>swith</li>
+<li>case</li>
+</ul>
+</li>
+<li>循环语句<ul>
+<li>for</li>
+<li>while</li>
+<li>do while</li>
+<li>for</li>
+<li>in</li>
+</ul>
+</li>
+<li>break和continue的作用<ul>
+<li>break：结束循环</li>
+<li>continue：跳出当前循环<br>8.函数</li>
+</ul>
+</li>
+<li>创建方法<ul>
+<li>函数声明式</li>
+<li>函数表达式</li>
+<li>Function</li>
+</ul>
+</li>
+<li>参数<ul>
+<li>对函数中重复执行代码中的不同部分的抽象提取</li>
+<li>形参是用来接收实参传递过来的值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>返回值<ul>
+<li>如果没有return语句，则为undefined，如果有则为对应的值</li>
+<li>默认返回值为undefined</li>
+</ul>
+</li>
+<li>arguments<ul>
+<li>arguments是一个代表实参的对象，可以通过下标的方式获取实参的个数</li>
+<li>arguments是一个可以在函数中使用的关键字</li>
+<li>通过他可以通过下标的方式获取带所有的实参</li>
+<li>还有一个length属性，用来获取实参的个数 arguments.length</li>
+<li>需要注意：arguments不是数组，它是一个对象</li>
+<li>像这种拥有length属性，以下标存储数据的对象，统一称之为伪数组</li>
+<li>arguments类似这个样子：<code>{ 0:&quot;实参1&quot;,1:&quot;实参2&quot;,length:2}</code></li>
+</ul>
+</li>
+<li>this<ul>
+<li>谁调用就指向谁</li>
+</ul>
+</li>
+<li>throw错误抛出<ul>
+<li>throw 自定义抛出错误</li>
+</ul>
+</li>
+<li>debugger与断点</li>
+<li>+号<ul>
+<li>如果两边含有字符串或者对象，那么转换为string之后再相加</li>
+<li>除此之外，两数相加，转换为number后进行相加</li>
+</ul>
+</li>
+<li>-号把两边的转换位number后进行相减</li>
+<li>类型相等比较<ul>
+<li>约定：非空数据类型表示null和undefined两种数据类型</li>
+<li>任何数据和NaN相比都是false</li>
+<li>null和非空类型相比结果为false</li>
+<li>null等于undefined</li>
+<li>undefined和非空类型相比结果为false</li>
+<li>数字和非空类型比较，先转换为数字在比较</li>
+<li>布尔和非空类型比较，先转换为数字再比较</li>
+<li>对象与对象比较内存地址</li>
+<li>对象与字符串，对象先转换为字符串再比较- <strong>动态作用域</strong>：如果在函数内访问一个变量，优先找局部变量和形参，如果没有找到，去调用该函数的环境中查找</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    
+  
+  
+</search>

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="http://of0wmhb5z.bkt.clouddn.com/h.png">
+    <meta http-equiv="Content-Type" content="text/html;"/>
+    <meta name="keywords" content="胡丶某人,个人博客,博客,技术博客,胡某人,胡智彬,huzb," />
+    <meta name="description" content="生命不息，折腾不止！呕心沥血制作个人技术博客，欢迎大神交流！" />
+    
+    <title>Nodejs笔记集锦04 | Ihuzb</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="baidu-site-verification" content="jyEQo02kko" />
+    <meta name="description" content="Nodejs的Session,Cookie,HTTP协议。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nodejs笔记集锦04">
+<meta property="og:url" content="http://ihuzb.huzb.vip/2016/11/12/Nodejs集锦04/index.html">
+<meta property="og:site_name" content="Ihuzb">
+<meta property="og:description" content="Nodejs的Session,Cookie,HTTP协议。">
+<meta property="og:image" content="http://of0wmhb5z.bkt.clouddn.com/ad12b07eca806538ce82f97496dda144ad34826a.jpg">
+<meta property="og:updated_time" content="2016-11-19T16:34:09.595Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nodejs笔记集锦04">
+<meta name="twitter:description" content="Nodejs的Session,Cookie,HTTP协议。">
+<meta name="twitter:image" content="http://of0wmhb5z.bkt.clouddn.com/ad12b07eca806538ce82f97496dda144ad34826a.jpg">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?bc0c949e7a29c5feeed033169198e674";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Ihuzb</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">所有文章</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">联系我</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/logo.JPG" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">所有文章</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">联系我</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/logo.JPG" />
+            <h2 id="name">胡丶某人</h2>
+            <h3 id="title">生命不息，折腾不止！</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>北京, 中国</span>
+            <a id="follow" target="_blank" href="http://weibo.com/ihuzb">个 人 简 历</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                31
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                7
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/Ihuzb" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://music.163.com/#/user/home?id=323457896" target="_blank" title="music" class=tooltip>
+                            <i class="fa fa-music"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://weibo.com/ihuzb" target="_blank" title="weibo" class=tooltip>
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+        <object type="application/x-shockwave-flash" style="outline:none;" data="http://cdn.abowman.com/widgets/hamster/hamster.swf?" width=100% height="225">
+            <param name="movie" value="http://cdn.abowman.com/widgets/hamster/hamster.swf?"></param>
+            <param name="AllowScriptAccess" value="always"></param>
+            <param name="wmode" value="opaque"></param>
+        </object>
+    </div>
+
+</aside>
+
+            
+            <section id="main"><article id="post-Nodejs集锦04" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Nodejs笔记集锦04
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/11/12/Nodejs集锦04/">
+            <time datetime="2016-11-12T14:10:01.000Z" itemprop="datePublished">2016-11-12</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/学习资料/">学习资料</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Nodejs/">Nodejs</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h4 id="Nodejs的Session-Cookie-HTTP协议。"><a href="#Nodejs的Session-Cookie-HTTP协议。" class="headerlink" title="Nodejs的Session,Cookie,HTTP协议。"></a>Nodejs的Session,Cookie,HTTP协议。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/ad12b07eca806538ce82f97496dda144ad34826a.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="前端代码优化"><a href="#前端代码优化" class="headerlink" title="前端代码优化"></a>前端代码优化</h2><ul>
+<li>1.代码压缩 打包 节省网络资源   (gulp)压缩、合并等等</li>
+<li>2.减少对于对象、数组的遍历 (单页面引用操作还行，页面有在前端拼接和后端拼接的区别)</li>
+<li>3.减少dom操作  也是减少js代码的途径</li>
+<li>4.10s内好的用户体验</li>
+<li>5.能提前算好的提前算好</li>
+</ul>
+<h2 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h2><ul>
+<li>用于文件读取显示文件</li>
+</ul>
+<h2 id="文件流"><a href="#文件流" class="headerlink" title="文件流"></a>文件流</h2><ul>
+<li>流对象 stream</li>
+<li>pipe() 管道</li>
+</ul>
+<h2 id="应用服务器"><a href="#应用服务器" class="headerlink" title="应用服务器"></a>应用服务器</h2><ul>
+<li>阿帕奇  对外提供服务的程序，应用服务器就是一个应用程序，作为服务器执行共享业务应用程序的底层的系统软件</li>
+</ul>
+<h2 id="web服务器"><a href="#web服务器" class="headerlink" title="web服务器"></a>web服务器</h2><ul>
+<li>和应用服务器一样都是程序</li>
+</ul>
+<h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><ul>
+<li>node本身就是web服务器</li>
+<li>node不需要服务器容器，本身就是web应用的容器</li>
+</ul>
+<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><ul>
+<li>约定规则，方便做通信</li>
+<li>网络之间传输数据就需要协议</li>
+<li>所谓的协议就是双方约定好的一些数据格式</li>
+<li>否则两台计算机之间如何识别对方发送过来的01数据。</li>
+</ul>
+<h2 id="HTTP概念"><a href="#HTTP概念" class="headerlink" title="HTTP概念"></a>HTTP概念</h2><ul>
+<li>其实就是用通讯的，提供很多方便</li>
+<li>因为TCP 才能稳定传输，三次请求，四次挥手</li>
+<li>HTTP超文本传输协议，是一种通信协议，允许将超文本标记约言文档从web服务器传送到客户端的浏览器</li>
+<li>用于客户端和服务器的通信协议，我按照一定的格式发送，服务器按照一定的格式接收</li>
+<li>请求报文<ul>
+<li>请求行</li>
+<li>请求体，只有在post的时候才有请求体，响应的时候也有请求体</li>
+</ul>
+</li>
+<li>响应报文<ul>
+<li>响应行</li>
+<li>响应体</li>
+</ul>
+</li>
+</ul>
+<h2 id="跨域解决"><a href="#跨域解决" class="headerlink" title="跨域解决"></a>跨域解决</h2><ul>
+<li>服务器请求服务器</li>
+<li>分布式服务器系统</li>
+</ul>
+<h2 id="HTTP是无状态的协议"><a href="#HTTP是无状态的协议" class="headerlink" title="HTTP是无状态的协议"></a>HTTP是无状态的协议</h2><ul>
+<li>使用HTTP协议，每当有新的请求时，就会有对应的新响应产生协议本身并不保留之前的一切的请求或响应报文的信息，这是为了更快的处理大量事务，确保协议的可伸缩性，而特意把HTTP协议设计成如此简单。</li>
+</ul>
+<h2 id="Cookie（信物）"><a href="#Cookie（信物）" class="headerlink" title="Cookie（信物）"></a>Cookie（信物）</h2><ul>
+<li>1.保存请求》2.生成Cookie记住是想谁发送的》3.在响应中添加Cookie后返回》4.保存在浏览器</li>
+</ul>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><ul>
+<li>为了解决Cookie无法存储大量数据，以及不安全的问题，Session被设计出来了</li>
+</ul>
+<h2 id="Session存储方式"><a href="#Session存储方式" class="headerlink" title="Session存储方式"></a>Session存储方式</h2><ul>
+<li>存储在内存中<ul>
+<li>Redis、Memcached内存数据库等高效的缓存服务其技术</li>
+<li>Redis可以与mysql之间数据的同步</li>
+</ul>
+</li>
+</ul>
+<h2 id="Cookie总结"><a href="#Cookie总结" class="headerlink" title="Cookie总结"></a>Cookie总结</h2><ul>
+<li>http是一个无状态的协议，每次去请求服务器的时候，服务器是不能记住客户端的</li>
+<li>Cookie信物，客户端请求服务器以后，服务器给客户端一个信物，下次客户端再请求服务器的时候，给服务器这个信物服务器就知道是那个客户端了，但缺点是，不能存储太多内容，不安全</li>
+<li>seccion 存储在服务器短的，保存着用户信息的，和Cookie搭配来使用，可以用Cookie里面的key对应上session里面的值，session可以存储在内存和硬盘上都可以。</li>
+</ul>
+<h2 id="HTTP-模块"><a href="#HTTP-模块" class="headerlink" title="HTTP 模块"></a>HTTP 模块</h2><ul>
+<li>用来编写服务器</li>
+<li>localhost是不走网卡，直接找本地</li>
+<li>127.0.0.1会走网卡，ip的话会走网管<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;)</div><div class="line">//创建一个服务，创建一个服务器的实例</div><div class="line">var server=http.createServer();</div><div class="line">//接收到请求就出发此事件，request对象用来存储请求报文中的信息，response对象用来帮助我们封装响应报文</div><div class="line">//response对象是一个写的流对象</div><div class="line">server.on(&apos;request&apos;,(request,response)=&gt;&#123;</div><div class="line">response.writeHead(200,&#123;&quot;Content-Type&quot;:&quot;&quot;text/html;charset:utf-8;&quot;&#125;)</div><div class="line">response.write(&apos;lalalal&apos;)</div><div class="line">//返回的响应</div><div class="line">response.end(&apos;hello world&apos;)</div><div class="line">&#125;)</div><div class="line">server.listen(3000)</div></pre></td></tr></table></figure></li>
+</ul>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://ihuzb.huzb.vip/2016/11/12/Nodejs集锦04/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://ihuzb.huzb.vip/2016/11/12/Nodejs集锦04/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/11/14/Nodejs集锦05/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Nodejs笔记集锦05
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/11/10/Nodejs集锦03/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Nodejs笔记集锦03</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/11/12/Nodejs集锦04/" data-title="Nodejs笔记集锦04" data-url="http://ihuzb.huzb.vip/2016/11/12/Nodejs集锦04/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/15/Nodejs集锦06/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/a0500fb30f2442a799b8a2c3d043ad4bd1130226.jpg)" alt="Nodejs笔记集锦06" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/15/Nodejs集锦06/" class="title">Nodejs笔记集锦06</a></p>
+                            <p class="item-date"><time datetime="2016-11-15T02:20:01.000Z" itemprop="datePublished">2016-11-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/14/Nodejs集锦05/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/ae539822720e0cf34fb3119d0b46f21fbe09aa15.jpg)" alt="Nodejs笔记集锦05" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/14/Nodejs集锦05/" class="title">Nodejs笔记集锦05</a></p>
+                            <p class="item-date"><time datetime="2016-11-14T07:06:20.000Z" itemprop="datePublished">2016-11-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/12/Nodejs集锦04/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/ad12b07eca806538ce82f97496dda144ad34826a.jpg)" alt="Nodejs笔记集锦04" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/12/Nodejs集锦04/" class="title">Nodejs笔记集锦04</a></p>
+                            <p class="item-date"><time datetime="2016-11-12T14:10:01.000Z" itemprop="datePublished">2016-11-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/10/Nodejs集锦03/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/112fb9389b504fc20824ef63e4dde71190ef6d5a.jpg)" alt="Nodejs笔记集锦03" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/10/Nodejs集锦03/" class="title">Nodejs笔记集锦03</a></p>
+                            <p class="item-date"><time datetime="2016-11-10T10:20:20.000Z" itemprop="datePublished">2016-11-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/06/流行框架03/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/fdfcfc039245d688f35beec3a5c27d1ed21b2478.jpg)" alt="Anaular流行框架 第三天" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/11/06/流行框架03/" class="title">Anaular流行框架 第三天</a></p>
+                            <p class="item-date"><time datetime="2016-11-05T18:10:05.000Z" itemprop="datePublished">2016-11-06</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习资料/">学习资料</a><span class="category-list-count">19</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/性能优化技巧/">性能优化技巧</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程技巧/">编程技巧</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/详解/">详解</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试资料/">面试资料</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/">Canvas</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML5/">HTML5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nodejs/">Nodejs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a><span class="tag-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Angular/" style="font-size: 13.33px;">Angular</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/Canvas/" style="font-size: 13.33px;">Canvas</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Nodejs/" style="font-size: 16.67px;">Nodejs</a> <a href="/tags/jQuery/" style="font-size: 13.33px;">jQuery</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.ishadowsocks.org/">ISS</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.5iweb.com.cn/">5iweb</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 胡丶某人<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by 胡丶某人
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'ihuzb'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

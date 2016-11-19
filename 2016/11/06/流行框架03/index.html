@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="http://of0wmhb5z.bkt.clouddn.com/h.png">
+    <meta http-equiv="Content-Type" content="text/html;"/>
+    <meta name="keywords" content="胡丶某人,个人博客,博客,技术博客,胡某人,胡智彬,huzb," />
+    <meta name="description" content="生命不息，折腾不止！呕心沥血制作个人技术博客，欢迎大神交流！" />
+    
+    <title>Anaular流行框架 第三天 | Ihuzb</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="baidu-site-verification" content="jyEQo02kko" />
+    <meta name="description" content="Anaular流行框架,基本指令,自定义指令,Angular服务。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anaular流行框架 第三天">
+<meta property="og:url" content="http://ihuzb.huzb.vip/2016/11/06/流行框架03/index.html">
+<meta property="og:site_name" content="Ihuzb">
+<meta property="og:description" content="Anaular流行框架,基本指令,自定义指令,Angular服务。">
+<meta property="og:image" content="http://of0wmhb5z.bkt.clouddn.com/fdfcfc039245d688f35beec3a5c27d1ed21b2478.jpg">
+<meta property="og:updated_time" content="2016-11-03T17:00:58.570Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Anaular流行框架 第三天">
+<meta name="twitter:description" content="Anaular流行框架,基本指令,自定义指令,Angular服务。">
+<meta name="twitter:image" content="http://of0wmhb5z.bkt.clouddn.com/fdfcfc039245d688f35beec3a5c27d1ed21b2478.jpg">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?bc0c949e7a29c5feeed033169198e674";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Ihuzb</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">所有文章</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">联系我</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/logo.JPG" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">所有文章</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">联系我</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/logo.JPG" />
+            <h2 id="name">胡丶某人</h2>
+            <h3 id="title">生命不息，折腾不止！</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>北京, 中国</span>
+            <a id="follow" target="_blank" href="http://weibo.com/ihuzb">个 人 简 历</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                31
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                7
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/Ihuzb" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://music.163.com/#/user/home?id=323457896" target="_blank" title="music" class=tooltip>
+                            <i class="fa fa-music"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://weibo.com/ihuzb" target="_blank" title="weibo" class=tooltip>
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+        <object type="application/x-shockwave-flash" style="outline:none;" data="http://cdn.abowman.com/widgets/hamster/hamster.swf?" width=100% height="225">
+            <param name="movie" value="http://cdn.abowman.com/widgets/hamster/hamster.swf?"></param>
+            <param name="AllowScriptAccess" value="always"></param>
+            <param name="wmode" value="opaque"></param>
+        </object>
+    </div>
+
+</aside>
+
+            
+            <section id="main"><article id="post-流行框架03" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Anaular流行框架 第三天
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/11/06/流行框架03/">
+            <time datetime="2016-11-05T18:10:05.000Z" itemprop="datePublished">2016-11-06</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Angular/">Angular</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h4 id="Anaular流行框架-基本指令-自定义指令-Angular服务。"><a href="#Anaular流行框架-基本指令-自定义指令-Angular服务。" class="headerlink" title="Anaular流行框架,基本指令,自定义指令,Angular服务。"></a>Anaular流行框架,基本指令,自定义指令,Angular服务。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/fdfcfc039245d688f35beec3a5c27d1ed21b2478.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h2><ul>
+<li>ng-app:相当于一个入口，告诉angular来管理我们页面的html代码</li>
+<li>ng-click:用于注册点击事件</li>
+<li>ng-model:用于进行双向数据绑定</li>
+<li>ng-init:用于初始化数据模型</li>
+<li>ng-controller:指向了创建的控制器</li>
+<li>ng-bind:能够绑定数据模型的值，只能能作用于双标签元素</li>
+<li>ng-cloak:利用了angular会移除所有样式名为ng-cloak的样式的特性</li>
+<li>ng-bind-html:用于安全的渲染html代码ngSanitize搭配食用</li>
+<li>ng-repeat:渲染数据列表，ng-repeat=“item in data”</li>
+<li>ng-class:操作样式<ul>
+<li>{key001：样式名001，key2：样式名002}[‘key001’]</li>
+<li>{‘样式名001’:布尔值，’样式名002’:布尔值}</li>
+</ul>
+</li>
+<li>ng-hide/ng-show:显示或隐藏页面元素</li>
+<li>ng-if/ng-swith ng-switch-when</li>
+</ul>
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><ul>
+<li><p>通过模块对象directive方法创建</p>
+<ul>
+<li>有两个参数，第一个参数，是指令的名字，驼峰命名法或者小写命名，第二个参数和控制器的第二个参数一样那个，在第二个参数function里直接返回一个obj对象</li>
+<li>使用时：需要将指令的名字转换成小写，并以-分割原先在的大小写字母</li>
+<li>例子：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">app.directive(<span class="string">'myben'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="comment">//需要返回一个对象</span></div><div class="line">	<span class="keyword">return</span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="number">343</span>)</div><div class="line">	&#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>template</code>:需要一个字符串，最终这个字符串值被添加到自定义指令所在的标签的innerHtml位置</p>
+<ul>
+<li><p>1.创建定义指令</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">app.directive(<span class="string">'myBtn'</span>,[<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">       <span class="keyword">return</span>&#123;</div><div class="line">          <span class="attr">template</span>:<span class="string">'&lt;button&gt;我是button&lt;/button&gt;'</span></div><div class="line">        &#125;</div><div class="line">   &#125;]);</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.定义指令的引用</p>
+</li>
+<li><code>&lt;div my-btn&gt;&lt;/div&gt;</code></li>
+</ul>
+</li>
+<li><p><code>templateUrl</code>:需要一个字符串，这个字符串是一个文本文件的路径，anuglar最终会异步请求这个文件，把拿到的内容插入到自定义指令所在的innerHtml位置，该字符串也可以是script标签的id值，把script标签中的内容当作模板字符串来使用</p>
+<ul>
+<li>1.第一种用法<ul>
+<li>templateUrl：’./view.html’</li>
+<li>注意：要通过静态文件服务器查看，因为获取./view.html的方式是一个get请求</li>
+</ul>
+</li>
+<li><p>2.第二种用法</p>
+<ul>
+<li><p>通过id指向一个templateUrl:’tp1’</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script id=<span class="string">"tpl"</span> type=<span class="string">"text/ng-template"</span>&gt;</div><div class="line">          <span class="xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>我是button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></div><div class="line">   &lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>注意：script的type属性需要为“text/ng-templte”</p>
+</li>
+</ul>
+</li>
+<li><code>restrict</code>:也是需要一个字符串，可以使A,E,C这3个字符中任何一个，也可以任意的组合<ul>
+<li>A 以属性的形式使用</li>
+<li>B 以自定义标签的形式使用</li>
+<li>C 表示以类样式名的形式使用</li>
+<li>1.在返回的对象中添加控制，如果不写默认是AE<ul>
+<li>restrict:’EAC’ //restrict用来限制自定义呈现形式</li>
+</ul>
+</li>
+<li>2.<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;my-hello&gt;<span class="xml"><span class="tag">&lt;/<span class="name">my-hello</span>&gt;</span></span></div><div class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">my-hello</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"my-hello"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>replace</code>:脱壳，需要一个布尔值，为true，会将自定义指令所在的标签替换为模板字符串</p>
+<ul>
+<li>只可以添加一个标签</li>
+</ul>
+</li>
+<li><code>transclude</code>:转置，是需要一个布尔值，为true时会把自定义指令所在的标签的innerHTML值添加到模板字符串中<ul>
+<li>不能与replace指令同用</li>
+</ul>
+</li>
+<li><code>link</code>:指向一个function，这个function有三个参数：<ul>
+<li>scope：类似于控制器中的$scope，也可以暴露一些值</li>
+<li>element：这是一个jqLite对象，是自定义指令所在的标签的jaLite对象</li>
+<li>attributes：是自定义指令所在标签的所有属性的集合<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> &#123;</div><div class="line">          <span class="attr">link</span>:<span class="function"><span class="keyword">function</span> (<span class="params">scope,ele,attr</span>) </span>&#123;</div><div class="line">              <span class="built_in">console</span>.log(scope);</div><div class="line">              <span class="built_in">console</span>.log(ele);</div><div class="line">              <span class="built_in">console</span>.log(attr);</div><div class="line">              <span class="comment">//ele就是咱们的jqLite元素</span></div><div class="line">              ele.on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                  <span class="built_in">console</span>.log(<span class="string">'这是jqLite的做出来的log'</span>);</div><div class="line">              &#125;)</div><div class="line">              <span class="comment">//在angular中所有的dom处理建议在自定义指令中完成</span></div><div class="line">          &#125;</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Angular服务"><a href="#Angular服务" class="headerlink" title="Angular服务"></a>Angular服务</h2><ul>
+<li>什么是服务<ul>
+<li>在AngularJS中，服务是一个函数或对象，可在你的AngularJS应用中使用，AngularJS内建了30多个服务</li>
+</ul>
+</li>
+<li><p>AngularJS内建了30多个服务</p>
+<ul>
+<li>$scope:作用域，用来负责连接View和Controller，也就是MVVM中的ViewModel想点故意桥梁一样</li>
+<li>$log</li>
+<li><p>$interval和setInterval区别</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$interval和setInterval区别</div><div class="line">  	在数据变换过程中有时候angular监视不到数据变化:</div><div class="line">      setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">          $scope.time=<span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">          <span class="built_in">console</span>.log($scope.time);</div><div class="line">           $scope.$apply();<span class="comment">//告诉angular进行数据更新</span></div><div class="line">      &#125;,<span class="number">1000</span>)</div><div class="line">      <span class="comment">//但是如果说使用 $interval这种angular的服务有时候服务内部就帮我们完成了这种数据更新</span></div><div class="line">          $interval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">          $scope.time2=<span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">          &#125;,<span class="number">1000</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建服务</p>
+<ul>
+<li>通过model创建：service，factory</li>
+<li><p>service创建：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.service(<span class="string">'myService'</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">       <span class="keyword">this</span>.name=<span class="string">'myService'</span>;</div><div class="line">   &#125;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>factory创建:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">app.foctory(<span class="string">'myAPP'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span>&#123;</div><div class="line">		<span class="attr">name</span>:<span class="string">"34234"</span>,</div><div class="line">		<span class="attr">log</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="built_in">console</span>.log(<span class="number">2323</span>)</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://ihuzb.huzb.vip/2016/11/06/流行框架03/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://ihuzb.huzb.vip/2016/11/06/流行框架03/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/11/10/Nodejs集锦03/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Nodejs笔记集锦03
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/11/05/Nodejs集锦02/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Nodejs笔记集锦02</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/11/06/流行框架03/" data-title="Anaular流行框架 第三天" data-url="http://ihuzb.huzb.vip/2016/11/06/流行框架03/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/15/Nodejs集锦06/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/a0500fb30f2442a799b8a2c3d043ad4bd1130226.jpg)" alt="Nodejs笔记集锦06" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/15/Nodejs集锦06/" class="title">Nodejs笔记集锦06</a></p>
+                            <p class="item-date"><time datetime="2016-11-15T02:20:01.000Z" itemprop="datePublished">2016-11-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/14/Nodejs集锦05/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/ae539822720e0cf34fb3119d0b46f21fbe09aa15.jpg)" alt="Nodejs笔记集锦05" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/14/Nodejs集锦05/" class="title">Nodejs笔记集锦05</a></p>
+                            <p class="item-date"><time datetime="2016-11-14T07:06:20.000Z" itemprop="datePublished">2016-11-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/12/Nodejs集锦04/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/ad12b07eca806538ce82f97496dda144ad34826a.jpg)" alt="Nodejs笔记集锦04" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/12/Nodejs集锦04/" class="title">Nodejs笔记集锦04</a></p>
+                            <p class="item-date"><time datetime="2016-11-12T14:10:01.000Z" itemprop="datePublished">2016-11-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/10/Nodejs集锦03/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/112fb9389b504fc20824ef63e4dde71190ef6d5a.jpg)" alt="Nodejs笔记集锦03" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/10/Nodejs集锦03/" class="title">Nodejs笔记集锦03</a></p>
+                            <p class="item-date"><time datetime="2016-11-10T10:20:20.000Z" itemprop="datePublished">2016-11-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/06/流行框架03/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/fdfcfc039245d688f35beec3a5c27d1ed21b2478.jpg)" alt="Anaular流行框架 第三天" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/11/06/流行框架03/" class="title">Anaular流行框架 第三天</a></p>
+                            <p class="item-date"><time datetime="2016-11-05T18:10:05.000Z" itemprop="datePublished">2016-11-06</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习资料/">学习资料</a><span class="category-list-count">19</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/性能优化技巧/">性能优化技巧</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程技巧/">编程技巧</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/详解/">详解</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试资料/">面试资料</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/">Canvas</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML5/">HTML5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nodejs/">Nodejs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a><span class="tag-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Angular/" style="font-size: 13.33px;">Angular</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/Canvas/" style="font-size: 13.33px;">Canvas</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Nodejs/" style="font-size: 16.67px;">Nodejs</a> <a href="/tags/jQuery/" style="font-size: 13.33px;">jQuery</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.ishadowsocks.org/">ISS</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.5iweb.com.cn/">5iweb</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 胡丶某人<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by 胡丶某人
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'ihuzb'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

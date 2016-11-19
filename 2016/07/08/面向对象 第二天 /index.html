@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="http://of0wmhb5z.bkt.clouddn.com/h.png">
+    <meta http-equiv="Content-Type" content="text/html;"/>
+    <meta name="keywords" content="胡丶某人,个人博客,博客,技术博客,胡某人,胡智彬,huzb," />
+    <meta name="description" content="生命不息，折腾不止！呕心沥血制作个人技术博客，欢迎大神交流！" />
+    
+    <title>面向对象 第二天 | Ihuzb</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="baidu-site-verification" content="jyEQo02kko" />
+    <meta name="description" content="面向对象学习第二天，继承，原型，成员类型。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象 第二天">
+<meta property="og:url" content="http://ihuzb.huzb.vip/2016/07/08/面向对象 第二天 /index.html">
+<meta property="og:site_name" content="Ihuzb">
+<meta property="og:description" content="面向对象学习第二天，继承，原型，成员类型。">
+<meta property="og:image" content="http://of0wmhb5z.bkt.clouddn.com/8ddf9c82d158ccbf49dfc65c18d8bc3eb1354171.jpg">
+<meta property="og:updated_time" content="2016-10-30T15:44:12.916Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面向对象 第二天">
+<meta name="twitter:description" content="面向对象学习第二天，继承，原型，成员类型。">
+<meta name="twitter:image" content="http://of0wmhb5z.bkt.clouddn.com/8ddf9c82d158ccbf49dfc65c18d8bc3eb1354171.jpg">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?bc0c949e7a29c5feeed033169198e674";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Ihuzb</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">所有文章</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">联系我</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/logo.JPG" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">所有文章</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">联系我</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/logo.JPG" />
+            <h2 id="name">胡丶某人</h2>
+            <h3 id="title">生命不息，折腾不止！</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>北京, 中国</span>
+            <a id="follow" target="_blank" href="http://weibo.com/ihuzb">个 人 简 历</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                31
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                7
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/Ihuzb" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://music.163.com/#/user/home?id=323457896" target="_blank" title="music" class=tooltip>
+                            <i class="fa fa-music"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://weibo.com/ihuzb" target="_blank" title="weibo" class=tooltip>
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+        <object type="application/x-shockwave-flash" style="outline:none;" data="http://cdn.abowman.com/widgets/hamster/hamster.swf?" width=100% height="225">
+            <param name="movie" value="http://cdn.abowman.com/widgets/hamster/hamster.swf?"></param>
+            <param name="AllowScriptAccess" value="always"></param>
+            <param name="wmode" value="opaque"></param>
+        </object>
+    </div>
+
+</aside>
+
+            
+            <section id="main"><article id="post-面向对象 第二天 " class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            面向对象 第二天
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/07/08/面向对象 第二天 /">
+            <time datetime="2016-07-08T15:26:57.000Z" itemprop="datePublished">2016-07-08</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/学习资料/">学习资料</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h4 id="面向对象学习第二天，继承，原型，成员类型。"><a href="#面向对象学习第二天，继承，原型，成员类型。" class="headerlink" title="面向对象学习第二天，继承，原型，成员类型。"></a>面向对象学习第二天，继承，原型，成员类型。</h4><p><img src="http://of0wmhb5z.bkt.clouddn.com/8ddf9c82d158ccbf49dfc65c18d8bc3eb1354171.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="知识复习"><a href="#知识复习" class="headerlink" title="知识复习"></a>知识复习</h2><h4 id="1-面向对象概念"><a href="#1-面向对象概念" class="headerlink" title="1.面向对象概念"></a>1.面向对象概念</h4><ul>
+<li>1.利用对象解决问题</li>
+<li>2.面向对象讲解的就是，凡事不用自己亲历亲为</li>
+<li>3.面向对象离不开面向过程，相当于对面想过程的封装</li>
+<li>4.面向对象一般应用与大型软件开发，使用了面向对象开发的大型软件就像是使用Xmind进行组织一样<h4 id="2-工厂函数"><a href="#2-工厂函数" class="headerlink" title="2.工厂函数"></a>2.工厂函数</h4></li>
+<li>对创建对象的过程进行了封装</li>
+<li>工厂函数的返回值是一个对象，工厂函数就是调用</li>
+<li>如果一个函数调用后，返回值是一个对象，就可以认为他是一个工厂函数<h4 id="3-构造函数"><a href="#3-构造函数" class="headerlink" title="3.构造函数"></a>3.构造函数</h4></li>
+<li>如果一个用来配合new关键字创建对象，那么就可以称呼这个函数为构造函数<h4 id="4-构造函数与普通函数的关系"><a href="#4-构造函数与普通函数的关系" class="headerlink" title="4.构造函数与普通函数的关系"></a>4.构造函数与普通函数的关系</h4></li>
+<li>构造函数与普通函数无异，本身就是一个东西<h4 id="5-类"><a href="#5-类" class="headerlink" title="5.类"></a>5.类</h4></li>
+<li>对一些具有相同特征与特性的对象的抽象描述</li>
+<li>在ES6之前，可以把构造函数看作是类<h4 id="6-实例"><a href="#6-实例" class="headerlink" title="6.实例"></a>6.实例</h4></li>
+<li>通过构造函数创建出来的对象就叫做实例</li>
+<li>注:在口头描述上，实例指的是直系后代（在编程语言中，实例也指子孙后代）<h4 id="7-实例的类型"><a href="#7-实例的类型" class="headerlink" title="7.实例的类型"></a>7.实例的类型</h4></li>
+<li>实例的类型就是构造函数的名字<h4 id="8-原型-amp-原型的作用"><a href="#8-原型-amp-原型的作用" class="headerlink" title="8.原型&amp;原型的作用"></a>8.原型&amp;原型的作用</h4></li>
+<li>概念：原型是js提供的一个实现继承的解决方案</li>
+<li>作用：原型就是为了让实例共享一些属性和方法，达到节省内存以及复用代码的目的<h4 id="9-prototype"><a href="#9-prototype" class="headerlink" title="9. prototype"></a>9. prototype</h4></li>
+<li>所有的函数默认都含有这个属性</li>
+<li>作用：通过函数new出来的实例，都会继承这个属所指向的对象</li>
+<li>本质：prototype就是为了引导实例的<code>__proto__</code>属性值<h4 id="10-proto"><a href="#10-proto" class="headerlink" title="10.__proto__"></a>10.<code>__proto__</code></h4></li>
+<li>所有的对象都含有这个属性</li>
+<li>访问一个对象的属性时，如果对象自身没有，就会去<code>__proto__</code>指向的对象中去查找<h4 id="11-new构造函数自动执行的4个步骤"><a href="#11-new构造函数自动执行的4个步骤" class="headerlink" title="11.new构造函数自动执行的4个步骤"></a>11.new构造函数自动执行的4个步骤</h4></li>
+<li>1.new会自动创建一个新对象（本质上就是开拼一块内存空间）</li>
+<li>2.给新对象添加一个<code>__proto__</code>属性，该属性的值为(!当前!)构造函数prototypr属性的值</li>
+<li>3.利用新对象调用构造函数（那么构造函数内的this就指向了新对象）</li>
+<li>4.返回新对象的地址<h4 id="12-属性查找位置"><a href="#12-属性查找位置" class="headerlink" title="12.属性查找位置"></a>12.属性查找位置</h4></li>
+<li>首先找自身，自身没有，顺着<code>__proto__</code>属性查找指定的对象</li>
+<li>这对象没有，继续顺着<code>__proto__</code>查找</li>
+<li>直到终点</li>
+</ul>
+<h2 id="继承的概念"><a href="#继承的概念" class="headerlink" title="继承的概念"></a>继承的概念</h2><ul>
+<li>一个对象可以使用本不属于自己的东西</li>
+<li>原型具有继承的特性<h4 id="1-继承的方式"><a href="#1-继承的方式" class="headerlink" title="1.继承的方式"></a>1.继承的方式</h4></li>
+<li>默认的原型继承</li>
+<li>原型覆写<ul>
+<li>覆写之后加属性</li>
+</ul>
+</li>
+</ul>
+<h2 id="编程技巧"><a href="#编程技巧" class="headerlink" title="编程技巧"></a>编程技巧</h2><ul>
+<li><p>对象与对象之间的继承</p>
+<ul>
+<li><p>1.obj2可以访问obj中的属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = &#123;<span class="attr">val</span>: <span class="number">1</span>, <span class="attr">age</span>: <span class="number">20</span>&#125;</div><div class="line"><span class="keyword">var</span> o2 = &#123;<span class="attr">name</span>: <span class="string">"lala"</span>&#125;</div><div class="line">   o2.__proto__ = o</div><div class="line">   <span class="built_in">console</span>.log(o2.val);</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.混入只是个编程技巧，严格说不是继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = &#123;<span class="attr">val</span>: <span class="number">1</span>, <span class="attr">age</span>: <span class="number">20</span>&#125;</div><div class="line"><span class="keyword">var</span> o2 = &#123;<span class="attr">name</span>: <span class="string">"lala"</span>&#125;</div><div class="line"><span class="keyword">for</span> ( <span class="keyword">var</span> key <span class="keyword">in</span> o) &#123;</div><div class="line"> o2[key] = o[key]</div><div class="line"> &#125;</div><div class="line"> <span class="built_in">console</span>.log(o2)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>内置的属性不可枚举</p>
+<ul>
+<li>就是可被遍历的就叫枚举</li>
+<li>不可枚举就是浏览器内置的属性，无法使用for in遍历出</li>
+</ul>
+</li>
+<li>copy继承的优势<ul>
+<li>不会修改构造函数原生的原型对象</li>
+</ul>
+</li>
+<li>copy继承的注意事项<ul>
+<li>实现copy继承所需的函数名没有硬性要求</li>
+<li>乱使用会造成内存资源浪费</li>
+<li>通常都是配合原型来使用的（对原型进行扩展）</li>
+</ul>
+</li>
+</ul>
+<h2 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create"></a>Object.create</h2><ul>
+<li>Object是内置的一个构造函数</li>
+<li>在Object身上有很多方法</li>
+<li>其中有一个create方法，可以实现继承</li>
+<li>语法：<ul>
+<li>Object.create（被继承的对象）；</li>
+<li>返回值：返回一个新对象，新对象继承传入到create方法的对象</li>
+</ul>
+</li>
+<li>作用：<ul>
+<li>创建一个新对象，并且指定新对象指定继承的对象</li>
+</ul>
+</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li>继承：<ul>
+<li>一个对象可以使用另一个对象的东西，叫做继承</li>
+<li>一个对象可以使用本不属于自己的东西，叫做继承</li>
+<li>js中的原型就是对继承特性的实现</li>
+</ul>
+</li>
+<li>继承本质：<ul>
+<li>为代码节省复用</li>
+</ul>
+</li>
+</ul>
+<p>继承方式1-默认原型继承<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">Fn.prototype.value=<span class="number">100</span></div><div class="line"><span class="keyword">var</span> fn=<span class="keyword">new</span> Fn()</div></pre></td></tr></table></figure></p>
+<p>继承方式2-覆写结构函数的显示原型<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">Fn.prototype=&#123;</div><div class="line"><span class="attr">value</span>:<span class="number">100</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> fn=<span class="keyword">new</span> Fn()</div></pre></td></tr></table></figure></p>
+<p>继承方式3-给显示原型混入属性<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">extend</span>(<span class="params">o1,o2</span>)</span>&#123;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> o2)&#123;</div><div class="line">o1[key]=o2[key]</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">add</span>: <span class="function"><span class="keyword">function</span> (<span class="params">a,b</span>) </span>&#123; <span class="built_in">console</span>.log(a+b) &#125; &#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">extend(Fn.prototype, obj);</div><div class="line">extend(Fn.prototype, &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">100</span></div><div class="line">&#125;);</div><div class="line"><span class="keyword">var</span> fn = <span class="keyword">new</span> Fn();</div></pre></td></tr></table></figure></p>
+<p>继承方式4-Object.create<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">value</span>: <span class="number">100</span> &#125;</div><div class="line"><span class="keyword">var</span> newObj = <span class="built_in">Object</span>.create(obj);</div></pre></td></tr></table></figure></p>
+<p>继承方式5-借用Object.create方法覆写显示模型<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">value</span>: <span class="number">100</span> &#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">Fn.prototype = <span class="built_in">Object</span>.create(obj);</div><div class="line"><span class="keyword">var</span> fn = <span class="keyword">new</span> Fn();</div></pre></td></tr></table></figure></p>
+<p>继承方式6-复合式原型继承<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PrFn</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">PrFn.prototype.value = <span class="number">100</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">Fn.prototype = <span class="keyword">new</span> PrFn()</div><div class="line"><span class="keyword">var</span> fn = <span class="keyword">new</span> Fn();</div></pre></td></tr></table></figure></p>
+<h2 id="原型组合式"><a href="#原型组合式" class="headerlink" title="原型组合式"></a>原型组合式</h2><ul>
+<li>复用Animal构造函数里的代码解决思路：<ul>
+<li>1.Animal里面有一些this.XX=XX的代码</li>
+<li>2.如果，我能够让Animal里面的this指向Person的实例</li>
+<li>3.那么Animal里面的代码含义就变成了给Person的实例添加xx属性</li>
+<li>把Anmal函数作为属性添加到Person实例本身</li>
+<li>然后通过Person实例调用Animal函数，那么A执行时里面的this就指向了Person实例</li>
+</ul>
+</li>
+</ul>
+<h2 id="探索js对象内部继承的秘密"><a href="#探索js对象内部继承的秘密" class="headerlink" title="探索js对象内部继承的秘密"></a>探索js对象内部继承的秘密</h2><ul>
+<li>对象的原型对象一定是有终点的</li>
+</ul>
+<h2 id="静态成员与实例成员"><a href="#静态成员与实例成员" class="headerlink" title="静态成员与实例成员"></a>静态成员与实例成员</h2><ul>
+<li>添加给实例的属性或方法，是实例成员</li>
+<li>添加给类自己的属性或方法，是类成员</li>
+<li>实例不可以访问静态成员</li>
+<li>构造函数不能直接访问实例成员</li>
+<li>静态成员只能有构造函数自己使用（实例访问实例成员）</li>
+<li>构造函数内添加的实例成员，只有实例成员能够访问（类成员访问类成员）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</div><div class="line">这里的name和age属性，应为将来要添加到实例身上，称为实例成员（实例属性）</div><div class="line"><span class="keyword">this</span>.name=name</div><div class="line"><span class="keyword">this</span>.age=age</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">直接添加到类上的属性与方法叫静态成员，或者类</div><div class="line">Person.maxAge=<span class="number">200</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>特列：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</div><div class="line"><span class="keyword">this</span>.name=name</div><div class="line"><span class="keyword">this</span>.age=age</div><div class="line">&#125;</div><div class="line"><span class="comment">//类原型上的属性与方法，本以上是提供给实例使用的</span></div><div class="line"><span class="comment">//所以这里的属性与方法可以认为是实例成员</span></div><div class="line">Person.prototype.run=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="built_in">console</span>.log(<span class="string">"sds"</span>)</div><div class="line"><span class="comment">//原型对象里面的成员，构造函数不可以访问</span></div><div class="line"><span class="comment">//原型对象里面的成员，原型对象自己可以访问</span></div><div class="line"><span class="comment">//原型对象里面的成员，实例可以访问</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>动态作用域</strong>：如果在函数内访问一个变量，优先找局部变量和形参，如果没有找到，去调用该函数的环境中查找</p>
+</li>
+</ul>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://ihuzb.huzb.vip/2016/07/08/面向对象 第二天 /#comments" class="article-comment-link ds-thread-count" data-thread-key="http://ihuzb.huzb.vip/2016/07/08/面向对象 第二天 /">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/07/15/面向对象 第三天/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    面向对象 第三天
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/07/01/面向对象 第一天 /" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">面向对象 第一天</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/07/08/面向对象 第二天 /" data-title="面向对象 第二天" data-url="http://ihuzb.huzb.vip/2016/07/08/面向对象 第二天 /"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/15/Nodejs集锦06/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/a0500fb30f2442a799b8a2c3d043ad4bd1130226.jpg)" alt="Nodejs笔记集锦06" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/15/Nodejs集锦06/" class="title">Nodejs笔记集锦06</a></p>
+                            <p class="item-date"><time datetime="2016-11-15T02:20:01.000Z" itemprop="datePublished">2016-11-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/14/Nodejs集锦05/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/ae539822720e0cf34fb3119d0b46f21fbe09aa15.jpg)" alt="Nodejs笔记集锦05" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/14/Nodejs集锦05/" class="title">Nodejs笔记集锦05</a></p>
+                            <p class="item-date"><time datetime="2016-11-14T07:06:20.000Z" itemprop="datePublished">2016-11-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/12/Nodejs集锦04/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/ad12b07eca806538ce82f97496dda144ad34826a.jpg)" alt="Nodejs笔记集锦04" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/12/Nodejs集锦04/" class="title">Nodejs笔记集锦04</a></p>
+                            <p class="item-date"><time datetime="2016-11-12T14:10:01.000Z" itemprop="datePublished">2016-11-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/10/Nodejs集锦03/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/112fb9389b504fc20824ef63e4dde71190ef6d5a.jpg)" alt="Nodejs笔记集锦03" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/学习资料/">学习资料</a></p>
+                            <p class="item-title"><a href="/2016/11/10/Nodejs集锦03/" class="title">Nodejs笔记集锦03</a></p>
+                            <p class="item-date"><time datetime="2016-11-10T10:20:20.000Z" itemprop="datePublished">2016-11-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/06/流行框架03/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://of0wmhb5z.bkt.clouddn.com/fdfcfc039245d688f35beec3a5c27d1ed21b2478.jpg)" alt="Anaular流行框架 第三天" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/11/06/流行框架03/" class="title">Anaular流行框架 第三天</a></p>
+                            <p class="item-date"><time datetime="2016-11-05T18:10:05.000Z" itemprop="datePublished">2016-11-06</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习资料/">学习资料</a><span class="category-list-count">19</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/性能优化技巧/">性能优化技巧</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程技巧/">编程技巧</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/详解/">详解</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试资料/">面试资料</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/">Canvas</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML5/">HTML5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nodejs/">Nodejs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a><span class="tag-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Angular/" style="font-size: 13.33px;">Angular</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/Canvas/" style="font-size: 13.33px;">Canvas</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Nodejs/" style="font-size: 16.67px;">Nodejs</a> <a href="/tags/jQuery/" style="font-size: 13.33px;">jQuery</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.ishadowsocks.org/">ISS</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.5iweb.com.cn/">5iweb</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 胡丶某人<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by 胡丶某人
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'ihuzb'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
